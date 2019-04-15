@@ -1,0 +1,9 @@
+---
+
+- name: "Deploy a Discourse server"
+  hosts: "{{ target if target is defined else 'discourse' }}"
+  become: true
+
+  roles:
+    - docker
+    - discourse

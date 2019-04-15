@@ -1,0 +1,31 @@
+---
+
+mc_fqdn: "{{ mc_hostname }}.{{ mc_domain }}"
+mc_backup_dir: /opt/mailcow-backup
+mc_compose_name: mailcowdockerized
+mc_redis_log_lines: 100
+mc_git_repo: https://github.com/mailcow/mailcow-dockerized
+# Specific version of mailcow git repository; commit, branch name or tag
+mc_git_version: master
+
+mc_min_memory: 1500 # in MB
+mc_ip: "{{ ansible_default_ipv4.address }}"
+mc_install_dir: /opt/mailcow-dockerized
+mc_dbname: mailcow
+mc_dbpass: "{{ lookup('password', '/dev/null length=68 chars=ascii_letters,digits') }}"
+mc_dbroot: "{{ lookup('password', '/dev/null length=70 chars=ascii_letters,digits') }}"
+
+mc_redir_https: true
+# Check for mailcow updates
+mc_check_updates: true
+
+# Configure and enable swap
+mc_set_swap: true
+swap_file_path: /var/cache/swapfile
+# dd count input blocks
+swap_file_size: 4000000
+sysctl_swappiness: 1
+
+# FreeDNS server
+mc_dns_check: true
+dig_server: 37.235.1.177

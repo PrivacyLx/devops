@@ -1,0 +1,31 @@
+---
+
+- name: Ensures backup directory {{ mc_backup_dir }} exists
+  file:
+    state: directory
+    path: "{{ mc_backup_dir }}"
+
+- name: Sets cron to log standard messages, plus jobs with non 0 exit status
+  lineinfile:
+    path: /etc/default/cron
+    regexp: "^ # EXTRA_OPTS='-L 5'"
+    line: "EXTRA_OPTS='-L 5'"
+  notify: restart cron
+
+- name: Creates a daily backup cronjob to backup all mailcow data at 4:30 AM
+  cron:
+    minute: 30
+    hour: 4
+    name: Backup all mailcow data
+    cron_file: mailcow_backups
+    user: root
+    job: "BACKUP_LOCATION={{ mc_backup_dir }} /opt/mailcow-dockerized/helper-scripts/backup_and_restore.sh backup all"
+
+- name: Creates a daily cronjob that removes backup directories older than 7 days
+  cron:
+    minute: 30
+    hour: 12
+    name: Remove old backup directories
+    cron_file: remove_old_backups
+    user: root
+    job: "find {{ mc_backup_dir }} -name 'mailcow-20*' -mtime +7 -type d -exec rm -rf '{}' \\;"

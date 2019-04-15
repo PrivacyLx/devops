@@ -1,0 +1,4 @@
+---
+
+- name: launcher rebuild
+  command: "{{ dis_path }}/launcher rebuild app"

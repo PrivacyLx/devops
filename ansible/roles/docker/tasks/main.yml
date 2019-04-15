@@ -1,0 +1,38 @@
+---
+
+# https://docs.docker.com/install/linux/docker-ce/debian/
+- name: Ensures old versions of Docker are not installed
+  apt:
+    cache_valid_time: 80000
+    pkg: ['docker', 'docker-engine', 'docker.io']
+    state: absent
+    autoremove: yes
+    purge: yes
+
+- name: Installs packages for Docker and docker-compose
+  apt:
+    pkg: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2', 'software-properties-common', 'python-pip']
+    state: present
+
+- name: Adds Docker apt Debian key
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    state: present
+
+- name: Adds Docker Debian repository
+  apt_repository:
+    repo: "deb https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+    state: present
+    update_cache: yes
+
+- name: Installs Docker
+  apt:
+    pkg: docker-ce
+    state: present
+
+- name: Ensures docker-compose is installed (via pip)
+  pip:
+    name: docker-compose
+    state: present
+  when: install_compose|default(true)| bool == true

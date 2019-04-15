@@ -1,0 +1,10 @@
+---
+
+dis_lang: en_US.UTF-8
+dis_locale: en
+dis_unicorn_workers: 3
+dis_guest_path: guest
+dis_path: /var/discourse
+dis_git: https://github.com/discourse/discourse_docker.git
+# Use a stable release - https://github.com/discourse/discourse/releases
+dis_version: v2.2.4

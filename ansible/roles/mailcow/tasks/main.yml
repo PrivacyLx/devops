@@ -1,0 +1,52 @@
+---
+
+- name: Sets hostname
+  hostname:
+    name: "{{ mc_hostname }}"
+  notify:
+    - restart systemd-logind
+
+- name: Templates hosts file with FQDN and hostname
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+  notify:
+    - restart systemd-logind
+
+- name: Sets timezone
+  timezone:
+    name: "{{ mc_timezone }}"
+
+- name: Checks if mailcow is already installed
+  stat:
+    path: "{{ mc_install_dir }}/mailcow.conf"
+  register: mc_conf
+
+- name: Installs mailcow
+  include_tasks: install-mailcow.yml
+  when: mc_conf.stat.exists == false
+
+# Clamd uses lots of disk space when not enough memory
+# https://github.com/mailcow/mailcow-dockerized/issues/1817
+- name: Sets swap
+  import_tasks: set-swap.yml
+  when: mc_set_swap == true
+
+- name: Sets mailcow backup
+  import_tasks: backup-mailcow.yml
+  when: mc_backup_dir != "none"
+  tags: backup
+
+- name: Displays post install message
+  debug:
+    msg: 'Visit https://{{ mc_fqdn }} and change default password `moohoo`!'
+  when: mc_conf.stat.exists == false
+
+- name: Checks mailcow's DNS entries
+  include_tasks: check-dns.yml
+  when: mc_dns_check == true
+
+- name: Checks for updates
+  import_tasks: update-mailcow.yml
+  when: mc_check_updates|default(true)|bool == true and mc_conf.stat.exists == false
+  tags: update
