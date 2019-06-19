@@ -1,0 +1,10 @@
+---
+# defaults file for ansible-role-mailtrain
+mailtrain_state: present
+
+# git repo of mailtrain
+mailtrain_repo: "https://github.com/Mailtrain-org/mailtrain"
+
+# mailtrain working directories
+mailtrain_working_dir: "/var/lib/mailtrain"
+mailtrain_source_dir: "{{ mailtrain_working_dir }}/mailtrain"

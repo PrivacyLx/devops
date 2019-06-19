@@ -1,0 +1,70 @@
+---
+- name: install | install dependencies
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+    - git
+  become: yes
+
+- name: install | ensure mailtrain group exists
+  group:
+    name: mailtrain
+    state: present
+  become: yes
+
+- name: install | ensure mailtrain user exists
+  user:
+    name: mailtrain
+    shell: /bin/bash
+    groups:
+      - mailtrain
+      - docker
+    create_home: yes
+    #disabled_password
+    system: true
+    state: present
+  become: yes
+  register: mailtrain_user
+
+#- name: install | create temporary build directory
+#  tempfile:
+#    state: directory
+#    suffix: build
+#  register: build_tmp
+#  become: yes
+#  become_user: mailtrain
+
+- name: install | clone repository from {{ mailtrain_repo }}
+  git:
+    repo: '{{ mailtrain_repo }}'
+    dest: '{{ mailtrain_user.home }}/mailtrain'
+    depth: 1
+    recursive: yes
+    version: master
+    track_submodules: yes
+  become: yes
+  become_user: mailtrain
+
+- name: install | build mailtrain docker image
+  docker_image:
+    name: mailtrain
+    tag: ex1
+    path: '{{ mailtrain_user.home }}/mailtrain'
+    state: present
+
+- name: install | Templates Discourse container configuration
+  template:
+    src: docker-compose.yml.j2
+    dest: '{{ mailtrain_user.home }}/mailtrain/docker-compose.yml'
+  become: yes
+  become_user: mailtrain
+
+- name: install | docker compose mailtrain
+  docker_compose:
+    project_src: '{{ mailtrain_user.home }}/mailtrain'
+    state: present
+    build: yes
+    restarted: yes

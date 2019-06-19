@@ -1,0 +1,73 @@
+---
+- name: configure | ensure mailtrain group exists
+  group:
+    name: mailtrain
+    state: present
+  become: yes
+
+- name: configure | ensure mailtrain user exists
+  user:
+    name: mailtrain
+    shell: /bin/bash
+    groups:
+      - mailtrain
+      - docker
+    create_home: yes
+    #disabled_password
+    system: true
+    state: present
+  become: yes
+  register: mailtrain_user
+
+- name: configure | create working directory structure
+  file:
+    path: "{{ item }}"
+    owner: mailtrain
+    group: mailtrain
+    mode: 0755
+    state: directory
+  with_items:
+    - "{{ mailtrain_working_dir }}"
+
+- name: configure | clone repository from {{ mailtrain_repo }}
+  git:
+    repo: '{{ mailtrain_repo }}'
+    dest: '{{ mailtrain_source_dir }}'
+    depth: 1
+    recursive: yes
+    version: master
+    track_submodules: yes
+  become: yes
+  become_user: mailtrain
+
+- name: configure | build mailtrain docker image from source
+  docker_image:
+    name: mailtrain
+    tag: ex1
+    path: '{{ mailtrain_source_dir }}'
+    state: present
+
+- name: configure | Templates mailtrain docker container configuration
+  template:
+    src: docker-compose.yml.j2
+    dest: '{{ mailtrain_user.home }}/mailtrain/docker-compose.yml'
+  become: yes
+  become_user: mailtrain
+
+- name: configure | docker compose mailtrain
+  docker_compose:
+    project_src: '{{ mailtrain_user.home }}/mailtrain'
+    state: present
+    build: yes
+    restarted: yes
+
+- name: configure | create systemd configuration
+  template:
+    src: etc/systemd/system/mailtrain.service.j2
+    dest: /etc/systemd/system/mailtrain.service
+    owner: root
+    group: root
+    mode: 0655
+  become: yes
+  notify:
+    - "restart mailtrain"

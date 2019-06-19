@@ -1,0 +1,14 @@
+[Service]
+
+WorkingDirectory={{ mailtrain_source_dir }}
+ExecStart=/usr/local/bin/docker-compose up
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=notell
+User=mailtrain
+Group=mailtrain
+
+[Install]
+
+WantedBy=multi-user.target

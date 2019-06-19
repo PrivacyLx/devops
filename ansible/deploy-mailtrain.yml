@@ -1,0 +1,9 @@
+---
+
+- name: "Set up a mailtrain server"
+  hosts: "{{ target if target is defined else 'mailtrain' }}"
+  become: true
+
+  roles:
+    - docker
+    - mailtrain

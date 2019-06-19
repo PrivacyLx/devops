@@ -1,0 +1,8 @@
+---
+# handlers file for ansible-role-mailtrain
+- name: restart mailtrain
+  service:
+    name: mailtrain
+    state: restarted
+    enabled: true
+  become: yes
