@@ -1,0 +1,18 @@
+---
+- name: "deploy homelab"
+  hosts: 10.137.0.100
+  become: true
+  vars:
+    # remote git repo for the website
+    hugo_website_git_repo: 'https://github.com/PrivacyLx/website.git'
+    hugo_src_website: /srv/website
+
+    # website's domain
+    website_domain: 'privacylx.org'
+
+    # let's encrypt https certificate
+    le_email: "francisco.core@protonmail.com"
+
+  roles:
+    - docker
+    - caddy-website

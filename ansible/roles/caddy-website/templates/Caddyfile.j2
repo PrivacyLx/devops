@@ -1,0 +1,8 @@
+{{ website_host }} {{ website_www_host}} {
+    root {{ docker_website_root }}
+    log requests.log {
+        {{ caddy_log_ipmask }}
+    }
+    gzip
+    tls off
+}

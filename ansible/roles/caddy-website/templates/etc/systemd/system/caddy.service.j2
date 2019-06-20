@@ -1,0 +1,14 @@
+[Service]
+
+WorkingDirectory={{ caddy_website_root }}
+ExecStart=/usr/local/bin/caddy
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=notell
+#User=caddy
+#Group=caddy
+
+[Install]
+
+WantedBy=multi-user.target
