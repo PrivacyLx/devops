@@ -1,0 +1,62 @@
+---
+- name: clone website from repo
+  git:
+    repo: "{{ hugo_website_git_repo }}"
+    dest: "{{ hugo_src_website }}"
+  become_user: caddy
+
+- name: ensure caddy webroot exist
+  file:
+    path: "{{ caddy_website_root }}"
+    state: directory
+    owner: caddy
+    group: caddy
+
+- name: ensure caddy path exists
+  file:
+    path: "{{ caddy_path }}"
+    state: directory
+
+- name: template files
+  template:
+    src: "Caddyfile.j2"
+    dest: "{{ caddy_path }}/Caddyfile"
+    owner: caddy
+    group: caddy
+
+# website must be built on a different directory because of the
+# permissions under which the docker container builds it
+# FIXME run docker as user caddy, if possible
+- name: create temporary public directory
+  tempfile:
+    state: directory
+  register: tmp_build
+  become_user: caddy
+
+- name: build hugo website in container "{{ hugo_docker_image }}"
+  docker_container:
+    name: hugo-build-magma
+    image: "{{ hugo_docker_image }}"
+    volumes:
+      - "{{ hugo_src_website }}:/src"
+      - "{{ tmp_build.path }}:/output"
+    privileged: no
+  become: yes
+  become_user: caddy
+
+- name: built website permissions are acceptable
+  file:
+    path: "{{ tmp_build.path }}"
+    owner: caddy
+    group: caddy
+    recurse: yes
+
+- name: copy public build website to caddy webroot
+  copy:
+    directory_mode: yes
+    src: "{{ tmp_build.path }}/"
+    dest: "{{ caddy_website_root }}/"
+    remote_src: yes
+    owner: caddy
+    group: caddy
+  notify: "restart caddy"

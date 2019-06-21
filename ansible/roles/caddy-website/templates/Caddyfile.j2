@@ -1,8 +1,14 @@
-{{ website_host }} {{ website_www_host}} {
-    root {{ docker_website_root }}
+{{ website_host }} {{ website_www_host}} localhost:80 {
+    root {{ caddy_website_root }}
     log requests.log {
         {{ caddy_log_ipmask }}
     }
     gzip
+
+  {% if le_staging|default(false)|bool == true %}
     tls off
+  {% else %}
+    tls {{ le_email }}
+  {% endif %}
+
 }

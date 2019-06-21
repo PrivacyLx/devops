@@ -4,21 +4,21 @@
 caddy_tag: 0.11.0 # FIXME update version
 
 # caddy local PATH
+caddy_install_path: /usr/local/bin/caddy
 caddy_path: /opt/caddy
 caddy_config: "{{ caddy_path }}/Caddyfile"
 caddy_docker_volume: /srv
+caddy_webroot: /srv/caddy
 
 # set to true for testing, generates non valid (staging) TLS certs
 le_staging: true
 caddy_log_ipmask: "ipmask 0.0.0.255 ffff:ffff:ffff:ff00::"
 
-caddy_website_root: "{{ caddy_path }}/{{ website_domain }}"
+caddy_website_root: "{{ caddy_webroot }}/{{ website_domain }}"
 docker_website_root: "{{ caddy_docker_volume }}/{{ website_domain }}"
 
-lavafeld_docker_webroot: "{{ caddy_docker_volume }}/{{ lavafeld_domain }}"
-caddy_lavafeld_root: "{{ caddy_path }}/{{ lavafeld_domain }}"
 website_host: "https://{{ website_domain }}"
 website_www_host: "https://www.{{ website_domain }}" # FIXME remove this
 
 hugo_src_website: "/opt/hugo/{{ ansible_hostname }}"
-hugo_docker_image: jojomi/hugo:0.52 # FIXME update version
+hugo_docker_image: jojomi/hugo:0.52
