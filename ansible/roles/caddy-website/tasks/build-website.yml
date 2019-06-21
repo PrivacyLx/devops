@@ -60,3 +60,18 @@
     owner: caddy
     group: caddy
   notify: "restart caddy"
+
+- name: deploy script to update the website from latest git
+  template:
+    src: "update-website.sh.j2"
+    dest: "/home/caddy/update-website.sh"
+    owner: caddy
+    group: caddy
+    mode: '6555' # make executable
+
+- name: update website hourly
+  cron:
+    name: "update website hourly"
+    special_time: hourly
+    job: "/home/caddy/update-website.sh"
+    user: caddy

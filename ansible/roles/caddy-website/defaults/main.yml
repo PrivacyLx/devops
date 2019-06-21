@@ -20,5 +20,6 @@ docker_website_root: "{{ caddy_docker_volume }}/{{ website_domain }}"
 website_host: "https://{{ website_domain }}"
 website_www_host: "https://www.{{ website_domain }}" # FIXME remove this
 
-hugo_src_website: "/opt/hugo/{{ ansible_hostname }}"
 hugo_docker_image: jojomi/hugo:0.52
+hugo_src_website: "/home/caddy/{{ website_domain }}-source"
+#hugo_src_website: "/opt/hugo/{{ ansible_hostname }}"
