@@ -16,6 +16,8 @@
   file:
     path: "{{ caddy_path }}"
     state: directory
+    owner: caddy
+    group: caddy
 
 - name: template files
   template:
@@ -32,6 +34,20 @@
     state: directory
   register: tmp_build
   become_user: caddy
+
+- name: copy hugo dockerfile
+  template:
+    src: "hugo/Dockerfile"
+    dest: "{{ tmp_build.path }}"
+    owner: caddy
+    group: caddy
+
+- name: Build hugo-{{ hugo_version }} docker image
+  docker_image:
+    name: "{{ hugo_docker_image }}"
+    build:
+      path: "{{ tmp_build.path }}"
+    source: build
 
 - name: build hugo website in container "{{ hugo_docker_image }}"
   docker_container:

@@ -16,3 +16,7 @@ Server hostnames used from the list of
 ### Mailserver
 
 `cd ansible && ansible-playbook --vault-id @prompt deploy-mailserver.yml`
+
+### Website
+
+`cd ansible && ansible-playbook --vault-id @prompt deploy-website.yml`

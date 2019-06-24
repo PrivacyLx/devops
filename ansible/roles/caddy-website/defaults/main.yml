@@ -12,14 +12,17 @@ caddy_webroot: /srv/caddy
 
 # set to true for testing, generates non valid (staging) TLS certs
 le_staging: true
+
 caddy_log_ipmask: "ipmask 0.0.0.255 ffff:ffff:ffff:ff00::"
 
 caddy_website_root: "{{ caddy_webroot }}/{{ website_domain }}"
 docker_website_root: "{{ caddy_docker_volume }}/{{ website_domain }}"
 
 website_host: "https://{{ website_domain }}"
-website_www_host: "https://www.{{ website_domain }}" # FIXME remove this
+# website_www_host: https://www.{{ website_domain }}" # this was disabled. but
+# if it gets re-enabled, remember to add {{ website_www_host }} to the caddyfile
 
-hugo_docker_image: jojomi/hugo:0.52
+hugo_version: 0.54.0
+hugo_docker_image: hugo:{{ hugo_version }}
 hugo_src_website: "/home/caddy/{{ website_domain }}-source"
 #hugo_src_website: "/opt/hugo/{{ ansible_hostname }}"
