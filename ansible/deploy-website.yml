@@ -7,3 +7,4 @@
   roles:
     - docker
     - caddy-website
+    - onion-services
