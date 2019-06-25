@@ -1,0 +1,3 @@
+[submodule "ansible/roles/onion-services"]
+	path = ansible/roles/onion-services
+	url = https://github.com/francisco-core/ansible-role-onion

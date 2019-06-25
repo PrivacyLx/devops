@@ -1,0 +1,23 @@
+---
+
+# FIXME either verify signatures or compile from source
+- name: install caddy script
+  raw: curl https://getcaddy.com | bash -s personal http.filter
+  become: yes
+
+- name: create systemd configuration
+  template:
+    src: etc/systemd/system/caddy.service.j2
+    dest: /etc/systemd/system/caddy.service
+    owner: root
+    group: root
+    mode: 0655
+  become: yes
+  notify:
+    - "restart caddy"
+
+- name: check that we can connect to hosts and get a status 200
+  uri:
+    url: "{{ item }}"
+  with_items:
+    - "{{ website_host }}"

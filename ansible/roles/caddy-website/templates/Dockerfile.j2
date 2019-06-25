@@ -1,0 +1,47 @@
+FROM golang:1.11-alpine as builder
+
+ARG CADDY_VERSION={{ caddy_tag }}
+
+RUN apk add --no-cache --no-progress git
+
+# Clone caddy
+RUN git clone https://github.com/mholt/caddy \
+    -b "v$CADDY_VERSION" /go/src/github.com/mholt/caddy \
+    && cd /go/src/github.com/mholt/caddy \
+    && git checkout -b "v$CADDY_VERSION"
+
+# TODO Add http.filter plugin
+#RUN printf 'package caddyhttp\n\nimport (\n// http.filter\n        _ "github.com/echocat/caddy-filter"\n)' \
+#    > /go/src/github.com/mholt/caddy/caddyhttp/plugins.go
+
+# Clone builder
+#RUN git clone https://github.com/caddyserver/builds \
+#    /go/src/github.com/caddyserver/builds
+
+# Disable Telemetry
+RUN sed -i 's/const enableTelemetry = true/const enableTelemetry = false/' \
+    /go/src/github.com/mholt/caddy/caddy/caddymain/run.go
+
+# build caddy
+#RUN cd /go/src/github.com/mholt/caddy/caddy \
+#    && go get ./... \
+#    && go run build.go \
+#    && mv caddy /go/bin
+
+# build caddy
+RUN export GO111MODULE=on \
+    && go get github.com/mholt/caddy/caddy
+
+# Dist image
+FROM alpine:3.8
+
+# Install dependencies
+# ca-certificates needed to verify the CA of LE
+RUN apk add --no-cache --no-progress tini ca-certificates
+
+# Copy caddy binary
+COPY --from=builder /go/bin/caddy /usr/bin/caddy
+
+WORKDIR /srv
+
+ENTRYPOINT ["/sbin/tini", "/usr/bin/caddy"]

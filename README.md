@@ -1,9 +1,12 @@
 # Privacy Lx devops repository
 
-## Naming convention
+## Getting Started
 
-Server hostnames used from the list of
-[whistleblowers](https://en.wikipedia.org/wiki/List_of_whistleblowers).
+1. clone this repo
+2. intialize its submodules with `git submodule update --init --recursive`
+3. install ansible
+4. Deploy the infrastructure wanted as explained bellow
+
 
 ## Deploy ansible roles
 
@@ -16,3 +19,13 @@ Server hostnames used from the list of
 ### Mailserver
 
 `cd ansible && ansible-playbook --vault-id @prompt deploy-mailserver.yml`
+
+### Website
+
+`cd ansible && ansible-playbook --vault-id @prompt deploy-website.yml`
+
+
+## Naming convention
+
+Server hostnames used from the list of
+[whistleblowers](https://en.wikipedia.org/wiki/List_of_whistleblowers).

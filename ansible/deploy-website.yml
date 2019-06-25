@@ -1,0 +1,10 @@
+---
+
+- name: "Set up the website"
+  hosts: "{{ target if target is defined else 'webserver' }}"
+  become: true
+
+  roles:
+    - docker
+    - caddy-website
+    - onion-services

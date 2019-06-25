@@ -1,0 +1,27 @@
+---
+- name: install | install dependencies
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+     - git
+     - golang
+
+- name: ensure caddy group exists
+  group:
+    name: caddy
+    state: present
+
+- name: ensure caddy user exists
+  user:
+    name: caddy
+    shell: /bin/bash
+    groups:
+      - caddy
+      - docker # FIXME remove if not used
+    create_home: yes
+    #disabled_password
+    system: true
+    state: present
