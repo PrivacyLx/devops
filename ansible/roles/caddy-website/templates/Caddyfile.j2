@@ -12,3 +12,10 @@
   {% endif %}
 
 }
+
+{% if git_webhook_enabled|default(false)|bool == true %}
+git {{ hugo_website_git_repo }} {
+    hook {{ git_webhook }} "{{ git_webhook_secret }}"
+    then {{ update_website_script_path }}
+}
+{% endif %}

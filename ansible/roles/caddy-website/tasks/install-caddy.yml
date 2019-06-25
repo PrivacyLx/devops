@@ -2,7 +2,7 @@
 
 # FIXME either verify signatures or compile from source
 - name: install caddy script
-  raw: curl https://getcaddy.com | bash -s personal http.filter
+  raw: curl https://getcaddy.com | bash -s personal http.filter,http.git
   become: yes
 
 - name: create systemd configuration

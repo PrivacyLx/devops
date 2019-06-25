@@ -26,3 +26,6 @@ hugo_version: 0.54.0
 hugo_docker_image: hugo:{{ hugo_version }}
 hugo_src_website: "/home/caddy/{{ website_domain }}-source"
 #hugo_src_website: "/opt/hugo/{{ ansible_hostname }}"
+
+
+update_website_script_path: "/home/caddy/update-website.sh"

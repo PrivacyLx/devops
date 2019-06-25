@@ -29,6 +29,13 @@ This role preforms the following tasks:
     # set to false - when ready for deployment
     le_staging: false
 
+    # FIXME: currently not working
+    # git webhook to redeploy website as it is changed on the repo (optional)
+    git_webhook_enabled: true
+    git_webhook: '/update-website'
+    git_webhook_secret:
+
+
 ## Example Playbook
 
 Should be used in combination with `docker` and `ansible-role-onion` roles.

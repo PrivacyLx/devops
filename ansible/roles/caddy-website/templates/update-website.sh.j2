@@ -8,18 +8,27 @@
 # This happens as a workaround for the fact that the hugo docker
 # image produces outputs from the root user. FIXME: correct that
 
+tmp_build=$(mktemp -d) # temporary build directory
+input_dir={{ hugo_src_website }}
+output_dir=$tmp_build
 set -e
 
-# build the website from source and leave it in a temp. directory
-docker run --name hugo \
-          --volume={{ hugo_src_website }}:/src \
-          --volume={{ tmp_build.path }}:/output \
-          jojomi/hugo:0.52
+# update website
+cd $input_dir
+git pull
 
-# remove the docker image so it can be instantiated again
+# remove the previous docker images
 docker rm -f hugo
 
-cp -r {{ tmp_build.path }} {{ caddy_website_root }}
+# build the website from source and leave it in a temp. directory
+# this container is ran with the privileges of caddy:caddy
+docker run --name hugo \
+          --user `id -u caddy`:`id -g caddy` \
+          --volume=$input_dir:/src \
+          --volume=$output_dir:/output \
+          {{ hugo_docker_image }}
 
 # adjust the permissions left wrongly by the docker container
-chown -R caddy:caddy {{ caddy_website_root }}
+#chown -R caddy:caddy $output_dir
+
+cp -r $output_dir/* {{ caddy_website_root }}
