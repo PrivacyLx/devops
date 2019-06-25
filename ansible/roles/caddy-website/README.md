@@ -8,6 +8,7 @@ This role preforms the following tasks:
   - fetches the latest version of the website
   - uses [hugo](https://gohugo.io) to build it into static html (using docker)
   - installs caddy server and puts the website live with https
+  - configures .onion v2 and v3 for the website provided the urls and private keys
   - updates website from the source hourly (runs template update-script.sh)
 
 ## Variables
@@ -27,3 +28,16 @@ This role preforms the following tasks:
     # set to true - when testing the server configurations
     # set to false - when ready for deployment
     le_staging: false
+
+## Example Playbook
+
+Should be used in combination with `docker` and `ansible-role-onion` roles.
+
+    - name: "Set up the website"
+      hosts: "webserver"
+      become: true
+
+      roles:
+        - docker
+        - caddy-website
+        - onion-services
