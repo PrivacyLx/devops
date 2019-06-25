@@ -1,6 +1,0 @@
----
-#- name: start | start flood service
-#  service:
-#    name: flood
-#    state: started
-#  become: yes

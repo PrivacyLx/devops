@@ -1,4 +1,0 @@
----
-# vars file for ansible-gitea
-gitea_version: 1.7.0
-gitea_url: https://dl.gitea.io/gitea/{{ gitea_version }}/gitea-{{ gitea_version }}-linux-amd64

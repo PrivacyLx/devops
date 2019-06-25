@@ -1,6 +1,0 @@
----
-#- name: stop | stop flood service
-#  service:
-#    name: flood
-#    state: stopped
-#  become: yes
