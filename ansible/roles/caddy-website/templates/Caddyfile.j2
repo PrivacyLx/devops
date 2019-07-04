@@ -1,4 +1,4 @@
-{{ website_host }} {{ website_onion_v2 }}:80 {{ website_onion_v3 }}:80 localhost:80 {
+{{ website_host }} {{ website_www_host }} {{ website_onion_v2 }}:80 {{ website_onion_v3 }}:80 localhost:80 {
     root {{ caddy_website_root }}
     log requests.log {
         {{ caddy_log_ipmask }}
