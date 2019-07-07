@@ -1,5 +1,7 @@
 ---
 
+- import_playbook: ansible-version.yml
+
 - name: "Set up the website"
   hosts: "{{ target if target is defined else 'webserver' }}"
   become: true
