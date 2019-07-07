@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -o errexit
+# This script queries for all DNS entries of a mailcow instance
+# See https://mailcow.github.io/mailcow-dockerized-docs/prerequisite-dns/
+
+: ${1?"Usage: $0 Domain.TLD"}
+
+domain=${1}
+dkim="dkim._domainkey"
+dmarc="_dmarc"
+a_records=(mail autodiscover autoconfig)
+srv_records=(_imap._tcp _imaps._tcp _pop3._tcp _pop3s._tcp _submission._tcp _smtps._tcp _sieve._tcp _autodiscover._tcp _caldavs._tcp _carddavs._tcp)
+txt_records=(_carddavs._tcp _caldavs._tcp)
+mx_ip="$(dig A +short mail.${domain})"
+
+for a_record in ${a_records[@]}; do
+    echo "Checking A record of: ${a_record}.${domain}"
+    dig +short A ${a_record}.${domain}
+done
+for srv_record in ${srv_records[@]}; do
+    echo "Checking SRV record of: ${srv_record}.${domain}"
+    dig +short SRV ${srv_record}.${domain}
+done
+for txt_record in ${txt_records[@]}; do
+    echo "Checking TXT record of: ${txt_record}.${domain}"
+    dig +short TXT ${txt_record}.${domain}
+done
+
+echo "Checking MX record of: ${domain}"
+dig +short MX ${domain}
+echo "Checking SPF record of: ${domain}"
+dig +short TXT ${domain}
+echo "Checking DKIM record of: ${dkim}.${domain}"
+dig +short TXT ${dkim}.${domain}
+echo "Checking dmarc record of: ${dmarc}.${domain}"
+dig +short TXT ${dmarc}.${domain}
+echo "Checking PTR record of: ${mx_ip}"
+dig -x ${mx_ip} +short
