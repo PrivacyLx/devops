@@ -1,5 +1,7 @@
 ---
 
+- import_playbook: ansible-version.yml
+
 - name: "Set up a mailcow server"
   hosts: "{{ target if target is defined else 'mailserver' }}"
   become: true

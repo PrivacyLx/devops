@@ -1,0 +1,2 @@
+# Minimun required Ansible version
+ansible_version_min: 2.8
