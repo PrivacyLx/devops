@@ -78,7 +78,7 @@ env:
 volumes:
   - volume:
       host: {{ dis_path }}/shared/standalone
-      guest: /{{ dis_guest_path }}
+      guest: {{ dis_guest_path }}
   #- volume:
   #    host: /var/discourse/shared/standalone/log/var-log
   #    guest: /var/log
