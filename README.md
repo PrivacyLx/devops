@@ -22,7 +22,11 @@
 
 ### Website
 
+Fully deploy the website:
 `cd ansible && ansible-playbook --vault-id @prompt deploy-website.yml`
+
+Update the website:
+`cd ansible && ansible-playbook --vault-id @prompt deploy-website.yml --tags "update"`
 
 
 ## Naming convention

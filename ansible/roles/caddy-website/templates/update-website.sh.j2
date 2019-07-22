@@ -14,8 +14,9 @@ output_dir=$tmp_build
 set -e
 
 # update website
-cd $input_dir
+cd $input_dir || git clone --recursive {{ hugo_website_git_repo }} {{ hugo_src_website }} && cd $input_dir
 git pull
+git submodule update --recursive --remote # update submodules
 
 # remove the previous docker images
 docker rm -f hugo

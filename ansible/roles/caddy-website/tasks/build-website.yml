@@ -75,12 +75,12 @@
 #    owner: caddy
 #    group: caddy
 #  notify: "restart caddy"
-
-- name: clone website from repo
-  git:
-    repo: "{{ hugo_website_git_repo }}"
-    dest: "{{ hugo_src_website }}"
-  become_user: caddy
+#
+#- name: clone website from repo
+#  git:
+#    repo: "{{ hugo_website_git_repo }}"
+#    dest: "{{ hugo_src_website }}"
+#  become_user: caddy
 
 - name: deploy script to update the website from latest git
   template:
@@ -89,11 +89,14 @@
     owner: caddy
     group: caddy
     mode: '0700' # make executable
+  tags: update
+
 
 - name: update website
   shell: "{{ update_website_script_path }}"
   become: yes
   become_user: caddy
+  tags: update
 
 - name: remove the temporary build folder
   file:
