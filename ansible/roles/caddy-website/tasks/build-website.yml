@@ -95,6 +95,12 @@
   become: yes
   become_user: caddy
 
+- name: remove the temporary build folder
+  file:
+    path: "{{ tmp_build.path }}"
+    state: absent
+  when: tmp_build.path is defined
+
 - name: configure automatic hourly update of website
   cron:
     name: "update website hourly"
