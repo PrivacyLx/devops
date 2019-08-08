@@ -2,11 +2,9 @@
 
 ## Getting Started
 
-1. clone this repo
-2. intialize its submodules with `git submodule update --init --recursive`
-3. install ansible
-4. Deploy the infrastructure wanted as explained bellow
-
+1. Clone this repository
+2. Install ansible
+3. Deploy the infrastructure wanted as explained bellow
 
 ## Deploy ansible roles
 
@@ -23,7 +21,6 @@
 ### Website
 
 `cd ansible && ansible-playbook --vault-id @prompt deploy-website.yml`
-
 
 ## Naming convention
 

@@ -35,4 +35,3 @@
   pip:
     name: docker-compose
     state: present
-  when: install_compose|default(true)| bool == true
