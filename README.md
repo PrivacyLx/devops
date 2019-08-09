@@ -24,6 +24,13 @@
 
 `cd ansible && ansible-playbook --vault-id @prompt deploy-website.yml`
 
+## Adding SSH known hosts
+
+Get a fingerprint of local `known_hosts` file for a given hostname:
+`ssh-keygen -l -f ~/.ssh/known_hosts -F hostname`
+
+Add the specified fingerprint line to the ansible `known_hosts` file:
+`ansible-playbook --vault-id @prompt edit ansible/ssh/known_hosts`
 
 ## Naming convention
 
