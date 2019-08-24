@@ -1,0 +1,42 @@
+# File managed by Ansible
+#####
+# This is configuration for matterbridge.
+# WARNING: as this file contains credentials, be sure to set correct file permissions
+# https://github.com/42wim/matterbridge/wiki/How-to-create-your-config for how to create your config
+# https://github.com/42wim/matterbridge/wiki/Settings for all settings
+#####
+
+[irc]
+    [irc.oftc]
+    Server="{{ matterbridge_irc_server }}"
+    UseSASL=true
+    Nick="{{ matterbridge_irc_nick }}"
+    NickServNick="nickserv"
+    NickServPassword="{{ matterbridge_nick_passwd }}"
+    # ColorNicks will show each nickname in a different color.
+    # Only works in IRC right now.
+    ColorNick=true
+
+# TODO create a mattermost channel
+[mattermost]
+    [mattermost.work]
+    Server="yourmattermostserver.tld"
+    Team="yourteam"
+    Login="yourlogin"
+    Password="yourpass"
+    PrefixMessagesWithNick=true
+    RemoteNickFormat="[{PROTOCOL}] <{nick}> "
+
+[[gateway]]
+name="mygateway"
+enable=true
+    [[gateway.inout]]
+    account="irc.oftc"
+    channel="#privacylx-internal"
+        [gateway.inout.options]
+        key="{{ matterbridge_privacylx-internal_key }}"
+
+# TODO create a mattermost channel
+    [[gateway.inout]]
+    account="mattermost.work"
+    channel="off-topic"

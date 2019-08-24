@@ -1,0 +1,25 @@
+---
+
+- name: Create {{ matterbridge_path }} dir
+  file:
+    path: "{{ matterbridge_path }}"
+    state: directory
+
+- name: Template matterbridge config
+  template:
+    src: matterbridge.toml.j2
+    dest: "{{ matterbridge_path }}/matterbridge.toml"
+  notify: restart matterbridge
+
+- name: Deploy matterbridge
+  docker_service:
+    project_name: matterbridge
+    definition:
+      version: '2'
+      services:
+        matterbridge:
+          image: "42wim/matterbridge:{{ matterbridge_version }}"
+          restart: always
+          environment:
+            DOMAINS: "{{ slackin_domains }}"
+            PRODUCTION: "TRUE"

@@ -1,0 +1,6 @@
+---
+
+matterbridge_path: /etc/matterbridge
+matterbridge_version: 1.15.1
+matterbridge_irc_server: irc.oftc.net:6697
+matterbridge_irc_nick: privacylx-bridge

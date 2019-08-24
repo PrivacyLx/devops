@@ -1,0 +1,4 @@
+---
+
+- name: restart matterbridge
+  docker_container: name=matterbridge restart=true
