@@ -1,0 +1,15 @@
+---
+
+- import_playbook: ansible-version.yml
+
+- name: "Set up the website"
+  hosts: "{{ target if target is defined else 'webserver' }}"
+  become: true
+  vars_files:
+    - "inventory/testing/group_vars/all/vars.yml"
+    - "inventory/testing/host_vars/privacylx.org/vars.yml"
+
+  roles:
+    - onion-services
+    - docker
+    - website

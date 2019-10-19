@@ -1,0 +1,41 @@
+---
+
+# Docker container ip of www service (website)
+www_container_ip: 172.3.27.2
+# Docker subnet of website
+website_subnet: 172.3.27.0/30
+
+# Onion services(s) listen host
+onion_ipaddr: "{{ www_container_ip }}"
+
+onion_services:
+  privacylx-website-v2:
+    onion_hostname: "swatbrx66xyp7vvm.onion" 
+    onion_version: 2
+    onion_ports:
+      - [80, 80]  #[redirected_from, redirected_to]
+    onion_private_key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIICXAIBAAKBgQDOd1VxAmM9Ck55eyksEkgpmSem6g7QZsu0w4oGzRjp5x8lfXzP
+      T6gxbkYiCyIMAfRl8JPlxBJkP/a4LxXAs8fAXU+Mc5hfRDjX5uKJFzhCy3pWQvc6
+      YpY+9NGI6TFaPxP0UqjyFwbtCHHOZM+S+ZXI76ZkK1chPUmm1U1pbMidAQIDAQAB
+      AoGAEN+X0ACN87Mf7rWuC7gCxcOKhg2i4E1GYKOKaDviyVrmJL44sQilikSk3qti
+      QPD39EzRCXoYtrCzjSHr+S+4J07OSPxSFNOZJf9wbaY7dIGX12rWrmEJpPXhW/6G
+      COvbY/Rs//6HV4itxXRWhlIxd71PfH4qF/0di8gWAHGcK3ECQQD2OkI80NsH8UCV
+      ZVBMdoeYZsPs57VaEd6t0gkv9JhCgBxWRSLlNY/puF9EcubR7+d+xws5NAvlHBaO
+      blLEvtv7AkEA1qkWeATVN/qoTlBulGgf57tiyyiBy+jYXaNyunqJr+V9XzArLaS3
+      7t13cBaSHnsnSGCx9dZQdYwok0Lc77Q+MwJBAIfVV9ko9swI4TIJdCTadq8ycf9t
+      S/RmS0vkxMC51I1LE1bcSQXdaIjs91FRedhy2mhr8dsaxT0dI6xrXCnBiKUCQAdx
+      696TxFVhsy6sKXmqNtkRrbaAHChXVhHBVnxTPa1FF1kS0ZyOpvZ45eiUT9MQ0Gb5
+      O5LcMQQyrUGWQxVpOfMCQE9a+U/9yxcNC4MWfwPH7xIMtiKsdDGGxRrDJoVL6TdW
+      LnQpzNtEKWuxohlb47ZOdOW/99yEbNXE5ODq0ubV160=
+      -----END RSA PRIVATE KEY-----
+  privacylx-website-v3:
+    onion_hostname: "f43qsxo3j564ssek5km4kviqikb5ogacsmozgeepzchcahhthzix2gad.onion"
+    onion_version: 3
+    onion_ports:
+      - [80, 80]
+    # Encode public key with: base64 --wrap=0 hs_ed25519_public_key
+    onion_public_key_b64encoded: "PT0gZWQyNTUxOXYxLXB1YmxpYzogdHlwZTAgPT0AAAAvNwld2099yUiK6pnFVRBCg9cYApMdkxCPyI4gHPM+UQ=="
+    # Encode secret key with: base64 --wrap=0 hs_ed25519_secret_key
+    onion_secret_key_b64encoded: "PT0gZWQyNTUxOXYxLXNlY3JldDogdHlwZTAgPT0AAAB4I10OKoH+NbAOmE/kro6G5ixmATmbFs2Pc/l67JPCctpQe207wGdKiik3nuIixW9+080tIBsAVp+na6xnFLip"
