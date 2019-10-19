@@ -1,0 +1,59 @@
+---
+
+- name: Ensure paths exist
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ caddy_path }}"
+    - "{{ caddy_certs }}"
+
+- name: Template files
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ caddy_path }}/{{ item }}"
+  with_items:
+    - Caddyfile
+    - Dockerfile
+  register: template_files
+
+- name: Create Docker image of "{{ website_host }}"
+  docker_image:
+    source: build
+    force_source: "{{ template_files.changed }}"
+    name: "{{ docker_image_name }}"
+    build:
+      pull: no
+      path: "{{ caddy_path }}"
+
+- name: Bring up Docker container(s) of "{{ website_host }}"
+  docker_compose:
+    project_name: "{{ website_host }}"
+    definition:
+      version: '2'
+      services:
+        www:
+          image: "{{ docker_image_name }}"
+          ports:
+            - "80:80/tcp"
+            - "443:443/tcp"
+          volumes:
+            - "{{ caddy_config }}:{{ caddy_docker_config }}"
+            - "{{ caddy_certs }}:{{ caddy_docker_certs }}"
+          networks:
+            static-network:
+              ipv4_address: "{{ www_container_ip }}"
+          restart: always
+      networks:
+        static-network:
+          ipam:
+            config:
+            - subnet: "{{ website_subnet }}"
+
+- name: Connect to hosts and get an HTTP 200
+  uri:
+    url: "{{ item }}"
+    validate_certs: "{{ le_staging|default(false)|ternary('no', 'yes') }}"
+  with_items:
+    - "https://{{ website_host }}"
+    - "https://www.{{ website_host }}"

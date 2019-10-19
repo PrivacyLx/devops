@@ -1,0 +1,21 @@
+{% if (onion_services['privacylx-website-v2']|default('present') and onion_services['privacylx-website-v3']|default('present')) != 'absent' %}
+{{ website_host }} www.{{ website_host }} http://{{ onion_services['privacylx-website-v2']['onion_hostname'] }} http://{{ onion_services['privacylx-website-v3']['onion_hostname'] }} {
+{% else %}
+{{ website_host }} www.{{ website_host }} {
+{% endif %}
+    root {{ website_public }}
+    log / stdout {
+        {{ caddy_log_ipmask }}
+    }
+    gzip
+    tls {{ le_email }}
+    git {
+{% if caddy_git_interval %}
+    interval {{ caddy_git_interval }}
+{% endif %}
+    repo {{ website_git }}
+    args --recursive
+    path {{ website_docker_webroot }}
+    then hugo --destination={{ website_public }}
+    }
+}

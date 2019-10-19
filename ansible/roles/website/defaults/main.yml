@@ -1,0 +1,44 @@
+---
+
+# Git repository of the website
+website_git: https://github.com/PrivacyLx/website
+
+# Caddy releases: https://github.com/caddyserver/caddy/releases
+caddy_version: 1.0.1
+# Caddy local PATH
+caddy_path: /opt/caddy
+caddy_certs: /opt/caddycerts
+caddy_config: "{{ caddy_path }}/Caddyfile"
+caddy_docker_volume: /srv
+caddy_docker_config: /etc/Caddyfile
+caddy_docker_certs: /etc/caddycerts
+# The number of seconds between git pulls. Default is 3600 (1 hour), minimum 5.
+# An interval of -1 disables periodic pull.
+caddy_git_interval: 300
+# Caddy plugins documentation: https://caddyserver.com/docs
+caddy_plugins:
+  - filter
+  - git
+
+# ipmask enables masking IP addresses to comply with corporate or legal
+# restrictions. The first argument is a mask for IPv4 addresses, and the second
+# argument is a mask for IPv6 addresses. The IPv6 mask is optional; and if only
+# IPv6 is to be masked, the IPv4 mask can be an empty string token.
+caddy_log_ipmask: "ipmask 0.0.0.255 ffff:ffff:ffff:ff00::"
+
+# Set to true for testing, generates staging (non valid) TLS certs.
+le_staging: false
+
+website_docker_webroot: "{{ caddy_docker_volume }}/{{ website_host }}"
+# Hugo public website directory
+website_public: "{{ website_docker_webroot }}/public"
+
+# Hugo releases: https://github.com/gohugoio/hugo/releases
+hugo_version: 0.55.6
+
+# The name used to identify the docker image build
+docker_image_name: "{{ website_host }}-image"
+# abiosoft/cady releases: https://hub.docker.com/r/abiosoft/caddy/tags
+caddy_build_image: abiosoft/caddy:builder
+# Alpine image releases: https://hub.docker.com/_/alpine?tab=tags
+stage_docker_image: alpine:3.10
