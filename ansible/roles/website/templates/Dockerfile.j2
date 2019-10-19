@@ -1,0 +1,55 @@
+FROM {{ caddy_build_image }} as builder
+
+ARG VERSION="{{ caddy_version }}"
+ENV CADDYPATH={{ caddy_docker_certs }}
+
+# Process wrapper
+RUN go get -v github.com/abiosoft/parent
+
+RUN VERSION={{ caddy_version }} PLUGINS={{ caddy_plugins|join(',') }} ENABLE_TELEMETRY=false /bin/sh /usr/bin/builder.sh
+
+# Final stage
+FROM {{ stage_docker_image }}
+
+ARG VERSION="{{ caddy_version }}"
+LABEL caddy_version="{{ caddy_version }}"
+
+ENV ACME_AGREE="true"
+ENV ENABLE_TELEMETRY="false"
+
+RUN apk add --no-cache \
+    ca-certificates \
+    git \
+    mailcap \
+    openssh-client \
+    tzdata \
+    tar \
+    curl
+
+# Install Caddy
+COPY --from=builder /install/caddy /usr/bin/caddy
+
+# Validate Caddy install
+RUN /usr/bin/caddy -version
+RUN /usr/bin/caddy -plugins
+
+# Install Hugo
+RUN curl --silent --show-error --fail --location \
+  --header "Accept: application/tar+gzip, application/x-gzip, application/octet-stream" -o - \
+  "https://github.com/spf13/hugo/releases/download/v{{ hugo_version }}/hugo_{{ hugo_version }}_Linux-64bit.tar.gz" \
+  | tar --no-same-owner -C /tmp -xz \
+  && mv /tmp/hugo /usr/bin/hugo \
+  && chmod 0755 /usr/bin/hugo \
+  && git config --global fetch.recurseSubmodules true
+
+WORKDIR {{ caddy_docker_volume }}
+
+# Install process wrapper
+COPY --from=builder /go/bin/parent /bin/parent
+
+ENTRYPOINT ["/bin/parent", "caddy"]
+{% if le_staging|default(false)|bool == true %}
+CMD ["-conf", "{{ caddy_docker_config }}", "-agree", "-ca", "https://acme-staging-v02.api.letsencrypt.org/directory"]
+{% else %}
+CMD ["-conf", "{{ caddy_docker_config }}", "-agree"]
+{% endif %}

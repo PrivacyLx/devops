@@ -1,4 +1,0 @@
----
-- include: "configure.yml"
-- include: "build-website.yml"
-- include: "install-caddy.yml"
