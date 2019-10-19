@@ -57,5 +57,3 @@
   with_items:
     - "https://{{ website_host }}"
     - "https://www.{{ website_host }}"
-  tags:
-    - test
