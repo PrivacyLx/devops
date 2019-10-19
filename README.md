@@ -36,7 +36,7 @@ This deploys the website on a testing server. You can access it via [testing.pri
 
 1. edit your ssh-config file (`~/.ssh/config`) to add the hostname, your ssh key and the user
 2. `cd ansible/`
-3. deploy testing environment with `ansible-playbook test-website.yml -i inventory/testing/hosts`
+3. deploy testing environment with `ansible-playbook test-website.yml -i inventory/testing/hosts --vault-id @prompt`
 
 ## Naming convention
 
