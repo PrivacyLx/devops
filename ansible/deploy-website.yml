@@ -7,6 +7,6 @@
   become: true
 
   roles:
-    - onion-services
+    - ansible-role-onion
     - docker
     - website
