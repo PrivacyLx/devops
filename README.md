@@ -37,6 +37,14 @@ This deploys the website on a testing server. You can access it via [testing.pri
 1. edit your ssh-config file (`~/.ssh/config`) to add the hostname, your ssh key and the user
 2. `cd ansible && ansible-playbook --vault-id @prompt -i inventory/testing deploy-website.yml`
 
+## Adding SSH known hosts
+
+Get a fingerprint of local `known_hosts` file for a given hostname:
+`ssh-keygen -l -f ~/.ssh/known_hosts -F hostname`
+
+Add the specified fingerprint line to the ansible `known_hosts` file:
+`ansible-playbook --vault-id @prompt edit ansible/ssh/known_hosts`
+
 ## Naming convention
 
 Server hostnames used from the list of
