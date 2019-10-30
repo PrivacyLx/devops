@@ -6,26 +6,25 @@
 # https://github.com/42wim/matterbridge/wiki/Settings for all settings
 #####
 
+[matrix]
+
+    [matrix.matrixorg]
+    Server="https://matrix.org"
+    Login="{{ matterbridge_matrix_nick }}"
+    Password="{{ matterbridge_matrix_passwd }}"
+
+    RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
 [irc]
     [irc.oftc]
-    Server="{{ matterbridge_irc_server }}"
-    UseSASL=true
+    Server="irc.oftc.net:6697"
+    # UseSASL=true
     Nick="{{ matterbridge_irc_nick }}"
     NickServNick="nickserv"
     NickServPassword="{{ matterbridge_nick_passwd }}"
     # ColorNicks will show each nickname in a different color.
     # Only works in IRC right now.
     ColorNick=true
-
-# TODO create a mattermost channel
-[mattermost]
-    [mattermost.work]
-    Server="yourmattermostserver.tld"
-    Team="yourteam"
-    Login="yourlogin"
-    Password="yourpass"
-    PrefixMessagesWithNick=true
-    RemoteNickFormat="[{PROTOCOL}] <{nick}> "
 
 [[gateway]]
 name="mygateway"
@@ -34,9 +33,9 @@ enable=true
     account="irc.oftc"
     channel="#privacylx-internal"
         [gateway.inout.options]
-        key="{{ matterbridge_privacylx-internal_key }}"
+        key="{{ matterbridge_privacylx_internal_key }}"
 
-# TODO create a mattermost channel
     [[gateway.inout]]
-    account="mattermost.work"
-    channel="off-topic"
+    account="matrix.matrixorg"
+    channel="#privacylx-internal:matrix.org"
+

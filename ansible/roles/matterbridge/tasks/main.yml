@@ -12,14 +12,15 @@
   notify: restart matterbridge
 
 - name: Deploy matterbridge
-  docker_service:
+  docker_compose:
     project_name: matterbridge
     definition:
       version: '2'
       services:
         matterbridge:
-          image: "42wim/matterbridge:{{ matterbridge_version }}"
+          image: "{{ matterbridge_image }}"
           restart: always
           environment:
-            DOMAINS: "{{ slackin_domains }}"
             PRODUCTION: "TRUE"
+          volumes:
+            - "{{ matterbridge_path }}/matterbridge.toml:/matterbridge.toml"

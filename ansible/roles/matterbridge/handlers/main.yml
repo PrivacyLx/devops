@@ -1,4 +1,7 @@
 ---
 
 - name: restart matterbridge
-  docker_container: name=matterbridge restart=true
+  docker_container:
+    name: matterbridge
+    image: "{{ matterbridge_image }}"
+    restart: yes
