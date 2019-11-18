@@ -16,6 +16,6 @@
     repo {{ website_git }}
     args --recursive
     path {{ website_docker_webroot }}
-    then hugo --destination={{ website_public }}
+    then_long hugo --watch --destination={{ website_public }}
     }
 }
