@@ -23,8 +23,9 @@
     force_source: "{{ template_files.changed }}"
     name: "{{ docker_image_name }}"
     build:
-      pull: no
+      pull: yes
       path: "{{ caddy_path }}"
+      nocache: "{{ template_files.changed }}"
 
 - name: Bring up Docker container(s) of "{{ website_host }}"
   docker_compose:

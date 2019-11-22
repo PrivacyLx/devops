@@ -39,11 +39,11 @@ This deploys the website on a testing server. You can access it via [testing.pri
 
 ## Adding SSH known hosts
 
-Get a fingerprint of local `known_hosts` file for a given hostname:
-`ssh-keygen -l -f ~/.ssh/known_hosts -F hostname`
+1. Get an SSH fingerprint of local `known_hosts` file for a given hostname:
+`ssh-keygen -q -f ~/.ssh/known_hosts -F hostname`
 
-Add the specified fingerprint line to the ansible `known_hosts` file:
-`ansible-playbook --vault-id @prompt edit ansible/ssh/known_hosts`
+2. Add an SSH fingerprint line to the ansible `known_hosts` file:
+`ssh-keygen -q -f ~/.ssh/known_hosts -F hostname`
 
 ## Naming convention
 
