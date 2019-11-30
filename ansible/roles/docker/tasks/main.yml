@@ -13,6 +13,17 @@
   apt:
     pkg: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2', 'software-properties-common', 'python-pip']
     state: present
+  when:
+    - ansible_facts['distribution'] == 'Debian'
+    - ansible_facts['distribution_major_version'] < '10'
+
+- name: Installs packages for Docker and docker-compose (>= Debian 10)
+  apt:
+    pkg: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2', 'software-properties-common']
+    state: present
+  when:
+    - ansible_facts['distribution'] == 'Debian'
+    - ansible_facts['distribution_major_version'] >= '10'
 
 - name: Adds Docker apt Debian key
   apt_key:
@@ -26,12 +37,20 @@
     state: present
     update_cache: yes
 
-- name: Installs Docker
+- name: Installs Docker (>= Debian 10)
   apt:
-    pkg: docker-ce
+    pkg: [ 'docker-ce', 'python-docker']
     state: present
 
-- name: Ensures docker-compose is installed (via pip)
+- name: Ensures docker-compose is installed (via pip) (< Debian 10)
   pip:
     name: docker-compose
+    state: present
+  when:
+    - ansible_facts['distribution'] == 'Debian'
+    - ansible_facts['distribution_major_version'] < '10'
+
+- name: Installs Docker (< Debian 10)
+  apt:
+    pkg: docker-ce
     state: present

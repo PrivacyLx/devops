@@ -1,0 +1,8 @@
+---
+
+matterbridge_path: /etc/matterbridge
+matterbridge_version: 1.16.2
+matterbridge_image: 42wim/matterbridge:{{ matterbridge_version }}
+matterbridge_name: privacylx-matterbridge
+# Set to tro enable debug log
+matterbridge_debug: false
