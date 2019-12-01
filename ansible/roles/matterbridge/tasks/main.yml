@@ -1,0 +1,34 @@
+---
+
+- name: Create {{ matterbridge_path }} dir
+  file:
+    path: "{{ matterbridge_path }}"
+    state: directory
+
+- name: Template matterbridge config
+  template:
+    src: matterbridge.toml.j2
+    dest: "{{ matterbridge_path }}/matterbridge.toml"
+  notify: restart matterbridge
+
+- name: Deploy matterbridge
+  docker_container:
+    name: "{{ matterbridge_name }}"
+    image: "{{ matterbridge_image }}"
+    restart_policy: always
+    # Enable debug log output
+    entrypoint: '/bin/matterbridge -debug'
+    volumes:
+        - "{{ matterbridge_path }}/matterbridge.toml:/matterbridge.toml"
+  when: not matterbridge_debug
+
+- name: Deploy matterbridge with debug log output
+  docker_container:
+    name: "{{ matterbridge_name }}"
+    image: "{{ matterbridge_image }}"
+    restart_policy: always
+    # Enable debug log output
+    entrypoint: '/bin/matterbridge -debug'
+    volumes:
+        - "{{ matterbridge_path }}/matterbridge.toml:/matterbridge.toml"
+  when: matterbridge_debug

@@ -37,13 +37,23 @@ This deploys the website on a testing server. You can access it via [testing.pri
 1. edit your ssh-config file (`~/.ssh/config`) to add the hostname, your ssh key and the user
 2. `cd ansible && ansible-playbook --vault-id @prompt -i inventory/testing deploy-website.yml`
 
-## Adding SSH known hosts
+#### Deploying matterbridge
 
-1. Get an SSH fingerprint of local `known_hosts` file for a given hostname:
-`ssh-keygen -q -f ~/.ssh/known_hosts -F hostname`
+`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-matterbridge.yml`
 
-2. Add an SSH fingerprint line to the ansible `known_hosts` file:
-`ssh-keygen -q -f ~/.ssh/known_hosts -F hostname`
+It currently bridges PrivacyLx IRC <-> Matrix internal chat rooms. It can be
+extended to support more networks and bridges can be added by configuring
+`matterbridge/templates/matterbridge.toml.j2`.
+
+## Adding SSH fingerprints to known hosts
+
+1. Get an SSH fingerprint from a local `known_hosts` file for a given hostname
+   and IP:
+
+`ssh-keygen -q -f ~/.ssh/known_hosts -F hostname/IP -F $(dig +short A hostname)`
+
+2. Upon verifying add the SSH fingeprints one per line (or seraparated by comma
+   if is same host, see `ansible/ssh/known_hosts`).
 
 ## Naming convention
 

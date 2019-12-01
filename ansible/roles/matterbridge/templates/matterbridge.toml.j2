@@ -1,0 +1,49 @@
+# File managed by Ansible
+#####
+# Matterbridge configuration
+# WARNING: as this file contains credentials, be sure to set correct file permissions
+# https://github.com/42wim/matterbridge/wiki/How-to-create-your-config
+# https://github.com/42wim/matterbridge/wiki/Settings
+#####
+
+[matrix]
+    [matrix.matrixorg]
+    Server="https://matrix.org"
+    Login="{{ matterbridge_matrix_nick }}"
+    Password="{{ matterbridge_matrix_passwd }}"
+    RemoteNickFormat=" <{NICK}> "
+    #Whether to send the homeserver suffix. eg ":matrix.org" in @username:matrix.org
+    #to other bridges, or only send "username".(true only sends username)
+    NoHomeServerSuffix=true
+
+[irc]
+    [irc.oftc]
+{% if matterbridge_debug %}
+    debuglevel=1
+{% endif %}
+    Server="irc.oftc.net:6697"
+    Nick="{{ matterbridge_irc_nick }}"
+    RunCommands=["PRIVMSG nickserv :IDENTIFY {{ matterbridge_irc_passwd }} {{ matterbridge_irc_nick }}"]
+    UseTLS=true
+    SkipTLSVerify=false
+    RemoteNickFormat="<{NICK}> "
+    # ColorNicks will show each nickname in a different color.
+    # Only works in IRC right now.
+    ColorNick=true
+    # Split messages on MessageLength instead of showing the <message clipped>
+    # WARNING: this could lead to flooding
+    MessageSplit=true
+    #Enable to show users joins/parts from other bridges
+    #Currently works for messages from the following bridges: irc, mattermost, slack
+    #OPTIONAL (default false)
+    ShowJoinPart=true
+
+# This must always be [[gateway]], don't use anything else.
+[[gateway]]
+name="privacylx_gateway"
+enable=true
+inout = [
+    # IRC <-> Matrix bridge
+    { account="matrix.matrixorg", channel="#privacylx-internal:matrix.org" },
+    { account="irc.oftc", channel="#privacylx-internal", options={key="{{ matterbridge_oftc_key }}"}},
+]
