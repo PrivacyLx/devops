@@ -1,0 +1,5 @@
+---
+
+- name: Include Debian distribution tasks
+  include_tasks: debian.yml
+  when: ansible_distribution == 'Debian'

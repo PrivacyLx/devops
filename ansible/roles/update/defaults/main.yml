@@ -1,0 +1,54 @@
+---
+
+# Reboot system if reboot is required
+# Set to true to enable reboot
+#reboot_enabled: false
+
+#Unattended-Upgrade::MinimalSteps
+# Split the upgrade into the smallest possible chunks so that
+# they can be interrupted with SIGUSR1. This makes the upgrade
+# a bit slower but it has the benefit that shutdown while a upgrade
+# is running is possible (with a small delay)
+unattended_minimal_steps: true
+
+#Unattended-Upgrade::Mail
+# Send email to this address for problems or packages upgrades
+# If empty or unset then no email is sent, make sure that you
+# have a working mail setup on your system. A package that provides
+# 'mailx' must be installed.
+unattended_mail: true
+
+# Use apt bandwidth limit feature, this example limits the download speed to 70kb/sec
+unattended_dl_limit: 50
+
+# Enable logging to syslog. Default is False
+unattended_syslog: true
+
+#Unattended-Upgrade::MailOnlyOnError
+# Set this value to "true" to get emails only on errors. Default
+# is to always send a mail if Unattended-Upgrade::Mail is set
+unattended_mail_only_on_error: true
+
+#APT::Periodic::Update-Package-Lists "0";
+# - Do "apt-get update" automatically every n-days (0=disable)
+unattended_update_package_list: 1
+
+#APT::Periodic::Download-Upgradeable-Packages "0";
+# - Do "apt-get upgrade --download-only" every n-days (0=disable)
+unattended_download_upgradeable: 0
+
+#APT::Periodic::AutocleanInterval "0";
+# - Do "apt-get autoclean" every n-days (0=disable)
+unattended_autoclean_interval: 7
+
+#APT::Periodic::Verbose "0";
+# - Send report mail to root
+#     0:  no report             (or null string)
+#     1:  progress report       (actually any string)
+#     2:  + command outputs     (remove -qq, remove 2>/dev/null, add -d)
+#     3:  + trace on
+unattended_verbose: 1
+
+#APT::Periodic::CleanInterval "0";
+# - Do "apt-get clean" every n-days (0=disable)
+#unattended_clean_interval: 0

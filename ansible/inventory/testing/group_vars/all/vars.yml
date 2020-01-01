@@ -1,9 +1,9 @@
 # Minimun required Ansible version
 ansible_version_min: 2.8
 
-# PrivacyLx website
-website_host: testing.privacylx.org
+# Admin email address
+admin_email: admin@privacylx.org
 
-# Lets Encrypt
-le_email: admin@privacylx.org
+# Lets Encrypt email
+le_email: "{{ admin_email }}"
 le_staging: true
