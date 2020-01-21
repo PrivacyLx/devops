@@ -1,0 +1,41 @@
+---
+
+- name: Install sudo package
+  package:
+    name: sudo
+    state: latest
+
+- name: Add user groups
+  group:
+    name: "{{ item.value.login }}"
+    state: present
+  with_dict: "{{ adm_acct }}"
+  when: item.value.state == 'present'
+
+- name: Add/remove user accounts
+  user:
+    comment: "{{ item.value.comment }}"
+    group: "{{ item.value.login }}"
+    name: "{{ item.value.login }}"
+    password_lock: true
+    shell: /bin/bash
+    state: "{{ item.value.state }}"
+  with_dict: "{{ adm_acct }}"
+
+- name: Template sudoers.d/adm
+  template:
+    dest: /etc/sudoers.d/adm
+    group: root
+    mode: 0440
+    owner: root
+    src: sudoers.j2
+    validate: 'visudo -cf %s'
+
+- name: Add authorized SSH keys
+  authorized_key:
+    comment: "{{ adm_acct[item].comment }}"
+    exclusive: true
+    key: "{{ adm_acct[item].sshkey }}"
+    state: "{{ adm_acct[item].state }}"
+    user: "{{ adm_acct[item].login }}"
+  with_items: "{{ adm_logins }}"

@@ -45,6 +45,48 @@ It currently bridges PrivacyLx IRC <-> Matrix internal chat rooms. It can be
 extended to support more networks and bridges can be added by configuring
 `matterbridge/templates/matterbridge.toml.j2`.
 
+### Admin role
+
+This role is used to add/remove users, groups, permissions rights and access to
+hosts. You can deploy this role by running:
+
+`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-admin.yml`
+
+#### Add a user to all hosts
+
+In order to add a user to all the hosts managed by Ansible you need to add the
+user name (`login`), `comment`, `state` (`present` or `absent`) and the public
+SSH key (`sshkey`) of a specified user to `users.yml` inventory file.
+
+**The public SSH key should be entered in encrypted format by using the vault.**
+
+To generate the SSH public key you should use the `ansible-vault`
+(encryption/decryption utility for Ansible data files), an example command looks
+like:
+
+`ansible-vault encrypt_string --vault-id @prompt 'ssh-ed25519 XXX' --name sshkey`
+
+Example of `users.yml` that will add the user `exampleusr`:
+
+```
+adm_acct:
+  exampleusr
+    login: exampleusr
+    comment: 'This is an example user'
+    state: present
+    sshkey: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          8037128907389897892223332
+```
+
+#### Adding a user to the admin group
+
+Users (given that are previously added and `present` at a host) may be added in
+`adm_logins` (allowed to sudo).
+Example:
+
+`adm_logins: [ exampleusr1,exampleusr2 ]`
+
 ### Updates
 
 This role deploys unattended updates and updates all system packages in all hosts
