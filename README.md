@@ -37,13 +37,15 @@ This deploys the website on a testing server. You can access it via [testing.pri
 1. edit your ssh-config file (`~/.ssh/config`) to add the hostname, your ssh key and the user
 2. `cd ansible && ansible-playbook --vault-id @prompt -i inventory/testing deploy-website.yml`
 
-#### Deploying matterbridge
-
-`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-matterbridge.yml`
+### Matterbridge
 
 It currently bridges PrivacyLx IRC <-> Matrix internal chat rooms. It can be
 extended to support more networks and bridges can be added by configuring
 `matterbridge/templates/matterbridge.toml.j2`.
+
+#### Deploying matterbridge
+
+`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-matterbridge.yml`
 
 ### Admin role
 
@@ -99,7 +101,7 @@ and reboots the host if it's required (set `reboot_enabled` to `true`).
 Running the role with `reboot_enabled` will reboot a host that requires reboot
 after package upgrades:
 
-`cd ansible && ansible-playbook -i inventory/production deploy-update.yml --extra-vars=reboot_enabled=true`
+`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-update.yml --extra-vars=reboot_enabled=true`
 
 ## Adding SSH fingerprints to known hosts
 
