@@ -45,6 +45,20 @@ It currently bridges PrivacyLx IRC <-> Matrix internal chat rooms. It can be
 extended to support more networks and bridges can be added by configuring
 `matterbridge/templates/matterbridge.toml.j2`.
 
+### Updates
+
+This role deploys unattended updates and updates all system packages in all hosts
+and reboots the host if it's required (set `reboot_enabled` to `true`).
+
+#### Deploying updates
+
+`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-update.yml`
+
+Running the role with `reboot_enabled` will reboot a host that requires reboot
+after package upgrades:
+
+`cd ansible && ansible-playbook -i inventory/production deploy-update.yml --extra-vars=reboot_enabled=true`
+
 ## Adding SSH fingerprints to known hosts
 
 1. Get an SSH fingerprint from a local `known_hosts` file for a given hostname

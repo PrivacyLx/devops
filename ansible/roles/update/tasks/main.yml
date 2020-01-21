@@ -1,0 +1,9 @@
+---
+
+- fail:
+    msg: "The update role is only supported on Debian hosts"
+  when: ansible_distribution != 'Debian'
+
+- name: Include Debian distribution tasks
+  include_tasks: debian.yml
+  when: ansible_distribution == 'Debian'

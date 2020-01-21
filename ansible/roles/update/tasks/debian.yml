@@ -1,0 +1,47 @@
+---
+
+- name: Install unattended-upgrades
+  apt:
+    pkg: "unattended-upgrades"
+    state: present
+  when: not unattended_mail
+
+- name: Install unattended-upgrades and mail dependencies
+  apt:
+    pkg: [ "unattended-upgrades", "ssmtp" ]
+    state: present
+  when: unattended_mail
+
+- name: Create sSMTP (email) configuration
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/ssmtp/{{ item }}"
+    owner: root
+    group: root
+    mode: 0640
+  with_items:
+    - ssmtp.conf
+    - revaliases
+  when: unattended_mail
+
+- name: Create unattended-upgrades configuration
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/apt/apt.conf.d/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - 50unattended-upgrades
+    - 20auto-upgrades
+
+- name: Safe upgrade of all packages
+  apt:
+    upgrade: safe
+
+- name: Check if a reboot is required after upgrade
+  stat:
+    path: /var/run/reboot-required
+  register: reboot_required
+  notify: reboot
+  when: reboot_enabled|default(false)|bool == true
