@@ -52,7 +52,7 @@ and reboots the host if it's required (set `reboot_enabled` to `true`).
 
 #### Deploying updates
 
-`cd ansible && ansible-playbook -i inventory/production deploy-update.yml`
+`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-update.yml`
 
 Running the role with `reboot_enabled` will reboot a host that requires reboot
 after package upgrades:

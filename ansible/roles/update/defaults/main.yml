@@ -1,7 +1,14 @@
 ---
 
+# sSMTP rewrite domain
+ssmtp_rewrite: privacylx.org
+# sSMTP mailhub host
+ssmtp_mailhub: mail.privacylx.org
+# sSMTP host port
+ssmtp_port: 587
+
 # Reboot system if reboot is required
-# Set to true to enable reboot
+# Set to true to enable
 #reboot_enabled: false
 
 #Unattended-Upgrade::MinimalSteps
