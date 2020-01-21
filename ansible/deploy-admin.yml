@@ -1,0 +1,10 @@
+---
+
+- import_playbook: ansible-version.yml
+
+- name: "Run administration role"
+  hosts: all
+  become: true
+
+  roles:
+    - admin

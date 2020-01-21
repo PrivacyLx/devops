@@ -1,0 +1,4 @@
+# Managed by Ansibe
+{% for login in adm_logins %}
+{{ adm_acct[login].login }} ALL=(ALL:ALL) NOPASSWD: ALL
+{% endfor %}
