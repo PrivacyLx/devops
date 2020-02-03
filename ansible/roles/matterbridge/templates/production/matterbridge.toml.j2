@@ -38,6 +38,27 @@
     #OPTIONAL (default false)
     ShowJoinPart=true
 
+[rocketchat]
+    [rocketchat.d3]
+    #The rocketchat hostname. (prefix it with http or https)
+    Server="https://chat.direitosdigitais.pt:443"
+    #login/pass of your bot. (login needs to be the login with email address! user@domain.com)
+    #Use a dedicated user for this and not your own!
+    #IMPORTANT: User must be a bot
+    #PrefixMessagesWithNick will not work otherwise
+    Login="{{ rocketchat_d3_login }}"
+    Password="{{ rocketchat_d3_passwd }}"
+    #Whether to prefix messages from other bridges to rocketchat with the
+    #sender's nick. Useful if username overrides for incoming webhooks isn't
+    #enabled on the rocketchat server. If you set PrefixMessagesWithNick to
+    #true, each message from bridge to rocketchat will by default be prefixed by
+    #the RemoteNickFormat setting.
+    #If you're using login/pass you can better enable because of this bug:
+    #https://github.com/RocketChat/Rocket.Chat/issues/7549
+    #OPTIONAL (default false)
+    PrefixMessagesWithNick=true
+    RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
 # This must always be [[gateway]], don't use anything else.
 [[gateway]]
 name="privacylx_gateway"
@@ -46,4 +67,13 @@ inout = [
     # IRC <-> Matrix bridge
     { account="matrix.matrixorg", channel="#privacylx-internal:matrix.org" },
     { account="irc.oftc", channel="#privacylx-internal", options={key="{{ matterbridge_oftc_key }}"}},
+]
+
+[[gateway]]
+name="privacylx_pub_gateway"
+enable=true
+inout = [
+    # Matrix <-> Rocket.Chat bridge
+    { account="matrix.matrixorg", channel="#privacylx:matrix.org" },
+    { account="rocketchat.d3", channel="#privacylx" },
 ]

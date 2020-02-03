@@ -5,4 +5,4 @@ matterbridge_version: 1.16.3
 matterbridge_image: 42wim/matterbridge:{{ matterbridge_version }}
 matterbridge_name: privacylx-matterbridge
 # Set to true to enable debug logging
-matterbridge_debug: false
+#matterbridge_debug: true

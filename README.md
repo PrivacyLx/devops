@@ -113,6 +113,20 @@ after package upgrades:
 2. Upon verifying add the SSH fingeprints one per line (or seraparated by comma
    if is same host, see `ansible/ssh/known_hosts`).
 
+## Help
+
+Useful commands and documentation to help you debug and test roles.
+
+List almost all group/host variables:
+
+`ansible --vault-id @prompt -i inventory/testing -m debug group/host -a "var=vars"`
+
+### Docs
+
+- [Ansible Documentation: Playbook Filters](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html)
+- [Ansible Documentation: Using Variables]( https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
+- [Ansible Documentation: Special Variables](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html)
+
 ## Naming convention
 
 Server hostnames used from the list of
