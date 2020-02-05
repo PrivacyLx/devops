@@ -52,7 +52,7 @@ env:
 
   ## Uncomment if you want the container to be started with the same
   ## hostname (-h option) as specified above (default "$hostname-$config")
-  DOCKER_USE_HOSTNAME: true
+  DOCKER_USE_HOSTNAME: false
 
   ## TODO: List of comma delimited emails that will be made admin and developer
   ## on initial signup example 'user1@example.com,user2@example.com'
@@ -65,7 +65,7 @@ env:
   DISCOURSE_SMTP_PORT: {{ dis_smtp_port }}
   DISCOURSE_SMTP_USER_NAME: {{ dis_smtp_user }}
   DISCOURSE_SMTP_PASSWORD: {{ dis_smtp_pass }}
-  #DISCOURSE_SMTP_ENABLE_START_TLS: true           # (optional, default true)
+  DISCOURSE_SMTP_ENABLE_START_TLS: true
 
   ## If you added the Lets Encrypt template, uncomment below to get a free SSL certificate
   LETSENCRYPT_ACCOUNT_EMAIL: {{ dis_le_email }}
@@ -97,5 +97,5 @@ run:
   - exec: echo "Beginning of custom commands"
   ## If you want to set the 'From' email address for your first registration, uncomment and change:
   ## After getting the first signup email, re-comment the line. It only needs to run once.
-  - exec: rails r "SiteSetting.notification_email='{{ dis_smtp_user }}'"
+  #- exec: rails r "SiteSetting.notification_email='{{ dis_smtp_user }}'"
   - exec: echo "End of custom commands"
