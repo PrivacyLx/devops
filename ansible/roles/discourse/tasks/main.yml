@@ -19,20 +19,20 @@
 - name: Get Discourse container info
   docker_container_info:
     name: app
-  register: dis_ct
+  register: discourse_container
 
 - name: Print the status of the Discourse container
   debug:
-    msg: "The container status is {{ dis_ct.container.State.Status }}"
-  when: dis_ct.exists
+    msg: "The container status is {{ discourse_container.container.State.Status }}"
+  when: discourse_container.exists
 
 - name: (Re)build Discourse container configuration
   command: "{{ dis_path }}/launcher rebuild app"
-  when: not dis_ct.exists or dis_template.changed
+  when: not discourse_container.exists or dis_template.changed
 
-- name: Start Discourse container if it's not running
+- name: Start Discourse container if it's already exist but not running
   command: "{{ dis_path }}/launcher start app"
   when:
     - not dis_template.changed
-    - dis_ct.exists
-    - dis_ct.container.State.Status != 'running'
+    - discourse_container.exists
+    - discourse_container.container.State.Status != 'running'
