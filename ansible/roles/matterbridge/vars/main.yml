@@ -5,4 +5,6 @@ matterbridge_version: 1.16.3
 matterbridge_image: 42wim/matterbridge:{{ matterbridge_version }}
 matterbridge_name: privacylx-matterbridge
 # Set to true to enable debug logging
-#matterbridge_debug: true
+matterbridge_debug: false
+# Matterbridge config file template path
+matterbridge_template_path:  "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}"

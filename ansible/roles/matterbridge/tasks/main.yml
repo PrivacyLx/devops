@@ -5,9 +5,9 @@
     path: "{{ matterbridge_path }}"
     state: directory
 
-- name: Template matterbridge config
+- name: Template matterbridge config form PATH {{ matterbridge_template_path }}
   template:
-    src: "{{ inventory_dir | basename }}/matterbridge.toml.j2"
+    src: "{{ matterbridge_template_path }}//matterbridge.toml.j2"
     dest: "{{ matterbridge_path }}/matterbridge.toml"
   notify: restart matterbridge
 
@@ -16,7 +16,6 @@
     name: "{{ matterbridge_name }}"
     image: "{{ matterbridge_image }}"
     restart_policy: unless-stopped
-    # Enable debug log output
     entrypoint: '/bin/matterbridge'
     volumes:
         - "{{ matterbridge_path }}/matterbridge.toml:/matterbridge.toml:ro"

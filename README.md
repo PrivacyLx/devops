@@ -47,6 +47,9 @@ extended to support more networks and bridges can be added by configuring
 
 `cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-matterbridge.yml`
 
+**Note:** Matterbridge config (template) file `matterbridge.toml.j2` should
+placed under the `host_vars` directive for the specified host,
+
 ### Admin role
 
 This role is used to add/remove users, groups, permissions rights and access to
