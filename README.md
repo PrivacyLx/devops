@@ -47,6 +47,9 @@ extended to support more networks and bridges can be added by configuring
 
 `cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-matterbridge.yml`
 
+**Note:** Matterbridge config (template) file `matterbridge.toml.j2` should
+placed under the `host_vars` directive for the specified host,
+
 ### Admin role
 
 This role is used to add/remove users, groups, permissions rights and access to
@@ -112,6 +115,20 @@ after package upgrades:
 
 2. Upon verifying add the SSH fingeprints one per line (or seraparated by comma
    if is same host, see `ansible/ssh/known_hosts`).
+
+## Help
+
+Useful commands and documentation to help you debug and test roles.
+
+List almost all group/host variables:
+
+`ansible --vault-id @prompt -i inventory/testing -m debug group/host -a "var=vars"`
+
+### Docs
+
+- [Ansible Documentation: Playbook Filters](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html)
+- [Ansible Documentation: Using Variables]( https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
+- [Ansible Documentation: Special Variables](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html)
 
 ## Naming convention
 
