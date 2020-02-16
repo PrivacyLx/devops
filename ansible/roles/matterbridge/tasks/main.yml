@@ -5,7 +5,7 @@
     path: "{{ matterbridge_path }}"
     state: directory
 
-- name: Template matterbridge config from PATH: {{ matterbridge_template_path }}
+- name: "Template matterbridge config from PATH: {{ matterbridge_template_path }}"
   template:
     src: "{{ matterbridge_template_path }}//matterbridge.toml.j2"
     dest: "{{ matterbridge_path }}/matterbridge.toml"
