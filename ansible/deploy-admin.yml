@@ -4,7 +4,7 @@
 
 - name: "Run administration role"
   hosts: all
-  become: true
+  gather_facts: no
 
   roles:
     - admin

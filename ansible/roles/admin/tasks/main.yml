@@ -1,41 +1,63 @@
 ---
 
-- name: Install sudo package
-  package:
-    name: sudo
-    state: latest
+- name: "Set bootstrap user"
+  block:
+    - name: Test if we can connect
+      wait_for_connection:
+        timeout: 10
+      register: bootstrap_connect
+      changed_when: no
+      ignore_errors: yes
+  always:
+    - name: Set ansible_user
+      set_fact:
+        bootstrap_ansible_user: "{{ ansible_user | default(omit) if bootstrap_connect is succeeded else 'root' }}"
+      changed_when: no
 
-- name: Add user groups
-  group:
-    name: "{{ item.value.login }}"
-    state: present
-  with_dict: "{{ adm_acct }}"
-  when: item.value.state == 'present'
+- name: "Run role as user: {{ bootstrap_ansible_user }}"
+  block:
+    - name: Gather Ansible facts
+      setup:
 
-- name: Add/remove user accounts
-  user:
-    comment: "{{ item.value.comment }}"
-    group: "{{ item.value.login }}"
-    name: "{{ item.value.login }}"
-    password_lock: true
-    shell: /bin/bash
-    state: "{{ item.value.state }}"
-  with_dict: "{{ adm_acct }}"
+    - name: Install sudo package
+      package:
+        name: sudo
+        state: latest
 
-- name: Template sudoers.d/adm
-  template:
-    dest: /etc/sudoers.d/adm
-    group: root
-    mode: 0440
-    owner: root
-    src: sudoers.j2
-    validate: 'visudo -cf %s'
+    - name: Add user groups
+      group:
+        name: "{{ item.value.login }}"
+        state: present
+      with_dict: "{{ adm_acct }}"
+      when: item.value.state == 'present'
 
-- name: Add authorized SSH keys
-  authorized_key:
-    comment: "{{ adm_acct[item].comment }}"
-    exclusive: true
-    key: "{{ adm_acct[item].sshkey }}"
-    state: "{{ adm_acct[item].state }}"
-    user: "{{ adm_acct[item].login }}"
-  with_items: "{{ adm_logins }}"
+    - name: Add/remove user accounts
+      user:
+        comment: "{{ item.value.comment }}"
+        group: "{{ item.value.login }}"
+        name: "{{ item.value.login }}"
+        password_lock: true
+        shell: /bin/bash
+        state: "{{ item.value.state }}"
+      with_dict: "{{ adm_acct }}"
+
+    - name: Template sudoers.d/adm
+      template:
+        dest: /etc/sudoers.d/adm
+        group: root
+        mode: 0440
+        owner: root
+        src: sudoers.j2
+        validate: 'visudo -cf %s'
+
+    - name: Add authorized SSH keys
+      authorized_key:
+        comment: "{{ adm_acct[item].comment }}"
+        exclusive: true
+        key: "{{ adm_acct[item].sshkey }}"
+        state: "{{ adm_acct[item].state }}"
+        user: "{{ adm_acct[item].login }}"
+      with_items: "{{ adm_logins }}"
+  vars:
+    ansible_user: "{{ bootstrap_ansible_user | default(omit) }}"
+  become: true
