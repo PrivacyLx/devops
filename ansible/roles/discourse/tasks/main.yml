@@ -10,21 +10,23 @@
     repo: "{{ dis_git }}"
     dest: "{{ dis_path }}"
 
+- name: Get Discourse container info
+  docker_container_info:
+    name: app
+  register: discourse_container
+
 - name: Templates Discourse container configuration
   template:
     src: standalone.yml.j2
     dest: "{{ dis_path }}/containers/app.yml"
   register: dis_template
 
-- name: Get Discourse container info
-  docker_container_info:
-    name: app
-  register: discourse_container
-
 - name: Print the status of the Discourse container
   debug:
-    msg: "The container status is {{ discourse_container.container.State.Status }}"
-  when: discourse_container.exists
+    msg: "Container status: {{ discourse_container.container.State.Status }}"
+  when:
+    - discourse_container|bool
+    - discourse_container.exists
 
 - name: (Re)build Discourse container configuration
   command: "{{ dis_path }}/launcher rebuild app"

@@ -1,0 +1,16 @@
+# Login, SSH public key, comment and state of users with admins rights
+# State absent removes the user account
+adm_acct:
+  tester:
+    login: tester
+    comment: Testing present user
+    state: present
+    sshkey: "{{ m_ssh_key.public_key }}"
+  testuser1:
+    login: testuser1
+    comment: Testing absent user
+    state: absent
+    sshkey: "{{ m_ssh_key.public_key }}"
+
+# Users allowed to sudo adm group
+adm_logins: [tester]

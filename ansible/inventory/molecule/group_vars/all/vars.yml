@@ -1,0 +1,9 @@
+# Minimun required Ansible version
+ansible_version_min: 2.8
+
+# Admin email address
+admin_email: admin@example.org
+
+# Lets Encrypt email
+le_email: "{{ admin_email }}"
+le_staging: true
