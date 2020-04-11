@@ -14,7 +14,8 @@
     interval {{ caddy_git_interval }}
 {% endif %}
     repo {{ website_git }}
-    args --recursive
+    clone_args --recurse-submodules
+    pull_args --recurse-submodules -s recursive -X theirs
     path {{ website_docker_webroot }}
     then_long hugo --watch --destination={{ website_public }}
     }
