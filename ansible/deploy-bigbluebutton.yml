@@ -1,0 +1,11 @@
+---
+
+- import_playbook: ansible-version.yml
+
+- name: "Deploy a BigBlueButton server"
+  hosts: "{{ target if target is defined else 'bigbluebutton' }}"
+  become: true
+
+  roles:
+    - admin
+    - bigbluebutton

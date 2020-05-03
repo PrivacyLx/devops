@@ -1,0 +1,61 @@
+---
+
+galaxy_path: "{{ playbook_dir }}/roles.galaxy"
+#bbb_role_git: https://github.com/n0emis/ansible-role-bigbluebutton
+bbb_role_git: https://github.com/anadahz/ansible-role-bigbluebutton
+# Git commit of the bbb_role
+#bbb_role_ver: 2bc3004712be92ae248439bb93cb91313f530cc2
+bbb_role_ver: devel
+bbb_role: "{{ bbb_role_git | basename }}"
+nodejs_galaxy_role: geerlingguy.nodejs
+nodejs_role_ver: 5.1.1
+docker_galaxy_role: geerlingguy.docker
+docker_role_ver: 2.7.0
+pip_galaxy_role: geerlingguy.pip
+pip_role_ver: 1.3.0
+
+bbb_hostname: "{{ ansible_fqdn }}"
+bbb_letsencrypt_enable: yes
+bbb_letsencrypt_email: email@example.org
+bbb_coturn_enable: yes
+bbb_turn_enable: yes
+bbb_turn_server: "{{ bbb_hostname }}"
+bbb_greenlight_enable: yes
+bbb_nodejs_version: 8.x
+bbb_system_locale: en_US.UTF-8
+bbb_ssl_cert: "/etc/letsencrypt/live/{{ bbb_hostname }}/fullchain.pem"
+bbb_ssl_key: "/etc/letsencrypt/live/{{ bbb_hostname }}/privkey.pem"
+bbb_api_demos_enable: false
+bbb_disable_recordings: true
+# Greenlight registration mode: open (default), invite, approval
+bbb_greenlight_reg: approval
+# https://docs.bigbluebutton.org/2.2/troubleshooting.html#freeswitch-fails-to-start-with-a-setscheduler-error
+bbb_cpuschedule: false
+# https://docs.bigbluebutton.org/2.2/troubleshooting.html#freeswitch-fails-to-bind-to-port-8021
+bbb_freeswitch_ipv6: false
+
+# Set the following secrets to something in vault
+bbb_turn_secret: "{{ ansible_fqdn | uuid | password_hash('sha512') }}"
+bbb_greenlight_secret: "{{ ansible_fqdn | uuid | password_hash('sha512') }}"
+bbb_greenlight_db_password: "{{ ansible_fqdn | uuid | password_hash('sha512') }}"
+
+# https://github.com/geerlingguy/ansible-role-nodejs
+# User for whom the npm packages will be installed can be set here.
+# Defaults to ansible_useru
+nodejs_install_npm_user: root
+
+# The notifications are sent using sendmail, unless the
+# bbb_greenlight_smtp.server variable is set.
+# Default value:
+# bbb_greenlight_smtp.sender: "bbb@{{ bbb_hostname }}"
+# bbb_greenlight_smtp:
+#  server: mail.example.com
+#  port: 587
+#  domain: example.com
+#  username: youremail@example.com
+#  password: yourpassword
+#  auth: plain
+#  starttls_auto: true
+#  sender: youremail@example.com
+
+# Check rore docs for LDAP, GOOGLE_OAUTH2, OFFICE365 and reCaptcha config
