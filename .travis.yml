@@ -10,6 +10,8 @@ jobs:
   include:
   - name: "Testing ansible playbook `deploy-discourse.yml`"
     env: TEST_ROLE=discourse
+  - name: "Testing ansible playbook `deploy-matterbridge.yml`"
+    env: TEST_ROLE=matterbridge
 
 cache:
   directories:
