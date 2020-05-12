@@ -1,11 +1,9 @@
 ---
 
 galaxy_path: "{{ playbook_dir }}/roles.galaxy"
-#bbb_role_git: https://github.com/n0emis/ansible-role-bigbluebutton
-bbb_role_git: https://github.com/anadahz/ansible-role-bigbluebutton
-# Git commit of the bbb_role
-#bbb_role_ver: 2bc3004712be92ae248439bb93cb91313f530cc2
-bbb_role_ver: devel
+bbb_role_git: https://github.com/n0emis/ansible-role-bigbluebutton
+# Git commit or release version of bbb_role
+bbb_role_ver: c1ee16789742862c526b89b76446e4d89608a6a3
 bbb_role: "{{ bbb_role_git | basename }}"
 nodejs_galaxy_role: geerlingguy.nodejs
 nodejs_role_ver: 5.1.1
@@ -33,6 +31,11 @@ bbb_greenlight_reg: approval
 bbb_cpuschedule: false
 # https://docs.bigbluebutton.org/2.2/troubleshooting.html#freeswitch-fails-to-bind-to-port-8021
 bbb_freeswitch_ipv6: false
+# Log only nginx errors
+bbb_nginx_privacy: yes
+# Generate Diff-Hellmann for nginx
+bbb_nginx_dh: yes
+
 
 # Set the following secrets to something in vault
 bbb_turn_secret: "{{ ansible_fqdn | uuid | password_hash('sha512') }}"
