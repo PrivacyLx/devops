@@ -23,3 +23,5 @@ dis_le_email: le-mail@example.org
 # List of emails that will be made admin and developer.
 dis_developer_emails:
   - discourse@example.org
+#dis_plugins:
+#  - https://github.com/discourse/discourse-bbb.git

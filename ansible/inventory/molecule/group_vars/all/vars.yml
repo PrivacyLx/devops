@@ -7,3 +7,7 @@ admin_email: admin@example.org
 # Lets Encrypt email
 le_email: "{{ admin_email }}"
 le_staging: true
+
+# Discourse configuration
+dis_plugins:
+  - https://github.com/discourse/discourse-bbb.git
