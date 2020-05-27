@@ -16,3 +16,5 @@ dis_le_email: cafe-testing@privacylx.org
 dis_developer_emails:
   - cafe-testing@privacylx.org
 dis_version: tests-passed
+dis_plugins:
+  - https://github.com/discourse/discourse-bbb
