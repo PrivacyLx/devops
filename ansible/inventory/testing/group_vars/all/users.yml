@@ -112,4 +112,4 @@ adm_acct:
           3636
 
 # Users allowed to sudo adm group
-adm_logins: [ andz, core, kgallagher]
+adm_logins: [ andz, core, kgallagher ]
