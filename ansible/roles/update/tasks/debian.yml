@@ -14,7 +14,7 @@
   apt:
     pkg: [ "unattended-upgrades", "ssmtp" ]
     state: present
-  when: unattended_mail
+  when: unattended_mail | bool
 
 - name: Create sSMTP (email) configuration
   template:
@@ -26,7 +26,7 @@
   with_items:
     - ssmtp.conf
     - revaliases
-  when: unattended_mail
+  when: unattended_mail | bool
 
 - name: Create unattended-upgrades configuration
   template:
