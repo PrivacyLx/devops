@@ -130,12 +130,20 @@ List almost all group/host variables:
 
 ### Ansible vault
 
+#### Create encrypted strings
+
 Use `encrypt_string` to create encrypted variables to embed in inventory file:
 
 `ansible-vault encrypt_string --vault-id prompt --stdin-name 'variable_name'`
 
 **Note:** Do not press Enter after supplying the string. That will add a newline
 to the encrypted value.
+
+## View encrypted strings
+
+You can view the original value of an encrypted string by using the debug module:
+
+`ansible localhost -m debug -a var="variable_name" -e "@ansible/inventory/testing/group_vars/all/vars.yml" --vault-id prompt`
 
 ### Docs
 
