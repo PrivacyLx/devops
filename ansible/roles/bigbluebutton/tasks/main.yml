@@ -8,6 +8,12 @@
         {{ docker_galaxy_role }},{{ docker_role_ver }}
         {{ pip_galaxy_role }},{{ pip_role_ver }}
 
+- name: Create NodeJS npm user
+  user:
+    name: "{{ nodejs_install_npm_user }}"
+    create_home: false
+    comment: NodeJS npm user
+
 - name: Import BigBlueButton Ansible Galaxy role
   include_role:
     name: "{{ galaxy_path }}/{{ bbb_role }}"

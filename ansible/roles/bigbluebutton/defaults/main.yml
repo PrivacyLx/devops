@@ -2,109 +2,18 @@
 
 galaxy_path: "{{ playbook_dir }}/roles.galaxy"
 bbb_role_git: https://github.com/n0emis/ansible-role-bigbluebutton
-# Git commit or release version of bbb_role
+# Git commit or release version of bbb_role_git
 bbb_role_ver: 5f1e22498921e10f2c18bfb4a311aede18a2b62f
 bbb_role: "{{ bbb_role_git | basename }}"
+
 # https://github.com/geerlingguy/ansible-role-nodejs/releases
 nodejs_galaxy_role: geerlingguy.nodejs
 nodejs_role_ver: 5.1.1
+# User for whom the npm packages will be installed, defaults to ansible_user.
+nodejs_install_npm_user: npmuser
 # https://github.com/geerlingguy/ansible-role-docker/releases
 docker_galaxy_role: geerlingguy.docker
 docker_role_ver: 2.8.2
 # https://github.com/geerlingguy/ansible-role-pip/releases
 pip_galaxy_role: geerlingguy.pip
 pip_role_ver: 2.0.0
-
-bbb_hostname: "{{ ansible_fqdn }}"
-# Use latest to update BBB and present to keep currently installed version
-bbb_state: "latest"
-bbb_letsencrypt_enable: true
-bbb_letsencrypt_email: email@example.org
-bbb_nginx_privacy: true
-
-bbb_coturn_enable: true
-bbb_coturn_server: "{{ bbb_hostname }}"
-bbb_coturn_port: 3478
-bbb_coturn_port_tls: 3443
-
-bbb_turn_enable: true
-bbb_stun_servers:
-- server: "{{ bbb_hostname }}"
-bbb_ice_servers: []
-bbb_turn_servers:
-- server: "{{ bbb_hostname }}"
-  port: "{{ bbb_coturn_port }}"
-  secret: "{{ bbb_coturn_secret }}"
-  tls: false
-- server: "{{ bbb_hostname }}"
-  port: "{{ bbb_coturn_port_tls }}"
-  secret: "{{ bbb_coturn_secret }}"
-  tls: true
-
-bbb_greenlight_enable: true
-bbb_webhooks_enable: false
-bbb_allow_mail_notifications: true
-bbb_greenlight_hosts: "{{ bbb_hostname }}"
-bbb_disable_recordings: false
-bbb_api_demos_enable: false
-bbb_mute_on_start: false
-bbb_app_log_level: 'DEBUG'
-bbb_nodejs_version: 8.x
-bbb_cpuschedule: true
-bbb_freeswitch_ipv6: true
-bbb_freeswitch_external_ip: "stun:{{ (bbb_stun_servers | first).server }}"
-bbb_system_locale: en_US.UTF-8
-bbb_mongodb_version: 3.4
-
-bbb_ssl_cert: "/etc/letsencrypt/live/{{ bbb_hostname }}/fullchain.pem"
-bbb_ssl_key: "/etc/letsencrypt/live/{{ bbb_hostname }}/privkey.pem"
-
-# Available configuration options
-# https://github.com/bigbluebutton/bigbluebutton/blob/develop/bigbluebutton-html5/private/config/settings.yml
-bbb_meteor: {}
-
-bbb_dialplan_quality: "cdquality"
-bbb_dialplan_energy_level: 100
-bbb_dialplan_comfort_noise: 1400
-
-bbb_apt_mirror: "https://ubuntu.bigbluebutton.org"
-bbb_apt_key: 770C4267C5E63474D171B60937B5DD5EFAB46452
-
-bbb_api_demos_enable: false
-bbb_disable_recordings: true
-# Greenlight registration mode: open (default), invite, approval
-bbb_greenlight_default_registration: approval
-# https://docs.bigbluebutton.org/2.2/troubleshooting.html#freeswitch-fails-to-start-with-a-setscheduler-error
-bbb_cpuschedule: false
-# https://docs.bigbluebutton.org/2.2/troubleshooting.html#freeswitch-fails-to-bind-to-port-8021
-bbb_freeswitch_ipv6: false
-# Log only nginx errors
-# Generate Diff-Hellmann for nginx
-bbb_nginx_dh: yes
-
-# Set the following secrets to a sane secret string in vault
-bbb_coturn_secret: "{{ ansible_fqdn | uuid | password_hash('sha512') }}"
-bbb_turn_secret: "{{ ansible_fqdn | uuid | password_hash('sha512') }}"
-bbb_greenlight_secret: "{{ ansible_fqdn | uuid | password_hash('sha512') }}"
-bbb_greenlight_db_password: "{{ ansible_fqdn | uuid | password_hash('sha512') }}"
-
-# https://github.com/geerlingguy/ansible-role-nodejs
-# User for whom the npm packages will be installed can be set here.
-# Defaults to ansible_useru
-nodejs_install_npm_user: root
-
-# The notifications are sent using sendmail, unless the
-# bbb_greenlight_smtp.server variable is set.
-# Default value:
-# bbb_greenlight_smtp.sender: "bbb@{{ bbb_hostname }}"
-# bbb_greenlight_smtp:
-#  server: mail.example.com
-#  port: 587
-#  domain: example.com
-#  username: youremail@example.com
-#  password: yourpassword
-#  auth: plain
-#  starttls_auto: true
-#  sender: youremail@example.com
-
-# Check the docs for LDAP, GOOGLE_OAUTH2, OFFICE365 and reCaptcha configuration

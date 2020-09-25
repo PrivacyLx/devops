@@ -1,5 +1,20 @@
 bbb_hostname: "{{ inventory_hostname }}"
 bbb_letsencrypt_email: "{{ le_email }}"
+# Use latest to update BBB and present to keep currently installed version.
+bbb_state: "latest"
+bbb_api_demos_enable: false
+bbb_disable_recordings: true
+# Greenlight registration mode: open (default), invite, approval
+bbb_greenlight_default_registration: approval
+# https://docs.bigbluebutton.org/2.2/troubleshooting.html#freeswitch-fails-to-start-with-a-setscheduler-error
+bbb_cpuschedule: false
+# https://docs.bigbluebutton.org/2.2/troubleshooting.html#freeswitch-fails-to-bind-to-port-8021
+bbb_freeswitch_ipv6: false
+# Generate Diff-Hellmann for nginx
+bbb_nginx_dh: yes
+bbb_app_log_level: 'ERROR'
+
+# https://github.com/bigbluebutton/bigbluebutton/blob/develop/bigbluebutton-html5/private/config/settings.yml
 bbb_meteor:
   public:
     app:
