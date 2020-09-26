@@ -12,14 +12,14 @@ lint: |
 platforms:
   - name: ubuntu1604-instance
     box: generic/ubuntu1604
-    memory: 2000
-    cpus: 4
+    memory: 4000
+    cpus: 2
     groups:
       - bigbluebutton
   - name: ubuntu1804-instance
     box: generic/ubuntu1804
-    memory: 8000
-    cpus: 4
+    memory: 4000
+    cpus: 2
     groups:
       - bigbluebutton
 
