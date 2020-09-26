@@ -31,6 +31,7 @@
 - name: (Re)build Discourse container configuration
   command: "{{ dis_path }}/launcher rebuild app"
   when: not discourse_container.exists or dis_template.changed
+  no_log: True
 
 - name: Start Discourse container if it's already exist but not running
   command: "{{ dis_path }}/launcher start app"
