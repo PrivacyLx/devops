@@ -1,5 +1,5 @@
 # Minimun required Ansible version
-ansible_version_min: 2.8
+ansible_version_min: 2.10.1
 
 # Admin email address
 admin_email: admin@privacylx.org
