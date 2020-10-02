@@ -2,7 +2,7 @@
 
 - name: Install BigBlueButton dependencies via Ansible Galaxy
   local_action: |
-    command ansible-galaxy install --roles-path {{ galaxy_path }}
+    command ansible-galaxy install --force --roles-path {{ galaxy_path }}
         git+{{ bbb_role_git }},{{ bbb_role_ver }}
         {{ nodejs_galaxy_role }},{{ nodejs_role_ver }}
         {{ docker_galaxy_role }},{{ docker_role_ver }}
@@ -13,6 +13,7 @@
     name: "{{ nodejs_install_npm_user }}"
     create_home: false
     comment: NodeJS npm user
+
 
 - name: Import BigBlueButton Ansible Galaxy role
   include_role:
@@ -26,7 +27,6 @@
   delegate_to: localhost
 
 - name: Create Greenlight admin user
-  command:
-    cmd: |
-      docker exec greenlight-v2 bundle exec rake
-      user:create['{{ bbb_adm.name }}','{{ bbb_adm.email }}','{{ bbb_adm.pass }}','admin']
+  command: >-
+      docker exec greenlight-v2 bundle exec rake user:create
+      ['{{ bbb_adm.name }}','{{ bbb_adm.email }}','{{ bbb_adm.pass }}','admin']

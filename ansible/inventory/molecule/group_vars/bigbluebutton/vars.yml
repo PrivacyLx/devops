@@ -1,4 +1,5 @@
-bbb_letsencrypt_email: "{{ le_email }}"
+bbb_letsencrypt_enable: false
+bbb_letsencrypt_email: mail@example.com
 # Use latest to update BBB and present to keep currently installed version.
 bbb_state: "latest"
 bbb_api_demos_enable: false
@@ -17,7 +18,7 @@ bbb_app_log_level: 'ERROR'
 bbb_meteor:
   public:
     app:
-      clientTitle: "PrivacyLX - BigBlueButton"
+      clientTitle: "Molecule - BigBlueButton"
       helpLink: "https://privacylx.org/community/"
       mirrorOwnWebcam: true
     kurento:
@@ -61,6 +62,6 @@ bbb_greenlight_secret: "{{ lookup('password', '/tmp/passwordfile length=80') }}"
 bbb_greenlight_db_password: "{{ lookup('password', '/tmp/passwordfile length=80') }}"
 # BigBlueButton admin user
 bbb_adm:
-    name: Admin User
-    email: admin.test.usr@localhost
+    name: Admin Test User
+    email: admintestusr@example.org
     pass: "{{ lookup('password', '/tmp/passwordfile length=80') }}"

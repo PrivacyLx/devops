@@ -139,7 +139,7 @@ Use `encrypt_string` to create encrypted variables to embed in inventory file:
 **Note:** Do not press Enter after supplying the string. That will add a newline
 to the encrypted value.
 
-## View encrypted strings
+#### View encrypted strings
 
 You can view the original value of an encrypted string by using the debug module:
 

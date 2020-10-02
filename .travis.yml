@@ -1,10 +1,8 @@
 ---
 
-os: linux
 dist: bionic
 language: python
-python:
-  - "3.7"
+python: "3.8"
 
 jobs:
   include:
@@ -18,35 +16,15 @@ cache:
     - /home/travis/.vagrant.d/boxes
     - /home/travis/.cache/pipenv
 
-before_install:
-  # Install libvirt, travis and KVM
-  # https://github.com/alvistack/ansible-role-virtualbox/blob/master/.travis.yml
-  - |
-    curl -Os https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_x86_64.deb
-    curl -Os https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_SHA256SUMS
-    curl -Os https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_SHA256SUMS.sig
-    gpg --receive-key 51852D87348FFC4C
-    gpg --verify vagrant_2.2.7_SHA256SUMS.sig vagrant_2.2.7_SHA256SUMS
-    sha256sum -c vagrant_2.2.7_SHA256SUMS 2>&1 | grep OK
-    sudo apt-get -qq update
-    sudo apt-get -qq install bridge-utils dnsmasq-base ebtables libvirt-bin \
-        libvirt-dev qemu-kvm qemu-utils ruby-dev
-    sudo dpkg -i vagrant_2.2.7_x86_64.deb
-    sudo vagrant plugin install vagrant-libvirt
-    sudo vagrant plugin list
-    rm -rf vagrant_2.2.7_*
-  # pipenv installation
-  # https://github.com/jonashackt/molecule-ansible-docker-aws/blob/master/.travis.yml
-  - |
-    sudo apt-get -qq install python3.7
-    curl -skL https://bootstrap.pypa.io/get-pip.py | sudo -H python3.7
-    sudo -H pip3 install pipenv
-    sudo -H pipenv install
+install:
+  - cd ci && ./install.sh
 
 script:
-  - |
-    cd ansible/roles/$TEST_ROLE
-    sudo -E pipenv run molecule lint
-    sudo -E pipenv run molecule syntax
-    travis_wait 30 sudo -E pipenv run molecule converge
-    travis_wait 30 sudo -E pipenv run molecule idempotence
+  - cd ${TRAVIS_BUILD_DIR}/ansible/roles/$TEST_ROLE
+    # Workaround: file owner (travis) does not match current user (root)
+    # (/home/travis/.netrc,", "line 3)
+  - sudo chown -R root:root /home/travis/.netrc
+  - sudo -E pipenv run molecule lint
+  - sudo -E pipenv run molecule syntax
+  - travis_wait 30 sudo -E pipenv run molecule converge
+  - travis_wait 30 sudo -E pipenv run molecule idempotence
