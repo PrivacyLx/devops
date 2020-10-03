@@ -21,9 +21,6 @@ install:
 
 script:
   - cd ${TRAVIS_BUILD_DIR}/ansible/roles/$TEST_ROLE
-    # Workaround: file owner (travis) does not match current user (root)
-    # (/home/travis/.netrc,", "line 3)
-  - sudo chown -R root:root /home/travis/.netrc
   - sudo -E pipenv run molecule lint
   - sudo -E pipenv run molecule syntax
   - travis_wait 30 sudo -E pipenv run molecule converge
