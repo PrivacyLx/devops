@@ -1,31 +1,35 @@
 ---
 
-- name: check for mailcow updates
+# exit codes => 0: update available, 3: no updates
+- name: run mailcow update script
   command: "./update.sh --check"
   args:
     chdir: "{{ mc_install_dir }}"
   register: check_updates
   failed_when: check_updates.rc == 1
 
-- name: no updates available
+- name: check if no updates are available
   debug:
     msg: 'No Mailcow updates available'
-  when:  check_updates.rc  == 3
+  when: check_updates.rc == 3
 
-# exit codes => 0: update available, 3: no updates
-- name: updating...
-  expect:
-    echo: yes
+- name: prefetch new images
+  command: "./update.sh --prefetch"
+  args:
     chdir: "{{ mc_install_dir }}"
-    command: "./update.sh --ours"
-    timeout: null
-    responses:
-      (.*)Are you sure you want to update mailcow(.*): "y"
-      (.*)Do you want to delete old image tags right now(.*): "y"
-      (.*)Press any key to continue(.*): "0"
   when: check_updates.rc  == 0
-  register: expect_update_result
-  until: "expect_update_result.stdout.find('cleanup further garbage collected')"
-  retries: 1
-  delay: 3
-  failed_when: "expect_update_result.rc != 0 or expect_update_result.rc != 3"
+
+- name: update mailcow
+  command: "./update.sh --force"
+  args:
+    chdir: "{{ mc_install_dir }}"
+  when: check_updates.rc  == 0
+  notify:
+    - docker-compose up
+
+- name: Send update messages to syslog
+  syslogger:
+    ident: "Mailcow Updater"
+    msg: "{{ expect_update_result.stdout }}"
+    log_pid: true
+  when: check_updates.rc  == 0

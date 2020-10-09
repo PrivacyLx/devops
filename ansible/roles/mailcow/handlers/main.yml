@@ -18,3 +18,8 @@
   service:
     name: cron
     state: restarted
+
+- name: docker-compose up
+  docker_service:
+    project_src: "{{ mc_install_dir }}"
+    state: present

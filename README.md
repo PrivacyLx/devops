@@ -22,6 +22,12 @@ It is assumed that you have a GNU/Linux environment
 
 `cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-mailserver.yml`
 
+#### Update mailserver
+
+Run only the update task:
+
+`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-mailserver.yml --tags update`
+
 ### Website
 
 Deployment and testing of our website: [privacylx.org](https://privacylx.org)

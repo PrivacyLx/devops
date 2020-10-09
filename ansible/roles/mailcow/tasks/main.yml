@@ -21,6 +21,7 @@
   stat:
     path: "{{ mc_install_dir }}/mailcow.conf"
   register: mc_conf
+  tags: update
 
 - name: Installs mailcow
   include_tasks: install-mailcow.yml
@@ -46,7 +47,7 @@
   include_tasks: check-dns.yml
   when: mc_dns_check == true
 
-- name: Checks for updates
+- name: Updates mailcow
   import_tasks: update-mailcow.yml
-  when: mc_check_updates|default(true)|bool == true and mc_conf.stat.exists == false
+  when: mc_check_updates and mc_conf.stat.exists
   tags: update
