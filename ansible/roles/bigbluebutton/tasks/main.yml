@@ -1,6 +1,7 @@
 ---
 
 - name: Install BigBlueButton dependencies via Ansible Galaxy
+  become: no
   local_action: |
     command ansible-galaxy install --force --roles-path {{ galaxy_path }}
         git+{{ bbb_role_git }},{{ bbb_role_ver }}
@@ -13,7 +14,6 @@
     name: "{{ nodejs_install_npm_user }}"
     create_home: false
     comment: NodeJS npm user
-
 
 - name: Import BigBlueButton Ansible Galaxy role
   include_role:
