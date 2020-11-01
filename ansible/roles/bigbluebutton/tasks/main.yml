@@ -16,7 +16,7 @@
     comment: NodeJS npm user
 
 - name: Import BigBlueButton Ansible Galaxy role
-  include_role:
+  import_role:
     name: "{{ galaxy_path }}/{{ bbb_role }}"
   vars:
     playbook_dir: "{{ galaxy_path }}"
