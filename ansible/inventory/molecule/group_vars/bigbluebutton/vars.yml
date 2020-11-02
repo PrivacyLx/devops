@@ -64,4 +64,4 @@ bbb_greenlight_db_password: "{{ lookup('password', '/tmp/passwordfile length=80'
 bbb_adm:
     name: Admin Test User
     email: admintestusr@example.org
-    pass: "{{ lookup('password', '/tmp/passwordfile length=80 chars=ascii_letters,digits') }}"
+    pass: "{{ lookup('password', '/tmp/passwordfile length=30 chars=ascii_letters') }}"
