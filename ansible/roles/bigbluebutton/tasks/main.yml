@@ -18,6 +18,9 @@
 - name: Import BigBlueButton Ansible Galaxy role
   include_role:
     name: "{{ galaxy_path }}/{{ bbb_role }}"
+    public: yes
+  vars:
+    playbook_dir: "{{ galaxy_path }}"
 
 - name: Wait for 60 seconds - Greenlight DB init
   wait_for:
