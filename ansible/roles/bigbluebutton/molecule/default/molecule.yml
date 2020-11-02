@@ -16,12 +16,6 @@ platforms:
     cpus: 2
     groups:
       - bigbluebutton
-  - name: ubuntu1804-instance
-    box: generic/ubuntu1804
-    memory: 4000
-    cpus: 2
-    groups:
-      - bigbluebutton
 
 provisioner:
   name: ansible
