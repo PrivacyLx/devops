@@ -16,10 +16,8 @@
     comment: NodeJS npm user
 
 - name: Import BigBlueButton Ansible Galaxy role
-  import_role:
+  include_role:
     name: "{{ galaxy_path }}/{{ bbb_role }}"
-  vars:
-    playbook_dir: "{{ galaxy_path }}"
 
 - name: Wait for 60 seconds - Greenlight DB init
   wait_for:
