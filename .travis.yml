@@ -10,6 +10,8 @@ jobs:
     env: TEST_ROLE=discourse
   - name: "Testing ansible playbook `deploy-bigbluebutton.yml`"
     env: TEST_ROLE=bigbluebutton
+  - name: "Testing ansible playbook `deploy-matterbridge.yml`"
+    env: TEST_ROLE=matterbridge
 
 cache:
   directories:

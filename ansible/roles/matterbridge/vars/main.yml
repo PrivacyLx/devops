@@ -2,9 +2,9 @@
 
 matterbridge_path: /etc/matterbridge
 matterbridge_version: 1.16.3
-matterbridge_image: 42wim/matterbridge:{{ matterbridge_version }}
+matterbridge_image: "42wim/matterbridge:{{ matterbridge_version }}"
 matterbridge_name: privacylx-matterbridge
 # Set to true to enable debug logging
 matterbridge_debug: false
 # Matterbridge config file template path
-matterbridge_template_path:  "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}"
+matterbridge_t_path: "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}"
