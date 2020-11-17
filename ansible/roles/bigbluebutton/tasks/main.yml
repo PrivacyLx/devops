@@ -3,7 +3,7 @@
 - name: Install BigBlueButton dependencies via Ansible Galaxy
   become: no
   local_action: |
-    command ansible-galaxy install --force --roles-path {{ galaxy_path }}
+    command ansible-galaxy install --roles-path {{ galaxy_path }}
         git+{{ bbb_role_git }},{{ bbb_role_ver }}
         {{ nodejs_galaxy_role }},{{ nodejs_role_ver }}
         {{ docker_galaxy_role }},{{ docker_role_ver }}
@@ -22,9 +22,9 @@
   vars:
     playbook_dir: "{{ galaxy_path }}/{{ bbb_role }}"
 
-- name: Wait for 60 seconds - Greenlight DB init
+- name: Wait for 20 seconds for Greenlight DB to initialize
   wait_for:
-    timeout: 60
+    timeout: 20
   delegate_to: localhost
 
   # https://docs.bigbluebutton.org/greenlight/gl-admin.html#creating-an-administrator-account
