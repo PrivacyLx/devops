@@ -33,4 +33,4 @@
     docker exec greenlight-v2 bundle exec rake
     user:create['{{ bbb_adm.name }}','{{ bbb_adm.email }}','{{ bbb_adm.pass }}','admin']
   # TODO: Make this task idempotent by checking if the user exists
-  changed_when: "'molecule-idempotence-notest' not in ansible_skip_tags"
+  tags: molecule-idempotence-notest
