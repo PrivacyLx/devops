@@ -1,10 +1,10 @@
 ---
 
 galaxy_path: "{{ playbook_dir }}/roles.galaxy"
-bbb_role_git: https://github.com/n0emis/ansible-role-bigbluebutton
 # Git commit or release version of bbb_role_git
 bbb_role_ver: 5f1e22498921e10f2c18bfb4a311aede18a2b62f
-bbb_role: "{{ bbb_role_git | basename }}"
+# https://github.com/n0emis/ansible-role-bigbluebutton
+bbb_galaxy_role: n0emis.bigbluebutton
 
 # https://github.com/geerlingguy/ansible-role-nodejs/releases
 nodejs_galaxy_role: geerlingguy.nodejs

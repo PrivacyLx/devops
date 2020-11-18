@@ -5,8 +5,6 @@
 - name: "Deploy a BigBlueButton server"
   hosts: "{{ target if target is defined else 'bigbluebutton' }}"
   become: true
-  # TODO: Make this role idempotent
-  changed_when: "'molecule-idempotence-notest' not in ansible_skip_tags"
 
   roles:
     - bigbluebutton
