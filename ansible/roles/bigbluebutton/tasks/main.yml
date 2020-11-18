@@ -3,12 +3,11 @@
 - name: Install BigBlueButton dependencies via Ansible Galaxy
   become: no
   local_action: |
-    command ansible-galaxy install --roles-path {{ galaxy_path }}
+    command ansible-galaxy install --force --roles-path {{ galaxy_path }}
         git+{{ bbb_role_git }},{{ bbb_role_ver }}
         {{ nodejs_galaxy_role }},{{ nodejs_role_ver }}
         {{ docker_galaxy_role }},{{ docker_role_ver }}
         {{ pip_galaxy_role }},{{ pip_role_ver }}
-  changed_when: "'molecule-idempotence-notest' not in ansible_skip_tags"
 
 - name: Create NodeJS npm user
   user:
@@ -35,5 +34,3 @@
   command: >
     docker exec greenlight-v2 bundle exec rake
     user:create['{{ bbb_adm.name }}','{{ bbb_adm.email }}','{{ bbb_adm.pass }}','admin']
-  # TODO: Make this task idempotent by checking if the user exists
-  changed_when: "'molecule-idempotence-notest' not in ansible_skip_tags"
