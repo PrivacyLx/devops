@@ -94,6 +94,11 @@ hooks:
 {% for plugin in dis_plugins %}
           - git clone {{ plugin }}
 {% endfor %}
+    - exec:
+        cd: $home
+        cmd:
+          - git fetch --depth=1 origin tag {{ dis_version }} --no-tags
+          - git checkout {{ dis_version }}
 
 ## Any custom commands to run after building
 run:
