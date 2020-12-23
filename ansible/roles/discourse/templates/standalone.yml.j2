@@ -35,8 +35,10 @@ params:
   ## can improve sorting performance, but adds memory usage per-connection
   #db_work_mem: "40MB"
 
+  # BUG: This may not have the advertised effect
+  # See: https://github.com/discourse/discourse_docker/pull/499
   ## Which Git revision should this container use? (default: tests-passed)
-  version: {{ dis_version }}
+  #version: {{ dis_version }}
 
 env:
   LANG: {{ dis_lang }}
