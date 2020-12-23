@@ -9,10 +9,12 @@
   args:
     creates: "{{ galaxy_path }}/{{ item.name }}"
   with_items:
+    # yamllint disable rule:braces
     - { name: "{{ bbb_galaxy_role }}", version: "{{ bbb_role_ver }}" }
     - { name: "{{ nodejs_galaxy_role }}", version: "{{ nodejs_role_ver }}" }
     - { name: "{{ docker_galaxy_role }}", version: "{{ docker_role_ver }}" }
     - { name: "{{ pip_galaxy_role }}", version: "{{ pip_role_ver }}" }
+    # yamllint disable rule:braces
 
 - name: Create NodeJS npm user
   user:
@@ -35,8 +37,10 @@
   # https://docs.bigbluebutton.org/greenlight/gl-admin.html#creating-an-administrator-account
 - name: Create Greenlight admin user
   # https://yamllint.readthedocs.io/en/stable/disable_with_comments.html
+  # yamllint disable rule:line-length
   command: >
     docker exec greenlight-v2 bundle exec rake
-    user:create['{{ bbb_adm.name }}','{{ bbb_adm.email }}','{{ bbb_adm.pass }}','admin'] # yamllint disable-line rule:line-length
+    user:create['{{ bbb_adm.name }}','{{ bbb_adm.email }}','{{ bbb_adm.pass }}','admin']
+  # yamllint enable rule:line-length
   # TODO: Make this task idempotent by checking if the user exists
-  changed_when: "'molecule-idempotence-notest' not in ansible_skip_tags"
+  tags: molecule-idempotence-notest
