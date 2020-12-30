@@ -7,4 +7,5 @@
   become: true
 
   roles:
-    - bigbluebutton
+    - role: bigbluebutton
+      tags: molecule-idempotence-notest

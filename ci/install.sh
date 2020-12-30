@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Vagrant version
-export vg_ver="2.2.10"
+export vg_ver="2.2.14"
 export python_ver="${TRAVIS_PYTHON_VERSION}"
 
 # Install libvirt, travis and KVM
