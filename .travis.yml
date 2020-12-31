@@ -8,10 +8,8 @@ python:
 
 jobs:
   include:
-  - name: "Testing ansible playbook `deploy-discourse.yml`"
-    env: TEST_ROLE=discourse
-  - name: "Testing ansible playbook `deploy-matterbridge.yml`"
-    env: TEST_ROLE=matterbridge
+  - name: "Testing ansible playbook `deploy-update.yml`"
+    env: TEST_ROLE=update
 
 cache:
   directories:
