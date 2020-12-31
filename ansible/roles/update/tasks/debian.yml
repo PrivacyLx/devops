@@ -2,6 +2,7 @@
 
 - name: Safe upgrade of all packages
   apt:
+    cache_valid_time: "{{ apt_cache_time }}"
     upgrade: safe
 
 - name: Install unattended-upgrades
