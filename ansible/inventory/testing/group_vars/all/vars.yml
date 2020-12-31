@@ -28,7 +28,5 @@ sysupdate_email_pwd: !vault |
           62346361373962336637666261313639353334656536356139633639346537643063663632653763
           3532
 
-# sSMTP rewrite domain
-ssmtp_rewrite: privacylx.org
-# sSMTP mailhub host
-ssmtp_mailhub: mail.privacylx.org
+# msmtp host
+msmtp_host: mail.privacylx.org

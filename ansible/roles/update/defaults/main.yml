@@ -1,11 +1,17 @@
 ---
 
-# sSMTP rewrite domain
-ssmtp_rewrite: privacylx.org
-# sSMTP mailhub host
-ssmtp_mailhub: mail.privacylx.org
-# sSMTP host port
-ssmtp_port: 587
+# Update the apt cache if its older (in seconds)
+apt_cache_time: 43200
+
+# msmtp config file
+msmtp_conf: msmtprc
+msmtp_conf_path: "/etc/{{ msmtp_conf }}"
+# Command to check msmtp configuration
+msmtp_conf_check: '/usr/bin/msmtp -P'
+# msmtp host
+msmtp_host: mail.example.org
+# msmtp host port
+msmtp_port: 587
 
 # Reboot system if reboot is required
 # Set to true to enable
@@ -25,8 +31,8 @@ unattended_minimal_steps: true
 # 'mailx' must be installed.
 unattended_mail: true
 
-# Use apt bandwidth limit feature, this example limits the download speed to 70kb/sec
-unattended_dl_limit: 50
+# Use apt bandwidth limit feature, limits download speed to 200kb/sec
+unattended_dl_limit: 200
 
 # Enable logging to syslog. Default is False
 unattended_syslog: true
@@ -59,6 +65,3 @@ unattended_verbose: 1
 #APT::Periodic::CleanInterval "0";
 # - Do "apt-get clean" every n-days (0=disable)
 #unattended_clean_interval: 0
-
-# Update the apt cache if its older (in seconds)
-apt_cache_time: 43200

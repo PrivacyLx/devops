@@ -11,22 +11,27 @@
     state: present
   when: not unattended_mail
 
+- name: Remove ssmtp package
+  apt:
+    pkg: ssmtp
+    state: absent
+    purge: yes
+
 - name: Install unattended-upgrades and mail dependencies
   apt:
-    pkg: [ "unattended-upgrades", "ssmtp" ]
+    pkg: [ "unattended-upgrades", "msmtp-mta" ]
     state: present
   when: unattended_mail | bool
 
-- name: Create sSMTP (email) configuration
+- name: Create msmtp (email) configuration
   template:
-    src: "{{ item }}.j2"
-    dest: "/etc/ssmtp/{{ item }}"
+    src: "{{ msmtp_conf }}.j2"
+    dest: "{{ msmtp_conf_path }}"
     owner: root
     group: root
-    mode: 0640
-  with_items:
-    - ssmtp.conf
-    - revaliases
+    mode: 0644
+  # TODO check msmtp hanging for user prompt?
+  #notify: check msmtp config
   when: unattended_mail | bool
 
 - name: Create unattended-upgrades configuration
