@@ -19,7 +19,7 @@
 
 - name: Install unattended-upgrades and mail dependencies
   apt:
-    pkg: [ "unattended-upgrades", "msmtp-mta" ]
+    pkg: ["unattended-upgrades", "msmtp-mta"]
     state: present
   when: unattended_mail | bool
 
