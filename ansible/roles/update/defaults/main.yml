@@ -12,6 +12,12 @@ msmtp_conf_check: '/usr/bin/msmtp -P'
 msmtp_host: mail.example.org
 # msmtp host port
 msmtp_port: 587
+# msmtp email user
+sysupdate_email: user@example.org
+# msmtp email password
+sysupdate_email_pwd: "{{ lookup('password', '/dev/null length=70') }}"
+# msmtp From address
+msmtp_from: "{{ sysupdate_email }}"
 
 # Reboot system if reboot is required
 # Set to true to enable

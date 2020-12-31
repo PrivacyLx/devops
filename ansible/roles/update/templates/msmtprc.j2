@@ -3,7 +3,7 @@
 account {{ msmtp_host }}
 host {{ msmtp_host }}
 port {{ msmtp_port }}
-from {{ sysupdate_email }}
+from {{ msmtp_from }}
 user {{ sysupdate_email }}
 password {{ sysupdate_email_pwd }}
 tls on
