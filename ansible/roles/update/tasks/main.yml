@@ -9,5 +9,4 @@
 - name: Include Debian/Ubuntu distribution tasks
   include_tasks: debian.yml
   when:
-    - ansible_distribution == 'Debian'
-    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
