@@ -42,7 +42,7 @@
     group: root
     mode: 0644
   with_items:
-    - 50unattended-upgrades
+    - 52unattended-upgrades
     - 20auto-upgrades
 
 - name: Check if a reboot is required after upgrade

@@ -1,4 +1,8 @@
-APT::Periodic::Unattended-Upgrade "1";
+// {ansible_managed}
+
+{% if unattended_upgrade_interval is defined %}
+APT::Periodic::Unattended-Upgrade "{{ unattended_upgrade_interval }}";
+{% endif %}
 
 {% if unattended_update_package_list is defined %}
 APT::Periodic::Update-Package-Lists "{{unattended_update_package_list}}";

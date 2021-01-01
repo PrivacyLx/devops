@@ -10,6 +10,8 @@ lint: |
   yamllint .
 
 platforms:
+  - name: ubuntu1604-instance
+    box: generic/ubuntu1604
   - name: debian9-instance
     box: generic/debian10
   - name: debian10-instance
