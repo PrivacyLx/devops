@@ -1,3 +1,5 @@
+---
+
 - name: Installs DNS check dependencies
   package:
     name: dnsutils
@@ -28,9 +30,9 @@
 
 - name: Fails if {{ mc_domain }} MX record is not {{ mc_fqdn }}
   fail:
-     msg: >-
-       The MX record of {{ mc_domain }} should have the following DNS entry:
-         10 {{ mc_fqdn }}."
+    msg: >-
+      The MX record of {{ mc_domain }} should have the following DNS entry:
+        10 {{ mc_fqdn }}.
   when: mx_hostname_dig_ip.stdout != '10 {{ mc_fqdn }}.'
 
 - name: Checks the IP address of autodiscover.{{ mc_fqdn }}
