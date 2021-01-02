@@ -13,7 +13,7 @@ nodejs_role_ver: 5.1.1
 nodejs_install_npm_user: npmuser
 # https://github.com/geerlingguy/ansible-role-docker/releases
 docker_galaxy_role: geerlingguy.docker
-docker_role_ver: 2.8.2
+docker_role_ver: 3.0.0
 # https://github.com/geerlingguy/ansible-role-pip/releases
 pip_galaxy_role: geerlingguy.pip
 pip_role_ver: 2.0.0

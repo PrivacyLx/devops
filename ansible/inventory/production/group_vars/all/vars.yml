@@ -1,6 +1,3 @@
-# Minimun required Ansible version
-ansible_version_min: 2.10.0
-
 # PrivacyLx website
 website_host: privacylx.org
 
