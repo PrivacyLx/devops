@@ -12,12 +12,13 @@ mc_git_repo: https://github.com/mailcow/mailcow-dockerized
 # Specific version of mailcow git repository; commit, branch name or tag
 mc_git_version: master
 
-mc_min_memory: 1500 # in MB
+# RAM in MB
+mc_min_memory: 1500
 mc_ip: "{{ ansible_default_ipv4.address }}"
 mc_install_dir: /opt/mailcow-dockerized
 mc_dbname: mailcow
-mc_dbpass: "{{ lookup('password', '/dev/null length=68 chars=ascii_letters,digits') }}"
-mc_dbroot: "{{ lookup('password', '/dev/null length=70 chars=ascii_letters,digits') }}"
+mc_dbpass: "{{ lookup('password', 'length=68 chars=ascii_letters,digits') }}"
+mc_dbroot: "{{ lookup('password', 'length=70 chars=ascii_letters,digits') }}"
 
 mc_redir_https: true
 # Check for mailcow updates

@@ -5,9 +5,9 @@
     repo: "{{ mc_git_repo }}"
     version: "{{ mc_git_version }}"
     dest: "{{ mc_install_dir }}"
-    clone: yes
-    update: yes
-    force: yes
+    clone: true
+    update: true
+    force: true
 
 - name: Templates mailcow config
   template:
@@ -19,7 +19,7 @@
   blockinfile:
     path: "{{ mc_install_dir }}/data/conf/nginx/site.conf"
     insertbefore: BOF
-    backup: yes
+    backup: true
     block: |
       server {
         listen 80 default_server;
@@ -35,7 +35,7 @@
   blockinfile:
     path: "{{ mc_install_dir }}/data/conf/nginx/site.conf"
     insertbefore: BOF
-    backup: yes
+    backup: true
     state: absent
     block: |
       server {
@@ -51,4 +51,4 @@
 - name: Pulls docker images & start containers
   docker_service:
     project_src: "{{ mc_install_dir }}"
-    pull: yes
+    pull: true

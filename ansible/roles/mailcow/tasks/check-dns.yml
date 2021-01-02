@@ -8,11 +8,13 @@
   register: hostname_dig_ip
 
 - debug:
-    msg: "The results of `dig @{{ dig_server }} {{ mc_fqdn }} +short`: {{ hostname_dig_ip.stdout }}"
+    msg: >-
+      The results of `dig @{{ dig_server }} {{ mc_fqdn }} +short`:
+        {{ hostname_dig_ip.stdout }}
 
 - name: Fails if {{ mc_fqdn }} doesn't resolve to {{ mc_ip }}
   fail:
-    msg: "The hostname, {{ mc_fqdn }} needs to resolve to the server ip address, {{ mc_ip }}"
+    msg: "The hostname, {{ mc_fqdn }} must resolve to: {{ mc_ip }}"
   when: hostname_dig_ip.stdout != mc_ip
 
 - name: Checks the MX record of {{ mc_domain }}
@@ -20,11 +22,15 @@
   register: mx_hostname_dig_ip
 
 - debug:
-    msg: "The results of `dig @{{ dig_server }} MX {{ mc_domain }} +short`: {{ mx_hostname_dig_ip.stdout }}"
+    msg: >-
+      The results of `dig @{{ dig_server }} MX {{ mc_domain }} +short`:
+        {{ mx_hostname_dig_ip.stdout }}
 
 - name: Fails if {{ mc_domain }} MX record is not {{ mc_fqdn }}
   fail:
-     msg: "The MX record of {{ mc_domain }} should have the following DNS entry: 10 {{ mc_fqdn }}."
+     msg: >-
+       The MX record of {{ mc_domain }} should have the following DNS entry:
+         10 {{ mc_fqdn }}."
   when: mx_hostname_dig_ip.stdout != '10 {{ mc_fqdn }}.'
 
 - name: Checks the IP address of autodiscover.{{ mc_fqdn }}
@@ -32,11 +38,13 @@
   register: autodiscover_hostname_dig_ip
 
 - debug:
-    msg: "The results of `dig @{{ dig_server }} autodiscover.{{ mc_fqdn }} +short`: {{ autodiscover_hostname_dig_ip.stdout }}"
+    msg: >-
+      The results of `dig @{{ dig_server }} autodiscover.{{ mc_fqdn }} +short`:
+        {{ autodiscover_hostname_dig_ip.stdout }}
 
 - name: Fails if autodiscover.{{ mc_fqdn }} doesn't resolve to {{ mc_ip }}
   fail:
-    msg: "The hostname, autodiscover.{{ mc_fqdn }} needs to resolve to the server ip address, {{ mc_ip }}"
+    msg: "The hostname, autodiscover.{{ mc_fqdn }} must resolve to: {{ mc_ip }}"
   when: autodiscover_hostname_dig_ip.stdout != mc_ip
 
 - name: Checks the IP address of autoconfig.{{ mc_fqdn }}
@@ -44,9 +52,6 @@
   register: autoconfig_hostname_dig_ip
 
 - debug:
-    msg: "The results of `dig @{{ dig_server }} autoconfig.{{ mc_fqdn }} +short`: {{ autoconfig_hostname_dig_ip.stdout }}"
-
-- name: Fails if autoconfig.{{ mc_fqdn }} doesn't resolve to {{ mc_ip }}
-  fail:
-    msg: "The hostname, autodiscover.{{ mc_fqdn }} needs to resolve to the server ip address, {{ mc_ip }}"
-  when: autoconfig_hostname_dig_ip.stdout != mc_ip
+    msg: >-
+      The results of `dig @{{ dig_server }} autoconfig.{{ mc_fqdn }} +short`:
+        {{ autoconfig_hostname_dig_ip.stdout }}

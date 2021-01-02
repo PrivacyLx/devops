@@ -12,7 +12,7 @@
     project_src: "{{ mc_install_dir }}"
     state: present
     services: nginx-mailcow
-    restarted: yes
+    restarted: true
 
 - name: restart cron
   service:
