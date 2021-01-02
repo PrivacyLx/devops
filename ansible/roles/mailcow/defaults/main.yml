@@ -1,5 +1,9 @@
 ---
 
+mc_timezone: Europe/London
+mc_hostname: mail
+mc_domain: example.org
+mc_notify_email: mail@example.org
 mc_fqdn: "{{ mc_hostname }}.{{ mc_domain }}"
 mc_backup_dir: /opt/mailcow-backup
 mc_compose_name: mailcowdockerized
