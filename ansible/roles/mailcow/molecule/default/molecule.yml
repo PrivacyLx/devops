@@ -1,0 +1,44 @@
+---
+
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
+lint: |
+  set -e
+  yamllint .
+
+platforms:
+  - name: debian9-instance
+    box: generic/debian10
+    memory: 2000
+    cpus: 1
+    groups:
+      - mailcow
+  - name: debian10-instance
+    box: generic/debian10
+    memory: 2000
+    cpus: 1
+    groups:
+      - mailcow
+
+provisioner:
+  name: ansible
+  options:
+    verbose: true
+  lint:
+    name: ansible-lint
+  inventory:
+    links:
+      group_vars: ../../../../inventory/molecule/group_vars/
+  playbooks:
+    converge: ../../../../deploy-mailserver.yml
+
+verifier:
+  name: testinfra
+  directory: tests
+  options:
+    verbose: true
+  lint:
+    name: flake8
