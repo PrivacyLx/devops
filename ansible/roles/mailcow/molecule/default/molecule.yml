@@ -33,6 +33,7 @@ provisioner:
     links:
       group_vars: ../../../../inventory/molecule/group_vars/
   playbooks:
+    prepare: prepare.yml
     converge: ../../../../deploy-mailserver.yml
 
 verifier:

@@ -1,0 +1,16 @@
+---
+
+- name: Prepare
+  hosts: all
+  tasks:
+    # Satisfy CI Molecule error
+    # Docker SDK for Python: docker (Python >= 2.7) or docker-py (Python 2.6)
+    - name: Install python-package
+      become: True
+      apt:
+        name: python3-pip
+
+    - name: Install python-package
+      become: True
+      pip:
+        name: docker
