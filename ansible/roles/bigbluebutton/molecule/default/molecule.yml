@@ -1,0 +1,39 @@
+---
+
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
+lint: |
+  set -e
+  yamllint .
+
+platforms:
+  - name: ubuntu1604-instance
+    box: generic/ubuntu1604
+    memory: 4000
+    cpus: 2
+    groups:
+      - bigbluebutton
+
+provisioner:
+  name: ansible
+  options:
+    verbose: true
+  lint:
+    name: ansible-lint
+  inventory:
+    links:
+      group_vars: ../../../../inventory/molecule/group_vars/
+  playbooks:
+    prepare: prepare.yml
+    converge: ../../../../deploy-bigbluebutton.yml
+
+verifier:
+  name: testinfra
+  directory: tests
+  options:
+    verbose: true
+  lint:
+    name: flake8

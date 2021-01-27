@@ -1,0 +1,19 @@
+---
+
+galaxy_path: "{{ playbook_dir }}/roles.galaxy"
+# Git commit or release version of bbb_role_git
+bbb_role_ver: 5f1e22498921e10f2c18bfb4a311aede18a2b62f
+# https://github.com/n0emis/ansible-role-bigbluebutton
+bbb_galaxy_role: n0emis.bigbluebutton
+
+# https://github.com/geerlingguy/ansible-role-nodejs/releases
+nodejs_galaxy_role: geerlingguy.nodejs
+nodejs_role_ver: 5.1.1
+# User for whom the npm packages will be installed, defaults to ansible_user.
+nodejs_install_npm_user: npmuser
+# https://github.com/geerlingguy/ansible-role-docker/releases
+docker_galaxy_role: geerlingguy.docker
+docker_role_ver: 3.0.0
+# https://github.com/geerlingguy/ansible-role-pip/releases
+pip_galaxy_role: geerlingguy.pip
+pip_role_ver: 2.0.0

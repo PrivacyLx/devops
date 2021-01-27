@@ -16,11 +16,11 @@ It is assumed that you have a GNU/Linux environment
 
 ### Discourse
 
-`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-discourse.yml`
+`cd ansible && ansible-playbook -i inventory/production deploy-discourse.yml`
 
 ### Mailserver
 
-`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-mailserver.yml`
+`cd ansible && ansible-playbook -i inventory/production deploy-mailserver.yml`
 
 ### Website
 
@@ -28,14 +28,14 @@ Deployment and testing of our website: [privacylx.org](https://privacylx.org)
 
 #### Deploying website
 
-`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-website.yml`
+`cd ansible && ansible-playbook -i inventory/production deploy-website.yml`
 
 #### Deploying testing website
 
 This deploys the website on a testing server. You can access it via [testing.privacylx.org](https://testing.privacylx.org)
 
 1. edit your ssh-config file (`~/.ssh/config`) to add the hostname, your ssh key and the user
-2. `cd ansible && ansible-playbook --vault-id @prompt -i inventory/testing deploy-website.yml`
+2. `cd ansible && ansible-playbook -i inventory/testing deploy-website.yml`
 
 ### Matterbridge
 
@@ -45,7 +45,7 @@ extended to support more networks and bridges can be added by configuring
 
 #### Deploying matterbridge
 
-`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-matterbridge.yml`
+`cd ansible && ansible-playbook -i inventory/production deploy-matterbridge.yml`
 
 **Note:** Matterbridge config (template) file `matterbridge.toml.j2` should
 placed under the `host_vars` directive for the specified host,
@@ -55,7 +55,7 @@ placed under the `host_vars` directive for the specified host,
 This role is used to add/remove users, groups, permissions rights and access to
 hosts. You can deploy this role by running:
 
-`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-admin.yml`
+`cd ansible && ansible-playbook -i inventory/production deploy-admin.yml`
 
 #### Add a user to all hosts
 
@@ -69,7 +69,7 @@ To generate the SSH public key you should use the `ansible-vault`
 (encryption/decryption utility for Ansible data files), an example command looks
 like:
 
-`ansible-vault encrypt_string --vault-id @prompt 'ssh-ed25519 XXX' --name sshkey`
+`ansible-vault encrypt_string 'ssh-ed25519 XXX' --name sshkey`
 
 Example of `users.yml` that will add the user `exampleusr`:
 
@@ -99,12 +99,16 @@ and reboots the host if it's required (set `reboot_enabled` to `true`).
 
 #### Deploying updates
 
-`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-update.yml`
+`cd ansible && ansible-playbook -i inventory/production deploy-update.yml`
 
 Running the role with `reboot_enabled` will reboot a host that requires reboot
 after package upgrades:
 
-`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-update.yml --extra-vars=reboot_enabled=true`
+`cd ansible && ansible-playbook -i inventory/production deploy-update.yml --extra-vars=reboot_enabled=true`
+
+### Deploy BigBlueButton
+
+`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-bigbluebutton.yml`
 
 ## Adding SSH fingerprints to known hosts
 
@@ -116,19 +120,63 @@ after package upgrades:
 2. Upon verifying add the SSH fingeprints one per line (or seraparated by comma
    if is same host, see `ansible/ssh/known_hosts`).
 
+## Ansible vault
+
+We are using a multi-key encryption via GPG. The ansible-vault decryption is
+handled automatically in Ansible with the use of `open_vault.sh` script which
+decrypts the vault password and feeds it to the Ansible role.
+
+In order to add/remove the recipients of the GPG encrypted vault file
+`vault_pass.gpg` add/remove the `--recipient-file` parameter with the
+appropriate GPG public key file stored in `ansible/gpg` directory.
+
+You may use the following commands to re-encrypt the encrypted vault password
+with the desired recipients GPG public key(s).
+
+Note: *In case you are using a Qubes GPG split VM replace the command `gpg` with
+`qubes-gpg-client` in line 2*
+
+```
+mv ansible/gpg/vault_pass.gpg ansible/gpg/vault_pass_old.gpg && \
+    qubes-gpg-client --batch --yes --decrypt ansible/gpg/vault_pass_old.gpg |
+    gpg --batch --verbose --yes --armor --encrypt \
+        --recipient-file ansible/gpg/anadahz.asc \
+        --recipient-file ansible/gpg/core.asc \
+        --output ansible/gpg/vault_pass.gpg && \
+            rm ansible/gpg/vault_pass_old.gpg
+```
+
 ## Help
 
 Useful commands and documentation to help you debug and test roles.
 
 List almost all group/host variables:
 
-`ansible --vault-id @prompt -i inventory/testing -m debug group/host -a "var=vars"`
+`ansible -i inventory/testing -m debug group/host -a "var=vars"`
+
+### Ansible vault
+
+#### Create encrypted strings
+
+Use `encrypt_string` to create encrypted variables to embed in inventory file:
+
+`ansible-vault encrypt_string --vault-id prompt --stdin-name 'variable_name'`
+
+**Note:** Do not press Enter after supplying the string. That will add a newline
+to the encrypted value.
+
+#### View encrypted strings
+
+You can view the original value of an encrypted string by using the debug module:
+
+`ansible localhost -m debug -a var="variable_name" -e "@ansible/inventory/testing/group_vars/all/vars.yml" --vault-id prompt`
 
 ### Docs
 
 - [Ansible Documentation: Playbook Filters](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html)
 - [Ansible Documentation: Using Variables]( https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
 - [Ansible Documentation: Special Variables](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html)
+- [Ansible Documentation: Vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html)
 
 ## Naming convention
 
