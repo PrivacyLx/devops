@@ -15,7 +15,7 @@
   apt:
     pkg: ssmtp
     state: absent
-    purge: yes
+    purge: true
 
 - name: Install unattended-upgrades and mail dependencies
   apt:
@@ -31,7 +31,7 @@
     group: root
     mode: 0644
   # TODO check msmtp hanging for user prompt?
-  #notify: check msmtp config
+  # notify: check msmtp config
   when: unattended_mail | bool
 
 - name: Create unattended-upgrades configuration
