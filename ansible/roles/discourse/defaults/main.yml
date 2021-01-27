@@ -7,7 +7,7 @@ dis_guest_path: /shared
 dis_path: /var/discourse
 dis_git: https://github.com/discourse/discourse_docker.git
 # Use a stable release - https://github.com/discourse/discourse/releases
-dis_version: v2.5.2
+dis_version: v2.6.0
 # The domain name this Discourse instance will respond to.
 # Required. Discourse will not work with a bare IP number.
 dis_hostname: discourse.example.org
