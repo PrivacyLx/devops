@@ -106,6 +106,10 @@ after package upgrades:
 
 `cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-update.yml --extra-vars=reboot_enabled=true`
 
+### Deploy BigBlueButton
+
+`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-bigbluebutton.yml`
+
 ## Adding SSH fingerprints to known hosts
 
 1. Get an SSH fingerprint from a local `known_hosts` file for a given hostname
@@ -124,11 +128,29 @@ List almost all group/host variables:
 
 `ansible --vault-id @prompt -i inventory/testing -m debug group/host -a "var=vars"`
 
+### Ansible vault
+
+#### Create encrypted strings
+
+Use `encrypt_string` to create encrypted variables to embed in inventory file:
+
+`ansible-vault encrypt_string --vault-id prompt --stdin-name 'variable_name'`
+
+**Note:** Do not press Enter after supplying the string. That will add a newline
+to the encrypted value.
+
+#### View encrypted strings
+
+You can view the original value of an encrypted string by using the debug module:
+
+`ansible localhost -m debug -a var="variable_name" -e "@ansible/inventory/testing/group_vars/all/vars.yml" --vault-id prompt`
+
 ### Docs
 
 - [Ansible Documentation: Playbook Filters](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html)
 - [Ansible Documentation: Using Variables]( https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
 - [Ansible Documentation: Special Variables](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html)
+- [Ansible Documentation: Vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html)
 
 ## Naming convention
 
