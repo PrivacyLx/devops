@@ -127,14 +127,19 @@ In order to add/remove the recipients of the GPG encrypted vault file
 appropriate GPG public key file stored in `ansible/gpg` directory.
 
 You may use the following commands to re-encrypt the encrypted vault password
-with the desired recipients GPG public key(s):
+with the desired recipients GPG public key(s).
+
+Note: *In case you are using a Qubes GPG split VM replace the command `gpg` with
+`qubes-gpg-client` in line 2*
 
 ```
-gpg --batch --yes --decrypt gpg/vault_pass.gpg |
-    gpg --batch --yes --armor --encrypt \
-        --recipient-file gpg/anadahz.asc \
-        --recipient-file gpg/keyXXX.asc \
-        --output gpg/vault_pass.gpg
+mv ansible/gpg/vault_pass.gpg ansible/gpg/vault_pass_old.gpg && \
+    qubes-gpg-client --batch --yes --decrypt ansible/gpg/vault_pass_old.gpg |
+    gpg --batch --verbose --yes --armor --encrypt \
+        --recipient-file ansible/gpg/anadahz.asc \
+        --recipient-file ansible/gpg/core.asc \
+        --output ansible/gpg/vault_pass.gpg && \
+            rm ansible/gpg/vault_pass_old.gpg
 ```
 
 ## Help
