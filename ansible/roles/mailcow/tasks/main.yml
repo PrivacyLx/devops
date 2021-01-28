@@ -1,5 +1,23 @@
 ---
 
+# https://mailcow.github.io/mailcow-dockerized-docs/prerequisite-system/#firewall-ports
+- name: Check if any of mailcow's standard ports are in use
+  ansible.builtin.debug:
+    msg: TCP port {{ item.port }} by pid {{ item.pid }} violates the whitelist
+  vars:
+    tcp_listen_violations: "{{ ansible_facts.tcp_listen | selectattr('port', 'in', tcp_whitelist) | list }}"
+    tcp_whitelist:
+      - 110
+      - 25
+      - 4190
+      - 443
+      - 465
+      - 587
+      - 80
+      - 993
+      - 995
+  loop: "{{ tcp_listen_violations }}"
+
 - name: Checks if mailcow config exists
   stat:
     path: "{{ mc_install_dir }}/mailcow.conf"
