@@ -1,0 +1,25 @@
+// {ansible_managed}
+
+// Controls which packages are upgraded
+Unattended-Upgrade::Allowed-Origins {
+        "${distro_id}:${distro_codename}";
+        "${distro_id}:${distro_codename}-updates";
+        "${distro_id}:${distro_codename}-security";
+};
+
+{% if unattended_minimal_steps %}
+Unattended-Upgrade::MinimalSteps " {{ unattended_minimal_steps }}";
+{% endif %}
+
+{% if unattended_mail %}
+Unattended-Upgrade::Mail "{{ admin_email }}";
+Unattended-Upgrade::Sender "{{ sysupdate_email }}";
+{% endif %}
+
+{% if unattended_mail_report %}
+Unattended-Upgrade::MailReport "{{ unattended_mail_report }}";
+{% endif %}
+
+{% if unattended_dl_limit is defined %}
+Acquire::http::Dl-Limit "{{ unattended_dl_limit }}";
+{% endif %}
