@@ -13,4 +13,4 @@
     - name: Install python-package
       become: true
       pip:
-        name: docker
+        name: docker-compose
