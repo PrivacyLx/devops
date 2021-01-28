@@ -6,6 +6,8 @@ python: "3.8"
 
 jobs:
   include:
+  - name: "Testing ansible playbook `deploy-update.yml`"
+    env: TEST_ROLE=update
   - name: "Testing ansible playbook `deploy-discourse.yml`"
     env: TEST_ROLE=discourse
   - name: "Testing ansible playbook `deploy-bigbluebutton.yml`"

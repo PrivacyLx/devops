@@ -1,0 +1,40 @@
+---
+
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
+lint: |
+  set -e
+  yamllint .
+
+platforms:
+  - name: ubuntu1604-instance
+    box: generic/ubuntu1604
+  - name: debian9-instance
+    box: generic/debian10
+  - name: debian10-instance
+    box: generic/debian10
+
+provisioner:
+  name: ansible
+  options:
+    verbose: true
+  lint:
+    name: ansible-lint
+  inventory:
+    links:
+      group_vars: ../../../../inventory/molecule/group_vars/
+      host_vars: ../../../../inventory/molecule/host_vars/
+  playbooks:
+    prepare: prepare.yml
+    converge: ../../../../deploy-update.yml
+
+verifier:
+  name: testinfra
+  directory: tests
+  options:
+    verbose: true
+  lint:
+    name: flake8
