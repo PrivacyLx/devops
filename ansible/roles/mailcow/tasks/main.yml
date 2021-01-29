@@ -1,8 +1,11 @@
 ---
 
+- name: Gather facts on listening ports
+  listen_ports_facts:
+
 # https://mailcow.github.io/mailcow-dockerized-docs/prerequisite-system/#firewall-ports
 - name: Check if any of mailcow's standard ports are in use
-  ansible.builtin.debug:
+  debug:
     msg: TCP port {{ item.port }} by pid {{ item.pid }} violates the whitelist
   vars:
     tcp_listen_violations: "{{ ansible_facts.tcp_listen | selectattr('port', 'in', tcp_whitelist) | list }}"
