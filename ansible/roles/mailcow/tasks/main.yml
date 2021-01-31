@@ -1,8 +1,10 @@
 ---
 
-- name: Remove exim4-base package
+- name: Remove exim4-base and postfix (if installed)
   package:
-    name: exim4-base
+    name:
+      - exim4-base
+      - postfix
     state: absent
 
 - name: Gather facts on listening ports
