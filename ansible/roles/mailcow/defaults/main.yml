@@ -34,3 +34,18 @@ sysctl_swappiness: 1
 # FreeDNS server
 mc_dns_check: true
 dig_server: 37.235.1.177
+
+# Check for TCP ports in use by other processes
+tcp_ls: "{{ ansible_facts.tcp_listen | selectattr('port', 'in', mc_tcp_ports) | list }}"
+# https://mailcow.github.io/mailcow-dockerized-docs/prerequisite-system/#firewall-ports
+# Mailcow requires the following ports to be available
+mc_tcp_ports:
+  - 110
+  - 25
+  - 4190
+  - 443
+  - 465
+  - 587
+  - 80
+  - 993
+  - 995
