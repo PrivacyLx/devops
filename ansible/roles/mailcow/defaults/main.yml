@@ -16,6 +16,7 @@ mc_git_version: master
 mc_min_memory: 1500
 mc_ip: "{{ ansible_default_ipv4.address }}"
 mc_install_dir: /opt/mailcow-dockerized
+mc_scripts_dir: "{{ mc_install_dir }}/helper-scripts"
 mc_dbname: mailcow
 mc_dbpass: "{{ lookup('password', 'length=68 chars=ascii_letters,digits') }}"
 mc_dbroot: "{{ lookup('password', 'length=70 chars=ascii_letters,digits') }}"
@@ -29,7 +30,7 @@ mc_set_swap: true
 swap_file_path: /var/cache/swapfile
 # dd count input blocks
 swap_file_size: 4000000
-sysctl_swappiness: 1
+sysctl_swappiness: '1'
 
 # FreeDNS server
 mc_dns_check: true
@@ -49,3 +50,8 @@ mc_tcp_ports:
   - 80
   - 993
   - 995
+
+# Cron file of Mailcow backup
+mc_cron_bak: mailcow_backups
+# Cron file of Mailcow backup cleanup
+mc_cron_bak_clean: remove_old_backups

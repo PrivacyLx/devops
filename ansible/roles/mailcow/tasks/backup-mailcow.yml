@@ -14,28 +14,28 @@
 
 - name: Creates a daily backup cronjob to backup all mailcow data at 4:30 AM
   cron:
-    minute: 30
-    hour: 4
+    minute: "30"
+    hour: "4"
     name: Backup all mailcow data
-    cron_file: mailcow_backups
+    cron_file: "{{ mc_cron_bak }}"
     user: root
     job: >-
       BACKUP_LOCATION={{ mc_backup_dir }}
-      /opt/mailcow-dockerized/helper-scripts/backup_and_restore.sh backup all"
+      {{ mc_scripts_dir }}/backup_and_restore.sh backup all"
 
 - name: Creates a daily cronjob to remove backup directories older than 7 days
   cron:
-    minute: 30
-    hour: 12
+    minute: "30"
+    hour: "12"
     name: Remove old backup directories
-    cron_file: remove_old_backups
+    cron_file: "{{ mc_cron_bak_clean }}"
     user: root
     job: >-
-      find {{ mc_backup_dir }} -name 'mailcow-20*'
-        -mtime +7 -type d -exec rm -rf '{}' \\;"
+      find {{ mc_backup_dir }} -name 'mailcow-*'
+        -mtime +7 -type d -exec rm -rf '{}' \\;
 
-- name: List crontab entries
-  command: crontab -l
-  register: crontab_list
-
-- debug: var=crontab_list
+- name: List Mailcow cron entries
+  debug: var={{ lookup('file', item) }}
+  with_items:
+    - "/etc/cron.d/{{ mc_cron_bak }}"
+    - "/etc/cron.d/{{ mc_cron_bak_clean }}"
