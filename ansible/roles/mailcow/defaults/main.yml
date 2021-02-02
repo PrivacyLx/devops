@@ -51,7 +51,11 @@ mc_tcp_ports:
   - 993
   - 995
 
-# Cron file of Mailcow backup
-mc_cron_bak: mailcow_backups
-# Cron file of Mailcow backup cleanup
-mc_cron_bak_clean: remove_old_backups
+# Cron file PATH of Mailcow backup
+mc_cron_bak: /etc/cron.d/mailcow_backups
+# Cron user of Mailcow backup
+mc_cron_user: root
+# Delete Mailcow backups older than n Days
+mc_bak_rm: 7
+# Cron env variable of Mailcow backup path
+mc_cron_env: MAILCOW_BACKUP_LOCATION
