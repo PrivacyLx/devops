@@ -27,7 +27,7 @@
 - name: Creates crontab's environment variable {{ mc_cron_env }}
   cron:
     name: "{{ mc_cron_env }}"
-    env: yes
+    env: true
     cron_file: "{{ mc_cron_bak }}"
     user: "{{ mc_cron_user }}"
     job: "{{ mc_backup_dir }}"
@@ -43,7 +43,7 @@
       find {{ mc_backup_dir }} -name 'mailcow-*'
         -mtime +7 -type d -exec rm -rf '{}' \\;
 
-- name: Print Mailcow cron files
+- name: Print Mailcow cronjob
   debug: var={{ lookup('file', item)|quote}}
-    with_items:
-      - "{{ mc_cron_bak }}"
+  with_items:
+    - "{{ mc_cron_bak }}"
