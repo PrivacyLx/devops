@@ -32,7 +32,11 @@
     user: "{{ mc_cron_user }}"
     job: "{{ mc_backup_dir }}"
 
-- name: Print Mailcow cronjob
-  debug: var={{ lookup('file', item)|quote}}
-  with_items:
-    - "{{ mc_cron_bak }}"
+- name: Slurp cronjob file {{ mc_cron_bak }}
+  slurp:
+    src: "{{ mc_cron_bak }}"
+  register: cronjob
+
+- name: Print {{ mc_cron_bak }} contents
+  debug:
+    msg: "{{ cronjob['content'] | b64decode | quote }}"
