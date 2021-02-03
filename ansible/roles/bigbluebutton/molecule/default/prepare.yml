@@ -1,0 +1,11 @@
+---
+
+- name: Prepare
+  hosts: all
+  become: True
+  tasks:
+    - name: Install PyOpenSSL build requirements
+      apt:
+        update_cache: yes
+        pkg:
+          - libffi-dev
