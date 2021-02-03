@@ -9,3 +9,10 @@
         update_cache: yes
         pkg:
           - libffi-dev
+          - python3-pip
+          - python3-setuptools
+
+    - name: pip self-update
+      pip:
+        name: pip
+        state: latest
