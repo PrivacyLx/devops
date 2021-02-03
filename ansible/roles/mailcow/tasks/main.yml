@@ -67,6 +67,7 @@
 - name: Checks mailcow's DNS entries
   include_tasks: check-dns.yml
   when: mc_dns_check
+  tags: molecule-notest
 
 - name: Updates mailcow
   import_tasks: update-mailcow.yml

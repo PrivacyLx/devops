@@ -5,6 +5,7 @@ mc_hostname: mail
 mc_domain: example.org
 mc_notify_email: mail@example.org
 mc_fqdn: "{{ mc_hostname }}.{{ mc_domain }}"
+mc_autod: "autodiscover.{{ mc_fqdn }}"
 mc_backup_dir: /opt/mailcow-backup
 mc_compose_name: mailcowdockerized
 mc_redis_log_lines: 100

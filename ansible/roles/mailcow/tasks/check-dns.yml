@@ -35,18 +35,18 @@
         10 {{ mc_fqdn }}.
   when: mx_hostname_dig_ip.stdout != '10 {{ mc_fqdn }}.'
 
-- name: Checks the IP address of autodiscover.{{ mc_fqdn }}
-  command: dig @{{ dig_server }} autodiscover.{{ mc_fqdn }} +short
+- name: Checks the IP address of {{ mc_autod }}
+  command: dig @{{ dig_server }} {{ mc_autod }} +short
   register: autodiscover_hostname_dig_ip
 
 - debug:
     msg: >-
-      The results of `dig @{{ dig_server }} autodiscover.{{ mc_fqdn }} +short`:
+      The results of `dig @{{ dig_server }} {{ mc_autod }} +short`:
         {{ autodiscover_hostname_dig_ip.stdout }}
 
-- name: Fails if autodiscover.{{ mc_fqdn }} doesn't resolve to {{ mc_ip }}
+- name: Fails if {{ mc_autod }} doesn't resolve to {{ mc_ip }}
   fail:
-    msg: "The hostname, autodiscover.{{ mc_fqdn }} must resolve to: {{ mc_ip }}"
+    msg: "The hostname, {{ mc_autod }} must resolve to: {{ mc_ip }}"
   when: autodiscover_hostname_dig_ip.stdout != mc_ip
 
 - name: Checks the IP address of autoconfig.{{ mc_fqdn }}
