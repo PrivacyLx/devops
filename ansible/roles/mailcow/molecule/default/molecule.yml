@@ -16,12 +16,20 @@ platforms:
     cpus: 1
     groups:
       - mailserver
+    command: |
+      echo 'DOCKER_OPTS="$DOCKER_OPTS --registry-mirror=https://mirror.gcr.io"'
+      sudo service docker restart
+      docker system info
   - name: debian10-instance
     box: generic/debian10
     memory: 2000
     cpus: 1
     groups:
       - mailserver
+    command: |
+      echo 'DOCKER_OPTS="$DOCKER_OPTS --registry-mirror=https://mirror.gcr.io"'
+      sudo service docker restart
+      docker system info
 
 provisioner:
   name: ansible

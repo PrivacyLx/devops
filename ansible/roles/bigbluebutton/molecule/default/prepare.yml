@@ -13,6 +13,4 @@
           - python3-setuptools
 
     - name: pip self-update
-      pip:
-        name: pip
-        state: latest
+      command: pip3 install --upgrade pip
