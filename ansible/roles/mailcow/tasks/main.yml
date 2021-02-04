@@ -9,7 +9,6 @@
 
 - name: Gather facts on listening ports
   listen_ports_facts:
-  tag: molecule-idempotence-notest
 
 - name: Check if any of mailcow's standard ports are in use
   debug:

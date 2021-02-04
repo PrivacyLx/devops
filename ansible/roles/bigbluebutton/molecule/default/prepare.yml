@@ -8,7 +8,13 @@
       apt:
         name: python3-pip
         update_cache: yes
+
     - name: pip self-update
       pip:
         name: pip
+        state: latest
+
+    - name: Install PyOpenSSL pip package
+      pip:
+        name: pyOpenSSL
         state: latest
