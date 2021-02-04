@@ -7,19 +7,12 @@
   when: >
     ansible_service_mgr == 'systemd'
 
-- name: restart nginx
-  docker_service:
-    project_src: "{{ mc_install_dir }}"
-    state: present
-    services: nginx-mailcow
-    restarted: true
-
 - name: restart cron
   service:
     name: cron
     state: restarted
 
 - name: docker-compose up
-  docker_service:
+  docker_compose:
     project_src: "{{ mc_install_dir }}"
     state: present

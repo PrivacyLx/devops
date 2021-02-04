@@ -22,7 +22,6 @@ mc_dbname: mailcow
 mc_dbpass: "{{ lookup('password', 'length=68 chars=ascii_letters,digits') }}"
 mc_dbroot: "{{ lookup('password', 'length=70 chars=ascii_letters,digits') }}"
 
-mc_redir_https: true
 # Check for mailcow updates
 mc_check_updates: true
 

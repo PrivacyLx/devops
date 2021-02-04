@@ -14,41 +14,7 @@
     src: mailcow.conf.j2
     dest: "{{ mc_install_dir }}/mailcow.conf"
 
-# https://mailcow.github.io/mailcow-dockerized-docs/u_e-80_to_443/
-- name: Set redirect HTTP to HTTPS
-  blockinfile:
-    path: "{{ mc_install_dir }}/data/conf/nginx/site.conf"
-    insertbefore: BOF
-    backup: true
-    block: |
-      server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        include /etc/nginx/conf.d/server_name.active;
-        return 301 https://$host$uri$is_args$args;
-      }
-  when: mc_redir_https
-  notify:
-    - restart nginx
-
-- name: Set redirect HTTP to HTTPS
-  blockinfile:
-    path: "{{ mc_install_dir }}/data/conf/nginx/site.conf"
-    insertbefore: BOF
-    backup: true
-    state: absent
-    block: |
-      server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        include /etc/nginx/conf.d/server_name.active;
-        return 301 https://$host$uri$is_args$args;
-      }
-  when: not mc_redir_https
-  notify:
-    - restart nginx
-
 - name: Pulls docker images & start containers
-  docker_compose:
+  docker_service:
     project_src: "{{ mc_install_dir }}"
     pull: true

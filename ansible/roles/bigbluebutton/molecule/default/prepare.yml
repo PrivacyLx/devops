@@ -6,11 +6,9 @@
   tasks:
     - name: Install PyOpenSSL build requirements
       apt:
+        name: python3-pip
         update_cache: yes
-        pkg:
-          - libffi-dev
-          - python3-pip
-          - python3-setuptools
-
     - name: pip self-update
-      command: pip3 install --upgrade pip
+      pip:
+        name: pip
+        state: latest
