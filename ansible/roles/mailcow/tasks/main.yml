@@ -9,6 +9,7 @@
 
 - name: Gather facts on listening ports
   listen_ports_facts:
+  tags: molecule-idempotence-notest
 
 - name: Check if any of mailcow's standard ports are in use
   debug:
@@ -17,7 +18,7 @@
       name {{ item.name }}
   loop: "{{ tcp_ls }}"
   failed_when: tcp_ls
-  tag: molecule-idempotence-notest
+  tags: molecule-idempotence-notest
 
 - name: Checks if mailcow config exists
   stat:
