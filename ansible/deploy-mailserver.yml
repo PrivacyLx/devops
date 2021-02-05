@@ -9,3 +9,10 @@
   roles:
     - docker
     - mailcow
+
+  tasks:
+    - name: Include mailcow update role
+      include_role:
+        name: mailcow
+      tags: update
+      when: MOLECULE_STATE_FILE is defined
