@@ -4,6 +4,11 @@
   hosts: all
   become: True
   tasks:
+    - name: Install python 3 package
+      package:
+        name: python3
+        state: latest
+
     # Bug: https://github.com/pypa/get-pip/issues/83
     - name: Install pip3.5 workaround
       shell: |

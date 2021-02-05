@@ -15,4 +15,4 @@
       include_role:
         name: mailcow
       tags: update
-      when: MOLECULE_STATE_FILE is defined
+      when: MOLECULE_PROVISIONER_NAME is defined
