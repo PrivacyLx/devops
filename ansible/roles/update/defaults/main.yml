@@ -19,10 +19,6 @@ sysupdate_email_pwd: "{{ lookup('password', '/tmp/passwdfile length=70') }}"
 # msmtp From address
 msmtp_from: "{{ sysupdate_email }}"
 
-# Reboot system if reboot is required
-# Set to true to enable
-reboot_enabled: false
-
 # Unattended-Upgrade::MinimalSteps
 # Split the upgrade into the smallest possible chunks so that
 # they can be interrupted with SIGUSR1. This makes the upgrade
