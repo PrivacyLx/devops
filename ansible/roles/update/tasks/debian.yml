@@ -30,7 +30,7 @@
     owner: root
     group: root
     mode: 0644
-  # TODO check msmtp hanging for user prompt?
+  # TODO check msmtp hanging for user prompt ('/usr/bin/msmtp -P')
   # notify: check msmtp config
   when: unattended_mail | bool
 

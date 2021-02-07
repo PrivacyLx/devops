@@ -6,8 +6,6 @@ apt_cache_time: 43200
 # msmtp config file
 msmtp_conf: msmtprc
 msmtp_conf_path: "/etc/{{ msmtp_conf }}"
-# Command to check msmtp configuration
-msmtp_conf_check: '/usr/bin/msmtp -P'
 # msmtp host
 msmtp_host: mail.example.org
 # msmtp host port
