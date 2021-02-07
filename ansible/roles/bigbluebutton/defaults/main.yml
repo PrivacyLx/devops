@@ -2,7 +2,7 @@
 
 galaxy_path: "{{ playbook_dir }}/roles.galaxy"
 # Git commit or release version of bbb_role_git
-bbb_role_ver: 5f1e22498921e10f2c18bfb4a311aede18a2b62f
+bbb_role_ver: 77697c9f5fd279f748324dfb9569e2ee5e0daa6e
 # https://github.com/n0emis/ansible-role-bigbluebutton
 bbb_galaxy_role: n0emis.bigbluebutton
 

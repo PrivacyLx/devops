@@ -108,7 +108,7 @@ after package upgrades:
 
 ### Deploy BigBlueButton
 
-`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-bigbluebutton.yml`
+`cd ansible && ansible-playbook -i inventory/production deploy-bigbluebutton.yml`
 
 ## Adding SSH fingerprints to known hosts
 

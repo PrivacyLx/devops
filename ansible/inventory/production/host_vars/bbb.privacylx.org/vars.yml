@@ -13,6 +13,9 @@ bbb_freeswitch_ipv6: false
 # Generate Diff-Hellmann for nginx
 bbb_nginx_dh: yes
 bbb_app_log_level: 'ERROR'
+# Set this to `false` for LXD/LXC Compatibility
+bbb_freeswitch_ioschedule_realtime: false
+bbb_dialin_enabled: false
 
 # https://github.com/bigbluebutton/bigbluebutton/blob/develop/bigbluebutton-html5/private/config/settings.yml
 bbb_meteor:

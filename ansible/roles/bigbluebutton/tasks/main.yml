@@ -34,6 +34,9 @@
     timeout: 20
   delegate_to: localhost
 
+  # TODO: Change to bbb_greenlight_users: []
+  # https://github.com/n0emis/ansible-role-bigbluebutton/blob/master/defaults/main.yml#L31
+  #
   # https://docs.bigbluebutton.org/greenlight/gl-admin.html#creating-an-administrator-account
 - name: Create Greenlight admin user
   # https://yamllint.readthedocs.io/en/stable/disable_with_comments.html
