@@ -2,7 +2,7 @@
 
 // Controls which packages are upgraded
 Unattended-Upgrade::Allowed-Origins {
-{% if 'bigbluebutton' in group_names and ansible_fqdn in groups['bigbluebutton'] %}
+{% if 'bigbluebutton' in group_names %}
         "${distro_id}:${distro_codename}-security";
 {% else %}
         "${distro_id}:${distro_codename}";

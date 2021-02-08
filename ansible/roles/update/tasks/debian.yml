@@ -63,6 +63,6 @@
   # stops executing and thus doesn't have 'reboot_required_file'. And if we try
   # to access 'stat', boom! failure. We don't want that.
   when:
-    - reboot_required_file in hostvars[item]
+    - "'reboot_required_file' in hostvars[item]"
     - hostvars[item]['reboot_required_file'].stat.exists
   with_items: "{{ play_hosts }}"
