@@ -4,6 +4,7 @@
   apt:
     cache_valid_time: "{{ apt_cache_time }}"
     upgrade: safe
+  when: "'bigbluebutton' not in group_names"
 
 - name: Install unattended-upgrades
   apt:
