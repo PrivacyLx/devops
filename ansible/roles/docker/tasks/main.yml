@@ -54,3 +54,11 @@
   apt:
     pkg: docker-ce
     state: present
+
+- name: Log into DockerHub (avoid rate limits)
+  docker_login:
+    username: "{{ dhub_usr }}"
+    password: "{{ dhub_pwd }}"
+  when:
+    - dhub_usr is defined
+    - dhub_pwd is defined

@@ -8,3 +8,7 @@ le_staging: true
 # Discourse configuration
 dis_plugins:
   - https://github.com/discourse/discourse-bbb.git
+
+# DockerHub credentials set in Travis CI
+dhub_usr: "{{ lookup('env', 'DOCKERHUB_USER') }}"
+dhub_pwd: "{{ lookup('env', 'DOCKERHUB_PWD') }}"
