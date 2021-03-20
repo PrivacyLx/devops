@@ -1,0 +1,14 @@
+---
+
+- name: Prepare
+  hosts: debian9-instance:debian10-instance
+  become: True
+  tasks:
+    # The Debian images need to upgrade grub-pc, which cause a pop-up, breaking
+    # the update role.
+    # This issue affects only the testing generic Debian Vagrant images.
+    # See: https://github.com/AdoptOpenJDK/openjdk-infrastructure/issues/1980
+    - name: Prevent grub-pc package from being upgraded
+    - dpkg_selections:
+        name: grub-pc
+        selection: hold
