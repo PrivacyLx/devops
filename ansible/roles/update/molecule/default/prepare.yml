@@ -9,6 +9,6 @@
     # This issue affects only the testing generic Debian Vagrant images.
     # See: https://github.com/AdoptOpenJDK/openjdk-infrastructure/issues/1980
     - name: Prevent grub-pc package from being upgraded
-    - dpkg_selections:
+      dpkg_selections:
         name: grub-pc
         selection: hold
