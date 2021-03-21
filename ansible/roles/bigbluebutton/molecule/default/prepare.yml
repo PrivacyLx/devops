@@ -12,4 +12,4 @@
     - name: pip self-update
       pip:
         name: pip
-        version: 20
+        version: '19.3.1'
