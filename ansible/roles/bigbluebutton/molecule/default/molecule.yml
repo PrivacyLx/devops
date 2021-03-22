@@ -12,7 +12,6 @@ lint: |
 platforms:
   - name: ubuntu1604-instance
     box: generic/ubuntu1604
-    box_version: 3.0.1
     memory: 4000
     cpus: 2
     groups:
