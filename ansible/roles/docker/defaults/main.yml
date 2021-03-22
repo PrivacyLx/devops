@@ -1,0 +1,8 @@
+---
+
+# Docker rate limits anonymous users.
+# A DockerHub account is required to increase the rate limits.
+# See: https://www.docker.com/increase-rate-limits#:~:text=The%20rate%20limits%20will%20be,the%20six%20hour%20window%20elapses.
+# Add DockerHub credentials to login to DockerHub
+#dhub_usr: dockerhub_username
+#dhub_pwd: dockerhub_token

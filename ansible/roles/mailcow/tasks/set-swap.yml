@@ -30,8 +30,6 @@
     src: "{{ swap_file }}"
     fstype: swap
     opts: sw
-    passno: 0
-    dump: 0
     state: present
 
 - name: Turns on swap

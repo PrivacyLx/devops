@@ -5,6 +5,11 @@
 - name: "Run update role"
   hosts: all
   become: true
-
   roles:
     - update
+
+- name: "Update mailserver (mailcow)"
+  hosts: mailserver
+  become: true
+  roles:
+    - { role: mailcow, tags: update }
