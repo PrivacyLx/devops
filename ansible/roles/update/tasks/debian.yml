@@ -4,6 +4,8 @@
   apt:
     cache_valid_time: "{{ apt_cache_time }}"
     upgrade: safe
+  # BigBlueButton is sensitive with unattended package upgrades
+  when: inventory_hostname not in groups['bigbluebutton']|default([])
 
 - name: Install unattended-upgrades
   apt:
@@ -50,4 +52,6 @@
     path: /var/run/reboot-required
   register: reboot_required
   notify: reboot
-  when: reboot_enabled|default(false)|bool == true
+  when:
+    - reboot_enabled|default(false)|bool == true
+    - inventory_hostname not in groups['bigbluebutton']|default([])
