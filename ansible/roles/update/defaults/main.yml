@@ -6,8 +6,6 @@ apt_cache_time: 43200
 # msmtp config file
 msmtp_conf: msmtprc
 msmtp_conf_path: "/etc/{{ msmtp_conf }}"
-# Command to check msmtp configuration
-msmtp_conf_check: '/usr/bin/msmtp -P'
 # msmtp host
 msmtp_host: mail.example.org
 # msmtp host port
@@ -18,10 +16,6 @@ sysupdate_email: user@example.org
 sysupdate_email_pwd: "{{ lookup('password', '/tmp/passwdfile length=70') }}"
 # msmtp From address
 msmtp_from: "{{ sysupdate_email }}"
-
-# Reboot system if reboot is required
-# Set to true to enable
-reboot_enabled: false
 
 # Unattended-Upgrade::MinimalSteps
 # Split the upgrade into the smallest possible chunks so that
