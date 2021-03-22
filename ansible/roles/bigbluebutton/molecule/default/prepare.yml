@@ -3,12 +3,12 @@
 # See: https://github.com/pypa/pip/issues/9526
 - name: Prepare
   hosts: all
-  become: True
+  become: true
   tasks:
     - name: Install PyOpenSSL build requirements
       apt:
         name: ['python3-pip', 'python3-setuptools']
-        update_cache: yes
+        update_cache: true
     - name: pip self-update
       pip:
         name: pip
