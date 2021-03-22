@@ -12,4 +12,4 @@
   hosts: mailserver
   become: true
   roles:
-    - { role: mailcow, tags: update }
+    - mailcow

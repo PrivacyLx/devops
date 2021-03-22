@@ -23,13 +23,14 @@
   command: "./update.sh --force"
   args:
     chdir: "{{ mc_install_dir }}"
-  when: check_updates.rc  == 0
+  failed_when: check_updates.rc == 1
+  register: update_script
+  until: update_script.rc != 2
   notify:
     - docker-compose up
 
 - name: Send update messages to syslog
   syslogger:
-    ident: "Mailcow Updater"
-    msg: "{{ expect_update_result.stdout }}"
+    msg: "Mailcow update: {{ update_script.stdout }}"
+    facility: "daemon"
     log_pid: true
-  when: check_updates.rc  == 0
