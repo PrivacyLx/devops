@@ -11,5 +11,10 @@
 - name: "Update mailserver (mailcow)"
   hosts: mailserver
   become: true
-  roles:
-    - { role: mailcow, tags: update }
+  tasks:
+    - name: Run mailcow's update-mailcow task
+      include_role:
+        name: mailcow
+        tasks_from: update-mailcow
+  # Ignore error on check mode
+  ignore_errors: "{{ ansible_check_mode }}"

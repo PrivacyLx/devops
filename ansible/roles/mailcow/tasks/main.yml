@@ -74,6 +74,8 @@
 - name: Updates mailcow
   import_tasks: update-mailcow.yml
   when: mc_check_updates and mc_conf.stat.exists
+  # Ignore error in check mode as it needs to run the update script
+  ignore_errors: "{{ ansible_check_mode }}"
   tags:
     - update
     # TODO: Make update tasks idempotent
