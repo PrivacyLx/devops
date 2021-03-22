@@ -65,3 +65,6 @@ bbb_adm:
     name: Admin Test User
     email: admintestusr@example.org
     pass: "{{ lookup('password', '/tmp/passwordfile length=30 chars=ascii_letters') }}"
+
+bbb_greenlight_users:
+  - { name: '{{ bbb_adm.name }}', email: '{{ bbb_adm.email }}', password: '{{ bbb_adm.pass }}', type: 'admin' }

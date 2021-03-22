@@ -32,7 +32,7 @@
     owner: root
     group: root
     mode: 0644
-  # TODO check msmtp hanging for user prompt?
+  # TODO check msmtp hanging for user prompt ('/usr/bin/msmtp -P')
   # notify: check msmtp config
   when: unattended_mail | bool
 
@@ -47,10 +47,9 @@
     - 52unattended-upgrades
     - 20auto-upgrades
 
-- name: Check if a reboot is required after upgrade
+- name: Check if reboot is required
   stat:
     path: /var/run/reboot-required
-  register: reboot_required
   notify: reboot
   when:
     - reboot_enabled|default(false)|bool == true

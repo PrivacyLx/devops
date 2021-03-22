@@ -107,14 +107,9 @@ and reboots the host if it's required (set `reboot_enabled` to `true`).
 
 `cd ansible && ansible-playbook -i inventory/production deploy-update.yml`
 
-Running the role with `reboot_enabled` will reboot a host that requires reboot
-after package upgrades:
-
-`cd ansible && ansible-playbook -i inventory/production deploy-update.yml --extra-vars=reboot_enabled=true`
-
 ### Deploy BigBlueButton
 
-`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-bigbluebutton.yml`
+`cd ansible && ansible-playbook -i inventory/production deploy-bigbluebutton.yml`
 
 ## Adding SSH fingerprints to known hosts
 

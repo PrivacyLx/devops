@@ -13,6 +13,9 @@ bbb_freeswitch_ipv6: false
 # Generate Diff-Hellmann for nginx
 bbb_nginx_dh: yes
 bbb_app_log_level: 'ERROR'
+# Set this to `false` for LXD/LXC Compatibility
+bbb_freeswitch_ioschedule_realtime: false
+bbb_dialin_enabled: false
 
 # https://github.com/bigbluebutton/bigbluebutton/blob/develop/bigbluebutton-html5/private/config/settings.yml
 bbb_meteor:
@@ -195,3 +198,6 @@ bbb_adm:
           64303333636234623136376165326261323662383264626631336637323061323765336632303334
           38353364346239643234316365346636613065613138303235363264363932663166306430333336
           63623165333137343938316564616533303561313165313030316163313462356463
+
+bbb_greenlight_users:
+  - { name: '{{ bbb_adm.name }}', email: '{{ bbb_adm.email }}', password: '{{ bbb_adm.pass }}', type: 'admin' }

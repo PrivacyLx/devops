@@ -1,7 +1,0 @@
----
-
-- name: reboot
-  reboot:
-
-- name: check msmtp config
-  command: "{{ msmtp_conf_check }}"
