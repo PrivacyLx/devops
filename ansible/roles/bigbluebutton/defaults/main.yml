@@ -17,8 +17,3 @@ docker_role_ver: 3.1.0
 # https://github.com/geerlingguy/ansible-role-pip/releases
 pip_galaxy_role: geerlingguy.pip
 pip_role_ver: 2.0.0
-
-# Python packages Ubuntu PPA repository
-python_repo: 'ppa:deadsnakes/ppa'
-# Python version to install
-python_version: 3.7

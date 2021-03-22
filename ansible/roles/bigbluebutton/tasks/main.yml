@@ -1,13 +1,5 @@
 ---
 
-- name: Add repository {{ python_repo }}
-  apt_repository:
-    repo: '{{ python_repo }}'
-
-- name: Install Python version {{ python_version }}
-  apt:
-    name: 'python{{ python_version }}'
-
 - name: Install BigBlueButton dependencies via Ansible Galaxy
   become: false
   delegate_to: localhost
