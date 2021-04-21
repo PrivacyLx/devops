@@ -1,8 +1,10 @@
 ---
 
 galaxy_path: "{{ playbook_dir }}/roles.galaxy"
+# Compare git versions for breaking changes or new variables. example:
+# https://github.com/n0emis/ansible-role-bigbluebutton/compare/21b0b62579777056d2fbc1b8c5826d5793868a95...master
 # Git commit or release version of bbb_role_git
-bbb_role_ver: 0104e9eefcaf88b9129a287953984fcaa63adc41
+bbb_role_ver: 21b0b62579777056d2fbc1b8c5826d5793868a95
 # https://github.com/n0emis/ansible-role-bigbluebutton
 bbb_galaxy_role: n0emis.bigbluebutton
 
