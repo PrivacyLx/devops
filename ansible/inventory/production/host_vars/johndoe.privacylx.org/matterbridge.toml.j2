@@ -59,6 +59,20 @@
     PrefixMessagesWithNick=false
     RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
 
+[mattermost]
+    [mattermost.iff]
+    #The mattermost hostname. (do not prefix it with http or https)
+    Server="community.internetfreedomfestival.org:443"
+    #the team name as can be seen in the mattermost webinterface URL
+    #in lowercase, without spaces
+    Team="community"
+    #login/pass of your bot.
+    #Use a dedicated user for this and not your own!
+    Login="{{ mattermost_iff_login }}"
+    Password="{{ mattermost_iff_passwd }}"
+    RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+    PrefixMessagesWithNick=true
+
 # This must always be [[gateway]], don't use anything else.
 [[gateway]]
 name="privacylx_gateway"
@@ -76,4 +90,5 @@ inout = [
     # Matrix <-> Rocket.Chat bridge
     { account="matrix.matrixorg", channel="#privacylx:matrix.org" },
     { account="rocketchat.d3", channel="#privacylx" },
+    { account="mattermost.iff", channel="privacylx" },
 ]
