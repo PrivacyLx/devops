@@ -7,8 +7,6 @@ bbb_api_demos_enable: false
 bbb_disable_recordings: true
 # Greenlight registration mode: open (default), invite, approval
 bbb_greenlight_default_registration: approval
-# https://docs.bigbluebutton.org/2.2/troubleshooting.html#freeswitch-fails-to-bind-to-port-8021
-bbb_freeswitch_ipv6: false
 # Generate Diff-Hellmann for nginx
 bbb_nginx_dh: yes
 bbb_app_log_level: 'ERROR'
