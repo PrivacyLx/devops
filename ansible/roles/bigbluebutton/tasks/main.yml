@@ -22,6 +22,14 @@
     create_home: false
     comment: NodeJS npm user
 
+- name: Log into DockerHub (avoid rate limits)
+  docker_login:
+    username: "{{ dhub_usr }}"
+    password: "{{ dhub_pwd }}"
+  when:
+    - dhub_usr is defined
+    - dhub_pwd is defined
+
 - name: Import BigBlueButton Ansible Galaxy role
   include_role:
     name: "{{ galaxy_path }}/{{ bbb_galaxy_role }}"
@@ -33,3 +41,17 @@
   wait_for:
     timeout: 20
   delegate_to: localhost
+
+- name: Upload default BigBlueButton presentation
+  copy:
+    mode: 0644
+    src: "{{ bbb_default_pdf }}"
+    dest: "{{ bbb_nginx_root }}/default.pdf"
+  when: bbb_default_pdf is exists
+
+- name: Run bbb-conf --check
+  command: bbb-conf --check
+  register: bbb_conf_check_out
+
+- debug:
+    msg: "{{ bbb_conf_check_out }}"

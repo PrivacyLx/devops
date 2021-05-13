@@ -2,9 +2,12 @@
 
 galaxy_path: "{{ playbook_dir }}/roles.galaxy"
 # Git commit or release version of bbb_role_git
-bbb_role_ver: 0104e9eefcaf88b9129a287953984fcaa63adc41
-# https://github.com/n0emis/ansible-role-bigbluebutton
-bbb_galaxy_role: n0emis.bigbluebutton
+# https://github.com/ebbba-org/ansible-role-bigbluebutton/releases
+# XXX change this
+bbb_role_ver: 7900bc196a028e2f899b47d7a0461573e439f58b
+bbb_galaxy_role: ebbba.bigbluebutton
+# Defeault presentation PDF file located in the files role directory
+bbb_default_pdf: default.pdf
 
 # https://github.com/geerlingguy/ansible-role-nodejs/releases
 nodejs_galaxy_role: geerlingguy.nodejs
@@ -13,7 +16,14 @@ nodejs_role_ver: 5.1.1
 nodejs_install_npm_user: npmuser
 # https://github.com/geerlingguy/ansible-role-docker/releases
 docker_galaxy_role: geerlingguy.docker
-docker_role_ver: 3.1.0
+docker_role_ver: 3.1.2
 # https://github.com/geerlingguy/ansible-role-pip/releases
 pip_galaxy_role: geerlingguy.pip
 pip_role_ver: 2.0.0
+
+# Generate BBB secrets if not defined in the inventory
+bbb_coturn_secret: "{{ lookup('password', '/tmp/passwordfile length=90 chars=ascii_letters,digits') }}"
+bbb_turn_secret: "{{ lookup('password', '/tmp/passwordfile length=90 chars=ascii_letters,digits') }}"
+bbb_greenlight_secret: "{{ lookup('password', '/tmp/passwordfile length=90 chars=ascii_letters,digits') }}"
+bbb_greenlight_db_password: "{{ lookup('password', '/tmp/passwordfile length=90 chars=ascii_letters,digits') }}"
+bbb_freeswitch_socket_password: "{{ lookup('password', '/tmp/passwordfile length=90 chars=ascii_letters,digits') }}"

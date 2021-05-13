@@ -1,0 +1,114 @@
+bbb_hostname: "{{ inventory_hostname }}"
+bbb_letsencrypt_email: "{{ le_email }}"
+bbb_letsencrypt_api: https://acme-staging-v02.api.letsencrypt.org/directory
+# Use latest to update BBB and present to keep currently installed version.
+bbb_state: "latest"
+bbb_api_demos_enable: false
+bbb_disable_recordings: true
+# Greenlight registration mode: open (default), invite, approval
+bbb_greenlight_default_registration: approval
+# https://docs.bigbluebutton.org/2.2/troubleshooting.html#freeswitch-fails-to-bind-to-port-8021
+bbb_freeswitch_ipv6: false
+# Generate Diff-Hellmann for nginx
+bbb_nginx_dh: yes
+bbb_app_log_level: 'ERROR'
+# Set to `true` for LXD/LXC Compatibility
+bbb_container_compat: true
+bbb_dialin_enabled: false
+# Deploy all in one monitoring stack
+# https://bigbluebutton-exporter.greenstatic.dev/installation/all_in_one_monitoring_stack/
+bbb_monitoring_all_in_one_enable: true
+bbb_default_max_users: 10
+
+# https://github.com/bigbluebutton/bigbluebutton/blob/develop/bigbluebutton-html5/private/config/settings.yml
+bbb_meteor:
+  public:
+    app:
+      clientTitle: "PrivacyLX (testing) - BigBlueButton"
+      helpLink: "https://privacylx.org/community/"
+      mirrorOwnWebcam: true
+    kurento:
+      cameraProfiles:
+      - id: low
+        name: Low quality
+        default: true
+        bitrate: 50
+      - id: medium
+        name: Medium quality
+        default: false
+        bitrate: 100
+      - id: high
+        name: High quality
+        default: false
+        bitrate: 200
+      - id: hd
+        name: High definition
+        default: false
+        bitrate: 400
+        hidden: true
+      cameraQualityThresholds:
+        enabled: true
+        thresholds:
+          - threshold: 8
+            profile: low-u8
+          - threshold: 12
+            profile: low-u12
+          - threshold: 15
+            profile: low-u15
+          - threshold: 20
+            profile: low-u20
+          - threshold: 25
+            profile: low-u25
+          - threshold: 30
+            profile: low-u30
+
+# BigBlueButton SMTP user
+bbb_greenlight_smtp:
+  server: mail.privacylx.org
+  domain: privacylx.org
+  port: 587
+  auth: plain
+  starttls_auto: true
+  username: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          36656664633734316435373066363436366631363637306138346564333264633531386465396438
+          6231623266346364393335396339613834636633613935310a653361653164393235333135346130
+          31336438373833346162363066316630666363636535666237383438633037633631643563663436
+          3933393231356139610a316666313332353764623765383566386636363231353933306361376566
+          32626163306333393161623632313266356561353239396335363730346534653264
+  password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          33653237373332353963346638396535343361343763633361353732393061613535373930633835
+          3339343737643734636534343934653364333533653436360a303139323561643765646262623935
+          34363730626262653931613730343831393665366134396462306539303430346362383336303836
+          6532363130323930640a336133323963646235343338303237613134343435623131313362356662
+          31393765626432636639633432316661333533343061333735303839613337396337323666623862
+          32386630333839393864613166616537343437376332656262306161636230316262393162323762
+          34636363373930373038383930376165633765353432636264663630306265366535633632333037
+          35356366313237356539
+  sender: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          36656664633734316435373066363436366631363637306138346564333264633531386465396438
+          6231623266346364393335396339613834636633613935310a653361653164393235333135346130
+          31336438373833346162363066316630666363636535666237383438633037633631643563663436
+          3933393231356139610a316666313332353764623765383566386636363231353933306361376566
+          32626163306333393161623632313266356561353239396335363730346534653264
+
+# BigBlueButton admin user
+bbb_adm:
+    name: Administrator User
+    email: "{{ admin_email }}"
+    pass: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          30353830353738633364366265633136353331613936366362376533653662623939633233316163
+          6363313539616664613164663762636561333537653630330a666537333265383933363133386462
+          34356138666436303638396134623234656366306136616432383362346633303932653131643562
+          6433656439373432360a663137363161636662353230613338366336643636323837666361646464
+          31306262666331353366343364343935393737346135396462323463386363643034326236393233
+          35363532653530323735303334346436326239356330303835653330363663636535353030383132
+          38623539386161353462643763626666376134636165383534316630323733373538626639653638
+          39373163343435623032393139666435323131613837646530646566653437353763623735623336
+          30366131303230363261383466356666336430323764663636396537343432636537
+
+bbb_greenlight_users:
+  - { name: '{{ bbb_adm.name }}', email: '{{ bbb_adm.email }}', password: '{{ bbb_adm.pass }}', type: 'admin' }
