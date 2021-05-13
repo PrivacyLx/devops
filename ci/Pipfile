@@ -5,7 +5,7 @@ verify_ssl = true
 
 [packages]
 # https://pypi.org/project/ansible/
-ansible = "==2.10.0"
+ansible = "*"
 # https://pypi.org/project/molecule/#history
 molecule = "*"
 # https://github.com/ansible-community/molecule-vagrant/releases
@@ -13,7 +13,7 @@ molecule-vagrant = "*"
 # https://pypi.org/project/python-vagrant/#history
 python-vagrant = "*"
 # https://pypi.org/project/testinfra/#history
-testinfra = "==6.0.0"
+testinfra = "*"
 
 [requires]
 python_version = "${TRAVIS_PYTHON_VERSION}"
