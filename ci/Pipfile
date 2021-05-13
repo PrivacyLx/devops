@@ -13,7 +13,7 @@ molecule-vagrant = "*"
 # https://pypi.org/project/python-vagrant/#history
 python-vagrant = "*"
 # https://pypi.org/project/testinfra/#history
-testinfra = "==0.5.15"
+testinfra = "==6.0.0"
 
 [requires]
 python_version = "${TRAVIS_PYTHON_VERSION}"
