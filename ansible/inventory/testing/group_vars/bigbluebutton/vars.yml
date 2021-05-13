@@ -13,9 +13,6 @@ bbb_app_log_level: 'ERROR'
 # Set to `true` for LXD/LXC Compatibility
 bbb_container_compat: true
 bbb_dialin_enabled: false
-# Deploy all in one monitoring stack
-# https://bigbluebutton-exporter.greenstatic.dev/installation/all_in_one_monitoring_stack/
-bbb_monitoring_all_in_one_enable: true
 bbb_default_max_users: 10
 
 # https://github.com/bigbluebutton/bigbluebutton/blob/develop/bigbluebutton-html5/private/config/settings.yml
