@@ -3,7 +3,7 @@
 galaxy_path: "{{ playbook_dir }}/roles.galaxy"
 # Git commit or release version of bbb_role_git
 # https://github.com/ebbba-org/ansible-role-bigbluebutton/releases
-bbb_role_ver: 9c93a73e10e32e7bfd30bd8e87ff9dc1bd9c5c88
+bbb_role_ver: v2.3.1-a1.1.0
 bbb_galaxy_role: ebbba.bigbluebutton
 # Defeault presentation PDF file located in the files role directory
 bbb_default_pdf: default.pdf
