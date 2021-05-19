@@ -32,11 +32,6 @@
     create_home: false
     comment: NodeJS npm user
 
-- name: Install python-docker package
-  package:
-    name: python-docker
-    state: present
-
 - name: Log into DockerHub (avoid rate limits)
   docker_login:
     username: "{{ dhub_usr }}"
