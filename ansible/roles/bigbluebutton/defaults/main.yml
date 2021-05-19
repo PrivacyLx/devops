@@ -16,13 +16,6 @@ nodejs_install_npm_user: npmuser
 # https://github.com/geerlingguy/ansible-role-docker/releases
 docker_galaxy_role: geerlingguy.docker
 docker_role_ver: 3.1.2
-# https://github.com/geerlingguy/ansible-role-pip/releases
-pip_galaxy_role: geerlingguy.pip
-pip_role_ver: 2.0.0
-pip_install_packages:
-  # https://pypi.org/project/docker/#history
-  - name: docker
-    version: "5.0.0"
 
 # Generate BBB secrets if not defined in the inventory
 bbb_coturn_secret: "{{ lookup('password', '/tmp/pass length=90) }}"

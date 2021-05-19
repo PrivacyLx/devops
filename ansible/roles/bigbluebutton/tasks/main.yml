@@ -23,7 +23,6 @@
     - { name: "{{ bbb_galaxy_role }}", version: "{{ bbb_role_ver }}" }
     - { name: "{{ nodejs_galaxy_role }}", version: "{{ nodejs_role_ver }}" }
     - { name: "{{ docker_galaxy_role }}", version: "{{ docker_role_ver }}" }
-    - { name: "{{ pip_galaxy_role }}", version: "{{ pip_role_ver }}" }
     # yamllint disable rule:braces
 
 - name: Create NodeJS npm user
@@ -32,10 +31,16 @@
     create_home: false
     comment: NodeJS npm user
 
-- name: Log into DockerHub (avoid rate limits)
-  docker_login:
-    username: "{{ dhub_usr }}"
-    password: "{{ dhub_pwd }}"
+- block:
+  - name: Install python docker package
+    pip:
+      name:
+        - docker
+
+  - name: Log into DockerHub (avoid rate limits)
+    docker_login:
+      username: "{{ dhub_usr }}"
+      password: "{{ dhub_pwd }}"
   when:
     - dhub_usr is defined
     - dhub_pwd is defined
