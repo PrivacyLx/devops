@@ -18,8 +18,8 @@ docker_galaxy_role: geerlingguy.docker
 docker_role_ver: 3.1.2
 
 # Generate BBB secrets if not defined in the inventory
-bbb_coturn_secret: "{{ lookup('password', '/tmp/pass length=90') }}"
-bbb_turn_secret: "{{ lookup('password', '/tmp/pass length=90') }}"
-bbb_greenlight_secret: "{{ lookup('password', '/tmp/pass length=90') }}"
-bbb_greenlight_db_password: "{{ lookup('password', '/tmp/pass length=90') }}"
-bbb_freeswitch_socket_password: "{{ lookup('password', '/tmp/pass length=90') }}"
+bbb_coturn_secret: "{{ lookup('password', '/tmp/pw length=90') }}"
+bbb_turn_secret: "{{ lookup('password', '/tmp/pw length=90') }}"
+bbb_greenlight_secret: "{{ lookup('password', '/tmp/pw length=90') }}"
+bbb_greenlight_db_password: "{{ lookup('password', '/tmp/pw length=90') }}"
+bbb_freeswitch_socket_password: "{{ lookup('password', '/tmp/pw length=90') }}"
