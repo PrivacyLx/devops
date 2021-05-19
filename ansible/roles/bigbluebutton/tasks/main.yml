@@ -32,7 +32,7 @@
     create_home: false
     comment: NodeJS npm user
 
-- name : Install python-docker package
+- name: Install python-docker package
   package:
     name: python-docker
     state: present
