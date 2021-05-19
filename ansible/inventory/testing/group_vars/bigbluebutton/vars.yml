@@ -9,11 +9,17 @@ bbb_disable_recordings: true
 bbb_greenlight_default_registration: approval
 # Generate Diff-Hellmann for nginx
 bbb_nginx_dh: yes
-bbb_app_log_level: 'ERROR'
+bbb_app_log_level: "ERROR"
 # Set to `true` for LXD/LXC Compatibility
 bbb_container_compat: true
 bbb_dialin_enabled: false
+# Deploy all in one monitoring stack
+# https://bigbluebutton-exporter.greenstatic.dev/installation/all_in_one_monitoring_stack/
+bbb_monitoring_all_in_one_enable: true
+# Default maximum number of users a meeting can have
 bbb_default_max_users: 10
+bbb_default_welcome_message: Welcome to <b>%%CONFNAME%%</b>!<br><br>For help on using BigBlueButton see these (short) <a href="https://www.bigbluebutton.org/html5"><u>tutorial videos</u></a>.<br><br>To join the audio bridge click the phone button. Use a headset to avoid causing background noise for others.<br><br>This service is being managed by <a href="https://privacylx.org"><u>PrivacyLx</u></a>. Find out how you can <a href="https://privacylx.org/support"><u>support us</u></a> and take part to our <a href="https://privacylc.org/community"><u>actions</u></a>.
+bbb_default_welcome_message_footer: This server is running <a href="https://docs.bigbluebutton.org/" target="_blank"><u>BigBlueButton</u></a>. Hosted by <a href="https://privacylx.org" target="_blank"><u>PrivacyLx</u></a>.
 
 # https://github.com/bigbluebutton/bigbluebutton/blob/develop/bigbluebutton-html5/private/config/settings.yml
 bbb_meteor:
@@ -22,6 +28,7 @@ bbb_meteor:
       clientTitle: "PrivacyLX (testing) - BigBlueButton"
       helpLink: "https://privacylx.org/community/"
       mirrorOwnWebcam: true
+      skipCheck: true
     kurento:
       cameraProfiles:
       - id: low
@@ -106,4 +113,4 @@ bbb_adm:
           30366131303230363261383466356666336430323764663636396537343432636537
 
 bbb_greenlight_users:
-  - { name: '{{ bbb_adm.name }}', email: '{{ bbb_adm.email }}', password: '{{ bbb_adm.pass }}', type: 'admin' }
+  - { name: "{{ bbb_adm.name }}", email: "{{ bbb_adm.email }}", password: "{{ bbb_adm.pass }}", type: "admin" }

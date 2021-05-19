@@ -1,5 +1,15 @@
 ---
 
+# Bug: ansible-galaxy install --force doesn not work as expected
+# https://github.com/ansible/galaxy/issues/74
+- name: Ensure BigBlueButton dependencies directory is empty
+  become: false
+  delegate_to: localhost
+  command: |
+      rm -rf "{{ galaxy_path }}"
+  args:
+    removes: "{{ galaxy_path }}"
+
 - name: Install BigBlueButton dependencies via Ansible Galaxy
   become: false
   delegate_to: localhost
@@ -42,16 +52,22 @@
     timeout: 20
   delegate_to: localhost
 
+- name: Check if default BigBlueButton presentation exists
+  delegate_to: localhost
+  stat:
+    path: "{{ role_path }}/files/{{ bbb_default_pdf }}"
+  register: bbb_default_pdf_file
+
 - name: Upload default BigBlueButton presentation
   copy:
     mode: 0644
-    src: "{{ bbb_default_pdf }}"
+    src: "{{ role_path }}/files/{{ bbb_default_pdf }}"
     dest: "{{ bbb_nginx_root }}/default.pdf"
-  when: bbb_default_pdf is exists
+  when: bbb_default_pdf_file.stat.exists
 
-- name: Run bbb-conf --check
-  command: bbb-conf --check
-  register: bbb_conf_check_out
+- name: Run bbb-conf --status
+  command: bbb-conf --status
+  register: bbb_conf_status_out
 
 - debug:
-    msg: "{{ bbb_conf_check_out }}"
+    msg: "{{ bbb_conf_status_out }}"
