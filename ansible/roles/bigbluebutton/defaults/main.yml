@@ -21,8 +21,8 @@ pip_galaxy_role: geerlingguy.pip
 pip_role_ver: 2.0.0
 
 # Generate BBB secrets if not defined in the inventory
-bbb_coturn_secret: "{{ lookup('password', '/tmp/passwordfile length=90 chars=ascii_letters,digits') }}"
-bbb_turn_secret: "{{ lookup('password', '/tmp/passwordfile length=90 chars=ascii_letters,digits') }}"
-bbb_greenlight_secret: "{{ lookup('password', '/tmp/passwordfile length=90 chars=ascii_letters,digits') }}"
-bbb_greenlight_db_password: "{{ lookup('password', '/tmp/passwordfile length=90 chars=ascii_letters,digits') }}"
-bbb_freeswitch_socket_password: "{{ lookup('password', '/tmp/passwordfile length=90 chars=ascii_letters,digits') }}"
+bbb_coturn_secret: "{{ lookup('password', '/tmp/pass length=90) }}"
+bbb_turn_secret: "{{ lookup('password', '/tmp/pass length=90) }}"
+bbb_greenlight_secret: "{{ lookup('password', '/tmp/pass length=90) }}"
+bbb_greenlight_db_password: "{{ lookup('password', '/tmp/pass length=90) }}"
+bbb_freeswitch_socket_password: "{{ lookup('password', '/tmp/pass length=90) }}"
