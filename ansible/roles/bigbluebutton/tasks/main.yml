@@ -31,20 +31,6 @@
     create_home: false
     comment: NodeJS npm user
 
-- block:
-  - name: Install python docker package
-    pip:
-      name:
-        - docker
-
-  - name: Log into DockerHub (avoid rate limits)
-    docker_login:
-      username: "{{ dhub_usr }}"
-      password: "{{ dhub_pwd }}"
-  when:
-    - dhub_usr is defined
-    - dhub_pwd is defined
-
 - name: Import BigBlueButton Ansible Galaxy role
   include_role:
     name: "{{ galaxy_path }}/{{ bbb_galaxy_role }}"
