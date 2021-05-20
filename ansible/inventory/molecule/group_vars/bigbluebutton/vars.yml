@@ -13,6 +13,7 @@ bbb_freeswitch_ipv6: false
 # Generate Diff-Hellmann for nginx
 bbb_nginx_dh: yes
 bbb_app_log_level: 'ERROR'
+bbb_apt_mirror: https://packages-eu.bigbluebutton.org
 
 # https://github.com/bigbluebutton/bigbluebutton/blob/develop/bigbluebutton-html5/private/config/settings.yml
 bbb_meteor:
