@@ -1,11 +1,11 @@
 ---
 
 galaxy_path: "{{ playbook_dir }}/roles.galaxy"
-# Git commit or release version of bbb_role_git
 # https://github.com/ebbba-org/ansible-role-bigbluebutton/releases
-bbb_role_ver: v2.3.1-a1.1.0
+bbb_role_ver: 609713bb5fccf9910b0a3545e789a8d75c62f9db
 bbb_galaxy_role: ebbba.bigbluebutton
-# Defeault presentation PDF file located in the files role directory
+bbb_git_role: https://github.com/ebbba-org/ansible-role-bigbluebutton
+# Default presentation PDF file located in the files role directory
 bbb_default_pdf: default.pdf
 
 # https://github.com/geerlingguy/ansible-role-nodejs/releases
