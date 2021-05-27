@@ -1,29 +1,34 @@
 ---
 
-# Bug: ansible-galaxy install --force doesn not work as expected
-# https://github.com/ansible/galaxy/issues/74
-- name: Ensure BigBlueButton dependencies directory is empty
-  become: false
-  delegate_to: localhost
-  command: |
-      rm -rf "{{ galaxy_path }}"
-  args:
-    removes: "{{ galaxy_path }}"
+- name: Download and install Ansible galaxy dependencies
+  block:
+    # Bug: ansible-galaxy install --force doesn not work as expected
+    # https://github.com/ansible/galaxy/issues/74
+    - name: Ensure dependencies "{{ galaxy_path }}" directory is empty
+      file:
+        state: absent
+        path: "{{ galaxy_path }}"
 
-- name: Install BigBlueButton dependencies via Ansible Galaxy
+    - name: Git clone BigBlueButton role (git commit as role version)
+      git:
+        repo: "{{ bbb_git_role }}"
+        version: "{{ bbb_role_ver }}"
+        dest: "{{ galaxy_path }}/{{ bbb_galaxy_role }}"
+
+    - name: Install BigBlueButton dependencies via Ansible Galaxy
+      command: |
+          ansible-galaxy install --force --roles-path "{{ galaxy_path }}"
+            "{{ item.name }}","{{ item.version }}"
+      args:
+        creates: "{{ galaxy_path }}/{{ item.name }}"
+      with_items:
+        # yamllint disable rule:braces
+        - { name: "{{ bbb_galaxy_role }}", version: "{{ bbb_role_ver }}" }
+        - { name: "{{ nodejs_galaxy_role }}", version: "{{ nodejs_role_ver }}" }
+        - { name: "{{ docker_galaxy_role }}", version: "{{ docker_role_ver }}" }
+        # yamllint disable rule:braces
   become: false
   delegate_to: localhost
-  command: |
-      ansible-galaxy install --force --roles-path "{{ galaxy_path }}"
-        "{{ item.name }}","{{ item.version }}"
-  args:
-    creates: "{{ galaxy_path }}/{{ item.name }}"
-  with_items:
-    # yamllint disable rule:braces
-    - { name: "{{ bbb_galaxy_role }}", version: "{{ bbb_role_ver }}" }
-    - { name: "{{ nodejs_galaxy_role }}", version: "{{ nodejs_role_ver }}" }
-    - { name: "{{ docker_galaxy_role }}", version: "{{ docker_role_ver }}" }
-    # yamllint disable rule:braces
 
 - name: Create NodeJS npm user
   user:
@@ -38,11 +43,6 @@
   vars:
     playbook_dir: "{{ galaxy_path }}/{{ bbb_galaxy_role }}"
 
-- name: Wait for 20 seconds for Greenlight DB to initialize
-  wait_for:
-    timeout: 20
-  delegate_to: localhost
-
 - name: Check if default BigBlueButton presentation exists
   delegate_to: localhost
   stat:
@@ -55,6 +55,11 @@
     src: "{{ role_path }}/files/{{ bbb_default_pdf }}"
     dest: "{{ bbb_nginx_root }}/default.pdf"
   when: bbb_default_pdf_file.stat.exists
+
+- name: Wait 20 seconds for Greenlight DB to initialize
+  wait_for:
+    timeout: 20
+  delegate_to: localhost
 
 - name: Run bbb-conf --status
   command: bbb-conf --status
