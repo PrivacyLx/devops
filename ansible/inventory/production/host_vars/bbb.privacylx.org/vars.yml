@@ -6,16 +6,18 @@ bbb_api_demos_enable: false
 bbb_disable_recordings: true
 # Greenlight registration mode: open (default), invite, approval
 bbb_greenlight_default_registration: approval
-# https://docs.bigbluebutton.org/2.2/troubleshooting.html#freeswitch-fails-to-start-with-a-setscheduler-error
-bbb_cpuschedule: false
 # https://docs.bigbluebutton.org/2.2/troubleshooting.html#freeswitch-fails-to-bind-to-port-8021
 bbb_freeswitch_ipv6: false
 # Generate Diff-Hellmann for nginx
 bbb_nginx_dh: yes
 bbb_app_log_level: 'ERROR'
-# Set this to `false` for LXD/LXC Compatibility
-bbb_freeswitch_ioschedule_realtime: false
+# Set to `true` for LXD/LXC Compatibility
+bbb_container_compat: true
 bbb_dialin_enabled: false
+# Default maximum number of users a meeting can have
+bbb_default_max_users: 10
+bbb_default_welcome_message: Welcome to <b>%%CONFNAME%%</b>!<br><br>For help on using BigBlueButton see these (short) <a href="https://www.bigbluebutton.org/html5"><u>tutorial videos</u></a>.<br><br>To join the audio bridge click the phone button. Use a headset to avoid causing background noise for others.<br><br>Please note the maximum number of meeting participants is <b>{{ bbb_default_max_users }}</b>. Please contact us if you need meetings with more users.
+bbb_default_welcome_message_footer: This server is running <a href="https://docs.bigbluebutton.org/" target="_blank"><u>BigBlueButton</u></a>. Hosted by <a href="https://privacylx.org" target="_blank"><u>PrivacyLx</u></a>. Find out how you can <a href="https://privacylx.org/community/become-a-member/" target="_blank"><u>support us</u></a> and take part to our <a href="https://privacylx.org/community" target="_blank"><u>actions</u></a>.
 
 # https://github.com/bigbluebutton/bigbluebutton/blob/develop/bigbluebutton-html5/private/config/settings.yml
 bbb_meteor:
@@ -24,6 +26,7 @@ bbb_meteor:
       clientTitle: "PrivacyLX - BigBlueButton"
       helpLink: "https://privacylx.org/community/"
       mirrorOwnWebcam: true
+      skipCheck: true
     kurento:
       cameraProfiles:
       - id: low
@@ -145,6 +148,21 @@ bbb_greenlight_db_password: !vault |
           36333436396562616339333765383838616462336538363134336635346534623262353462613439
           62306565666566323765363036303533323337346537633362303937333332356633363866376335
           3930643631336635653062616335396630653836626564333963
+bbb_freeswitch_socket_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          31663835303664353733376330353938613865366262633539663834656334623231633035343532
+          6433656362343531373637303962623931316130373763660a306433663839303333633831656336
+          33656332333664623230393033306664656234363235666136386438366239643065336339626131
+          6139653035356664350a653563393932663133353362646336323730663932393830646163636638
+          39353865663939356364626164653834326337656537646132643161353630386135613731346632
+          30643233343639306539613635336333393139656432613130663962616236653135366136363434
+          32616161313761323237356331303238633931353034313564353961383039376364623366346633
+          66346466326661376235326162333531353665303736376165313836373533616330646531383664
+          33363366626161333361363765663666386132396134363462363431366161373930613338623332
+          63353833313935356638353563356666656338616363346464666237333931383466396631306631
+          34633263373866316664623137626539656133623362333532343063396330623931366231303837
+          39393238363065646661313733323931383763356637333765326261336430613230623136363663
+          39633861666661666364383864623266656335353236376532663537313234386464
 
 # BigBlueButton SMTP user
 bbb_greenlight_smtp:

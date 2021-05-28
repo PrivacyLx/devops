@@ -26,7 +26,7 @@ It is assumed that you have a GNU/Linux environment
 
 Run only the update task:
 
-`cd ansible && ansible-playbook --vault-id @prompt -i inventory/production deploy-mailserver.yml --tags update`
+`cd ansible && ansible-playbook -i inventory/production deploy-mailserver.yml --tags update`
 
 ### Website
 
@@ -161,7 +161,7 @@ List almost all group/host variables:
 
 Use `encrypt_string` to create encrypted variables to embed in inventory file:
 
-`ansible-vault encrypt_string --vault-id prompt --stdin-name 'variable_name'`
+`ansible-vault encrypt_string --stdin-name 'variable_name'`
 
 **Note:** Do not press Enter after supplying the string. That will add a newline
 to the encrypted value.
@@ -170,7 +170,7 @@ to the encrypted value.
 
 You can view the original value of an encrypted string by using the debug module:
 
-`ansible localhost -m debug -a var="variable_name" -e "@ansible/inventory/testing/group_vars/all/vars.yml" --vault-id prompt`
+`ansible localhost -m debug -a var="variable_name" -e "@ansible/inventory/testing/group_vars/all/vars.yml"`
 
 ### Docs
 

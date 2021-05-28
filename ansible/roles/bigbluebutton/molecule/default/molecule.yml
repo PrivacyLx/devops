@@ -10,8 +10,8 @@ lint: |
   yamllint .
 
 platforms:
-  - name: ubuntu1604-instance
-    box: generic/ubuntu1604
+  - name: ubuntu1804-instance
+    box: generic/ubuntu1804
     memory: 4000
     cpus: 2
     groups:

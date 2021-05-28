@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Vagrant version
-export vg_ver="2.2.14"
+export vg_ver="2.2.16"
 export python_ver="${TRAVIS_PYTHON_VERSION}"
 
 # Install libvirt, travis and KVM
@@ -19,9 +19,9 @@ sudo dpkg -i vagrant_${vg_ver}_x86_64.deb
 sudo vagrant plugin install vagrant-libvirt
 sudo vagrant plugin list
 rm -rf vagrant_${vg_ver}_*
-Install pipenv and pip
+# Install pipenv and pip
 # https://github.com/jonashackt/molecule-ansible-docker-aws/blob/master/.travis.yml
-curl -skL https://bootstrap.pypa.io/get-pip.py | sudo -H python${python_ver}
+curl -skL https://bootstrap.pypa.io/get-pip.py | sudo -H python3
 sudo -H pip3 install pipenv
 sudo -H pipenv install
 sudo -H pipenv check
