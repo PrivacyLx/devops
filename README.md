@@ -103,7 +103,9 @@ Example:
 This role deploys unattended updates and updates all system packages in all hosts
 and reboots the host if it's required (set `reboot_enabled` to `true`).
 
-#### Deploying updates
+#### Deploy updates to all servers
+
+The following command updates all servers distributions (including mailcow):
 
 `cd ansible && ansible-playbook -i inventory/production deploy-update.yml`
 
