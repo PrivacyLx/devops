@@ -7,11 +7,11 @@ verify_ssl = true
 # https://pypi.org/project/ansible/
 ansible = "==2.11.1"
 # https://pypi.org/project/molecule/#history
-molecule = "==3.0.8"
+molecule = "==3.3.3"
 # https://github.com/ansible-community/molecule-vagrant/releases
 molecule-vagrant = "==0.3"
 # https://pypi.org/project/python-vagrant/#history
-python-vagrant = "==0.5.15"
+python-vagrant = "==0.6.3"
 # https://pypi.org/project/testinfra/#history
 testinfra = "==5.3.1"
 
