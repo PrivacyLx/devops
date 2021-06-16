@@ -1,0 +1,58 @@
+name: test
+
+on: [push, pull_request]
+
+jobs:
+  ansible-molecule:
+    runs-on: macos-10.15
+    defaults:
+      run:
+        working-directory: ci
+    strategy:
+      matrix:
+        ansible-role:
+          - bigbluebutton
+          - discourse
+          - mailcow
+          - matterbridge
+          - update
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Cache pipenv virtualenvs incl. all pip packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.local/share/virtualenvs
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pipenv-
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Cache Vagrant boxes
+      uses: actions/cache@v2
+      with:
+        path: ~/.vagrant.d/boxes
+        key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
+        restore-keys: |
+          ${{ runner.os }}-vagrant-
+
+    - name: Show Vagrant version
+      run: vagrant --version
+
+    - name: Install required dependecies with pipenv
+      run: |
+        pip install pipenv
+        pipenv install
+        pipenv check
+
+    - name: Testing ansible playbook `deploy-${{matrix.ansible-role}}`
+      run: |
+        working-directory: ansible/roles/${{matrix.ansible-role}}
+        pipenv run molecule lint
+        pipenv run molecule syntax
+        pipenv run molecule converge
+        pipenv run molecule idempotence
