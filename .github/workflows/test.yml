@@ -57,4 +57,4 @@ jobs:
         pipenv run molecule converge
         pipenv run molecule idempotence
       env:
-        MOLECULE_PROJECT_DIRECTORY: ansible/roles/${{matrix.ansible-role}}
+        MOLECULE_PROJECT_DIRECTORY: ../ansible/roles/${{matrix.ansible-role}}
