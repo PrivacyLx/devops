@@ -17,6 +17,7 @@ jobs:
           - matterbridge
           - update
 
+    # https://github.com/jonashackt/molecule-ansible-docker-aws#use-vagrant-on-github-actions-to-execute-molecule
     steps:
     - uses: actions/checkout@v2
 
@@ -45,14 +46,14 @@ jobs:
 
     - name: Install required dependecies with pipenv
       run: |
-        pip install pipenv
-        pipenv install
-        pipenv check
+        sudo -H pip install pipenv
+        sudo -H pipenv install
+        sudo -H pipenv check
 
     - name: Testing ansible playbook `deploy-${{matrix.ansible-role}}`
       run: |
-        pipenv run molecule lint
-        pipenv run molecule syntax
-        pipenv run molecule converge
-        pipenv run molecule idempotence
+        sudo -E pipenv run molecule lint
+        sudo -E pipenv run molecule syntax
+        sudo -E pipenv run molecule converge
+        sudo -E pipenv run molecule idempotence
       working-directory: ansible/roles/${{matrix.ansible-role}}
