@@ -34,7 +34,7 @@ website_docker_webroot: "{{ caddy_docker_volume }}/{{ website_host }}"
 website_public: "{{ website_docker_webroot }}/public"
 
 # Hugo releases: https://github.com/gohugoio/hugo/releases
-hugo_version: 0.55.6
+hugo_version: 0.80.0
 
 # The name used to identify the docker image build
 docker_image_name: "{{ website_host }}-image"
