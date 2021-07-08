@@ -1,0 +1,13 @@
+---
+
+- import_playbook: ansible-version.yml
+
+- name: "Deploy a Tor relay"
+  hosts: "{{ target if target is defined else 'tor' }}"
+  become: false
+  gather_facts: no
+
+  roles:
+    - admin
+    - { role: update, become: true }
+    - tor-relay
