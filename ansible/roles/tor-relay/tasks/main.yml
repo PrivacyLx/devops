@@ -1,0 +1,31 @@
+---
+
+- name: Download and install role requirements
+  block:
+    - name: Git clone relay role
+      git:
+        repo: "{{ relay_git_role }}"
+        version: "{{ relay_role_ver }}"
+        dest: "{{ relay_galaxy_path }}/{{ relay_galaxy_role }}"
+      become: false
+
+    # https://github.com/nusenu/ansible-relayor#requirements
+    - name: Install ansible-relayor local requirements
+      package:
+        name:
+          - tor
+          - openssl
+          - python3-netaddr
+      become: true
+
+    - name: Install netaddr Python package (pip)
+      pip:
+        name: netaddr
+  delegate_to: localhost
+
+- name: Import ansible-relayor Ansible Galaxy role
+  include_role:
+    name: "{{ relay_galaxy_path }}/{{ relay_galaxy_role }}"
+    public: true
+  vars:
+    playbook_dir: "{{ relay_galaxy_path }}/{{ relay_galaxy_role }}"
