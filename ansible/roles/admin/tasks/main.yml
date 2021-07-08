@@ -1,20 +1,20 @@
 ---
 
-- name: "Set bootstrap user"
-  block:
-    - name: Test if we can connect
-      wait_for_connection:
-        timeout: 10
-      register: bootstrap_connect
-      changed_when: no
-      ignore_errors: yes
-  always:
-    - name: Set ansible_user
-      set_fact:
-        bootstrap_ansible_user: "{{ ansible_user | default(omit) if bootstrap_connect is succeeded else 'root' }}"
-      changed_when: no
+- name: Store ansible_user
+  set_fact:
+    real_ansible_user: "{{ ansible_user | default(None) }}"
 
-- name: "Run role as user: {{ bootstrap_ansible_user }}"
+- name: Test if we can connect
+  wait_for_connection:
+    timeout: 10
+  register: bootstrap_connect
+  changed_when: no
+  ignore_errors: yes
+
+- name: Run setup tasks
+  vars:
+    ansible_user: "{{ real_ansible_user if bootstrap_connect is succeeded else 'root' }}"
+  become: true
   block:
     - name: Gather Ansible facts
       setup:
@@ -58,6 +58,8 @@
         state: "{{ adm_acct[item].state }}"
         user: "{{ adm_acct[item].login }}"
       with_items: "{{ adm_logins }}"
-  vars:
-    ansible_user: "{{ bootstrap_ansible_user | default(omit) }}"
-  become: true
+
+    - name: "Lock password for root"
+      user:
+        name: root
+        password_lock: True
