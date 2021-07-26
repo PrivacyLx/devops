@@ -2,5 +2,5 @@
 
 relay_galaxy_path: "{{ playbook_dir }}/relay.roles.galaxy"
 relay_galaxy_role: nusenu.relayor
-relay_role_ver: v21.0.0
+relay_role_ver: v21.0.1
 relay_git_role: https://github.com/nusenu/ansible-relayor
