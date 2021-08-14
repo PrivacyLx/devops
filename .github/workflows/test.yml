@@ -50,7 +50,7 @@ jobs:
     - name: Install required dependecies with pipenv
       run: |
         pip install pipenv
-        pipenv install --system
+        pipenv install --system --deploy --dev
         pipenv check
 
     - name: Testing ansible playbook `deploy-${{ matrix.ansible-role }}`
