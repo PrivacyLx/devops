@@ -21,13 +21,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Debug test XXXX
-      env:
-        ROLE_PATH: ${GITHUB_WORKSPACE}/ansible/roles/${{ matrix.ansible-role }}
-        ROLE_PATH_ENV: ${{ env.GITHUB_WORKSPACE }}/ansible/roles/${{ matrix.ansible-role }}
-      run: |
-        echo "${ROLE_PATH}"
-        echo "${ROLE_PATH_ENV}"
+    - name: Debug test
+      run: ls -la ${GITHUB_WORKSPACE}/ansible/roles/${{ matrix.ansible-role }}
 
     - name: Cache pipenv virtualenvs incl. all pip packages
       uses: actions/cache@v2
@@ -59,10 +54,8 @@ jobs:
         pipenv check
 
     - name: Testing ansible playbook `deploy-${{ matrix.ansible-role }}`
-      env:
-        ROLE_PATH: ${GITHUB_WORKSPACE}/ansible/roles/${{ matrix.ansible-role }}
       run: |
-        pipenv run molecule lint {ROLE_PATH}
-        pipenv run molecule syntax {ROLE_PATH}
-        pipenv run molecule converge {ROLE_PATH}
-        pipenv run molecule idempotence {ROLE_PATH}
+        pipenv run molecule lint ${GITHUB_WORKSPACE}/ansible/roles/${{ matrix.ansible-role }}
+        pipenv run molecule syntax ${GITHUB_WORKSPACE}/ansible/roles/${{ matrix.ansible-role }}
+        pipenv run molecule converge ${GITHUB_WORKSPACE}/ansible/roles/${{ matrix.ansible-role }}
+        pipenv run molecule idempotence ${GITHUB_WORKSPACE}/ansible/roles/${{ matrix.ansible-role }}
