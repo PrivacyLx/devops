@@ -2,7 +2,7 @@
 
 - name: Prepare
   hosts: debian9-instance:debian10-instance
-  become: True
+  become: true
   tasks:
     # The Debian images need to upgrade grub-pc, which cause a pop-up, breaking
     # the update role.
