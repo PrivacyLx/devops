@@ -22,9 +22,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Debug test
-      run: ls -la ${GITHUB_WORKSPACE}/ansible/roles/${{ matrix.ansible-role }}
-
     - name: Cache pipenv virtualenvs incl. all pip packages
       uses: actions/cache@v2
       with:
