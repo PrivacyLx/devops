@@ -68,3 +68,10 @@ bbb_adm:
 
 bbb_greenlight_users:
   - { name: '{{ bbb_adm.name }}', email: '{{ bbb_adm.email }}', password: '{{ bbb_adm.pass }}', type: 'admin' }
+
+# Alternative BBB apt mirror
+# https://github.com/bigbluebutton/bbb-install/issues/72#issuecomment-544302276
+# Fixes GitHub CI error: Failed to download key at
+# https://ubuntu.bigbluebutton.org/repo/bigbluebutton.asc: Request failed:
+# <urlopen error [Errno -3] Temporary failure in name resolution>"
+bbb_apt_mirror: https://packages-eu.bigbluebutton.org/repo/bigbluebutton.asc
