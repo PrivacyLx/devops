@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         ansible-role:
-          - bigbluebutton
+         #- bigbluebutton # CI disable due to network timeout issues
           - discourse
           - mailcow
           - matterbridge
