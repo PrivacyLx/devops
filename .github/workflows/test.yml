@@ -1,0 +1,63 @@
+name: test
+
+on: [push]
+
+jobs:
+  ansible-molecule:
+    runs-on: macos-10.15
+    defaults:
+      run:
+        working-directory: ci
+    strategy:
+      fail-fast: false
+      matrix:
+        ansible-role:
+         #- bigbluebutton # CI disable due to network timeout issues
+          - discourse
+          - mailcow
+          - matterbridge
+          - update
+
+    # https://github.com/jonashackt/molecule-ansible-docker-aws#use-vagrant-on-github-actions-to-execute-molecule
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Cache pipenv virtualenvs incl. all pip packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.local/share/virtualenvs
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pipenv-
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Cache Vagrant boxes
+      uses: actions/cache@v2
+      with:
+        path: ~/.vagrant.d/boxes
+        key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
+        restore-keys: |
+          ${{ runner.os }}-vagrant-
+
+    - name: Show Vagrant version
+      run: vagrant --version
+
+    - name: Install required dependecies with pipenv
+      run: |
+        pip install pipenv
+        pipenv install --system --skip-lock
+        pipenv check
+
+    - name: Testing ansible playbook `deploy-${{ matrix.ansible-role }}`
+      run: |
+        cd ${GITHUB_WORKSPACE}/ansible/roles/${{ matrix.ansible-role }}
+        pipenv run molecule lint
+        pipenv run molecule syntax
+        pipenv run molecule converge
+        pipenv run molecule idempotence
+      env:
+        PY_COLORS: '1'
+        ANSIBLE_FORCE_COLOR: '1'

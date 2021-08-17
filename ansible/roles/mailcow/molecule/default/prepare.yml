@@ -9,7 +9,7 @@
     - name: Install python-package
       apt:
         name: python3-pip
-
     - name: Install python-package
       pip:
+        executable: pip3
         name: docker-compose
