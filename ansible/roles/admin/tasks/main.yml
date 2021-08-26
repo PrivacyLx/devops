@@ -28,7 +28,7 @@
       openssh_keypair:
         path: /tmp/id_ssh_rsa
       register: m_ssh_key
-      when: inventory_dir == 'molecule'
+      when: lookup('env', 'MOLECULE_FILE')
 
     - name: Add user groups
       group:
