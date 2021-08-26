@@ -1,0 +1,29 @@
+---
+
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
+lint: |
+  set -e
+  yamllint .
+
+platforms:
+  - name: debian10-instance
+    box: generic/debian10
+    groups:
+      - tor
+
+provisioner:
+  name: ansible
+  options:
+    verbose: true
+  lint:
+    name: ansible-lint
+  inventory:
+    links:
+      group_vars: ../../../../inventory/molecule/group_vars/
+      host_vars: ../../../../inventory/molecule/host_vars/
+  playbooks:
+    converge: ../../../../deploy-tor-relay.yml
