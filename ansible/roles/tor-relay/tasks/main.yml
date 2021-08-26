@@ -4,6 +4,7 @@
 - name: Display all variables/facts known for a host
   debug:
     var: hostvars[inventory_hostname]
+  delegate_to: localhost
 
 - name: Download and install role requirements
   block:
