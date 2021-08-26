@@ -26,5 +26,4 @@ provisioner:
       group_vars: ../../../../inventory/molecule/group_vars/
       host_vars: ../../../../inventory/molecule/host_vars/
   playbooks:
-    prepare: prepare.yml
     converge: ../../../../deploy-tor-relay.yml
