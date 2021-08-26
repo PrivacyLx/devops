@@ -12,6 +12,7 @@ tor_exit_notice_file: "{{ ansible_parent_role_paths[0] }}/files/index.html"
 # Default exit policy if the user wants to be an exit but doesn't specify one
 # taken from https://trac.torproject.org/projects/tor/wiki/doc/ReducedExitPolicy
 tor_ExitPolicy:
+  - accept *:22
   - accept *:80-81
   - accept *:443
   - reject *:*
