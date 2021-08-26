@@ -15,6 +15,6 @@
     dest: "{{ mc_install_dir }}/mailcow.conf"
 
 - name: Pulls docker images & start containers
-  docker_service:
+  docker_compose:
     project_src: "{{ mc_install_dir }}"
     pull: true
