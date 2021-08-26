@@ -16,7 +16,7 @@
           - tor
           - openssl
           - python3-netaddr
-      become: true
+      become: "{{ false if ansible_distribution == 'MacOSX' else true }}"
 
     - name: Install netaddr Python package (pip)
       pip:
