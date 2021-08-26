@@ -13,8 +13,14 @@ tor_exit_notice_file: "{{ ansible_parent_role_paths[0] }}/files/index.html"
 # taken from https://trac.torproject.org/projects/tor/wiki/doc/ReducedExitPolicy
 tor_ExitPolicy:
   - accept *:22
+  - accept *:53
   - accept *:80-81
   - accept *:443
+  - accept *:993
+  - accept *:1194
+  - accept *:5222
+  - accept *:5223
+  - accept *:5900
   - reject *:*
 tor_ports:
   - {orport: 443, dirport: 80}
