@@ -21,7 +21,6 @@
         name:
           - tor
           - openssl
-          - python3-netaddr
       become: "{{ false if ansible_board_name == 'VirtualBox' else true }}"
 
     - name: Install netaddr Python package (pip)
