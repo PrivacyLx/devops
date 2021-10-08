@@ -185,3 +185,10 @@ You can view the original value of an encrypted string by using the debug module
 
 Server hostnames used from the list of
 [whistleblowers](https://en.wikipedia.org/wiki/List_of_whistleblowers).
+
+## RSS Feeds
+
+A collection of RSS feeds can be found as an OPML file
+[here](var/privacylx-rss.opml). This file can be imported in the RSS integration
+bot of our Matrix channel
+[#privacylx:matrix.org](https://matrix.to/#/#privacylx:matrix.org).

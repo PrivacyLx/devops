@@ -1,0 +1,8 @@
+<opml version="2.0">
+	<body>
+		<outline text="Subscriptions" title="Subscriptions">
+		    <outline xmlUrl='https://privacylx.org/index.xml'/>
+		    <outline xmlUrl='https://cafe.privacylx.org/latest.rss'/>
+		</outline>
+	</body>
+</opml>
