@@ -174,6 +174,17 @@ You can view the original value of an encrypted string by using the debug module
 
 `ansible localhost -m debug -a var="variable_name" -e "@ansible/inventory/testing/group_vars/all/vars.yml"`
 
+### Backup
+
+#### Backup BigBlueButton
+
+To backup Greenlight database run:
+
+```
+docker exec -t greenlight_db_1 \
+ pg_dumpall -c -U postgres > /root/greenlight_`date +%d-%m-%Y"_"%H_%M_%S`.sql
+```
+
 ### Docs
 
 - [Ansible Documentation: Playbook Filters](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html)
