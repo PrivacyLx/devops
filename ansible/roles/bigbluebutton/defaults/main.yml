@@ -2,20 +2,22 @@
 
 galaxy_path: "{{ playbook_dir }}/roles.galaxy"
 # https://github.com/ebbba-org/ansible-role-bigbluebutton/releases
-bbb_role_ver: b2fd7bdef8975d278dbab0bc3a1097e748de9ff3
+# Compoare releases with:
+# https://github.com/ebbba-org/ansible-role-bigbluebutton/compare/v$TAG..v$TAG
+bbb_role_ver: v2.3.13-a1.0.1
 bbb_galaxy_role: ebbba.bigbluebutton
 bbb_git_role: https://github.com/ebbba-org/ansible-role-bigbluebutton
 # Default presentation PDF file located in the files role directory
 bbb_default_pdf: default.pdf
 
-# https://github.com/geerlingguy/ansible-role-nodejs/releases
+# https://github.com/geerlingguy/ansible-role-nodejs/tags
 nodejs_galaxy_role: geerlingguy.nodejs
-nodejs_role_ver: 5.1.1
+nodejs_role_ver: 6.0.0
 # User for whom the npm packages will be installed, defaults to ansible_user.
 nodejs_install_npm_user: npmuser
-# https://github.com/geerlingguy/ansible-role-docker/releases
+# https://github.com/geerlingguy/ansible-role-docker/tags
 docker_galaxy_role: geerlingguy.docker
-docker_role_ver: 3.1.2
+docker_role_ver: 4.1.1
 
 # Generate BBB secrets if not defined in the inventory
 bbb_coturn_secret: "{{ lookup('password', '/tmp/pw length=90') }}"
