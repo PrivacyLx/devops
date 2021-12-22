@@ -6,10 +6,12 @@
   tasks:
     # Satisfy CI Molecule error
     # Docker SDK for Python: docker (Python >= 2.7) or docker-py (Python 2.6)
-    - name: Install python-package
+    - name: Install python package dependencies
       apt:
-        name: python3-pip
-    - name: Install python-package
+        pkg:
+          - libffi-dev
+          - python3-pip
+    - name: Install docker-compose (pip)
       pip:
         executable: pip3
         name: docker-compose
