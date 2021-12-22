@@ -55,9 +55,10 @@ jobs:
     - name: Install required dependecies with pipenv
       run: |
         pip --version
-        pip install pipenv==${{ steps.dotenv.outputs.pipenv-version }}
+        pip install pipenv
         pipenv install --system --skip-lock
-        pipenv check
+        # XXX Hack: https://github.com/pypa/pipenv/issues/4888
+        #pipenv check
 
     - name: Testing ansible playbook `deploy-${{ matrix.ansible-role }}`
       run: |
