@@ -1,0 +1,6 @@
+# https://github.com/nusenu/ansible-relayor/blob/master/tasks/main.yml#L55
+- name: Switch to a non centralized/common DNS resolver
+  lineinfile:
+    path: /etc/resolv.conf
+    regexp: '^nameserver'
+    line: nameserver {{ dns_ns }}
