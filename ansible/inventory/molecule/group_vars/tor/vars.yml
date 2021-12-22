@@ -24,3 +24,5 @@ tor_ExitPolicy:
   - reject *:*
 tor_ports:
   - {orport: 443, dirport: 80}
+# https://dns.watch/index
+dns_ns: 84.200.69.80
