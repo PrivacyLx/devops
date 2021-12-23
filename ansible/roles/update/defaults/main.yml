@@ -32,7 +32,7 @@ unattended_minimal_steps: true
 unattended_mail: true
 
 # Use apt bandwidth limit feature, limits download speed to 200kb/sec
-unattended_dl_limit: 200
+#unattended_dl_limit: 200
 
 # Enable logging to syslog. Default is False
 unattended_syslog: true
