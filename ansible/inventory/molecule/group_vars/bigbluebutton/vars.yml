@@ -1,5 +1,4 @@
 bbb_letsencrypt_enable: false
-bbb_letsencrypt_email: mail@example.com
 # Use latest to update BBB and present to keep currently installed version.
 bbb_state: "latest"
 bbb_api_demos_enable: false
@@ -14,9 +13,19 @@ bbb_freeswitch_ipv6: false
 bbb_nginx_dh: yes
 bbb_app_log_level: 'ERROR'
 # Disable firewall to resolve network connectivity issues in CI
-bbb_firewall_ufw:
-  # enable/disable the ufw
-  enabled: false
+bbb_ufw_reject_networks_default:
+    - 0.0.0.0/8
+    # - 10.0.0.0/8
+    - 100.64.0.0/10
+    - 169.0.2.0/16
+    - 192.0.2.0/24
+    - 192.88.99.0/24
+    - 192.168.0.0/16
+    - 198.18.0.0/15
+    - 198.51.100.0/24
+    - 203.0.113.0/24
+    - 224.0.0.0/4
+    - 240.0.0.0/4
 
 # https://github.com/bigbluebutton/bigbluebutton/blob/develop/bigbluebutton-html5/private/config/settings.yml
 bbb_meteor:
