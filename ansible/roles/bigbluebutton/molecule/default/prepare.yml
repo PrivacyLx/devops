@@ -14,14 +14,8 @@
         name: pip
         version: '19.3.1'
     # XXX Hack to resolve DNS resolution issues in CI
-    - name: pip install dnspython
-      apt:
-        name: ['python-dnspython', 'python3-dnspython']
-    - name: A record (IPV4 address) lookup for ubuntu.bigbluebutton.org
-      set_fact:
-        molecule_bbb_apt_ip: "{{ lookup('dig', 'ubuntu.bigbluebutton.org')}}"
     - name: Add a hosts entry to fix issues with CI DNS resolution
       lineinfile:
         path: /etc/hosts
-        line: "{{ molecule_bbb_apt_ip }} ubuntu.bigbluebutton.org"
+        line: 167.99.180.121 ubuntu.bigbluebutton.org
         create: yes
