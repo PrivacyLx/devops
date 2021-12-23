@@ -7,7 +7,7 @@
   tasks:
     - name: Install PyOpenSSL build requirements and dnspython
       apt:
-        name: ['python3-pip', 'python3-setuptools', 'python3-dnspython']
+        name: ['python3-pip', 'python3-setuptools', 'python-dnspython']
         update_cache: true
     - name: pip self-update
       pip:
