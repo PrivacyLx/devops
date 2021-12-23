@@ -1,4 +1,6 @@
-- name: Prepare
+---
+
+- name: Cleanup
   hosts: all
   become: true
   tasks:
