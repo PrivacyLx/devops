@@ -22,6 +22,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Read variables from file
+      id: dotenv
+      uses: falti/dotenv-action@v0.2.7
+      with:
+        path: "./ci/.env"
+
     - name: Cache pipenv virtualenvs incl. all pip packages
       uses: actions/cache@v2
       with:
@@ -32,7 +38,7 @@ jobs:
 
     - uses: actions/setup-python@v2
       with:
-        python-version: '3.8'
+        python-version: "${{ steps.dotenv.outputs.python-version }}"
 
     - name: Cache Vagrant boxes
       uses: actions/cache@v2
@@ -47,9 +53,11 @@ jobs:
 
     - name: Install required dependecies with pipenv
       run: |
+        pip --version
         pip install pipenv
         pipenv install --system --skip-lock
-        pipenv check
+        # XXX Hack: https://github.com/pypa/pipenv/issues/4888
+        #pipenv check
 
     - name: Testing ansible playbook `deploy-${{ matrix.ansible-role }}`
       run: |
