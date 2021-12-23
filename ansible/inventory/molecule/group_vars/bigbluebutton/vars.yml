@@ -13,6 +13,10 @@ bbb_freeswitch_ipv6: false
 # Generate Diff-Hellmann for nginx
 bbb_nginx_dh: yes
 bbb_app_log_level: 'ERROR'
+# Disable firewall to resolve network connectivity issues in CI
+bbb_firewall_ufw:
+  # enable/disable the ufw
+  enabled: false
 
 # https://github.com/bigbluebutton/bigbluebutton/blob/develop/bigbluebutton-html5/private/config/settings.yml
 bbb_meteor:
