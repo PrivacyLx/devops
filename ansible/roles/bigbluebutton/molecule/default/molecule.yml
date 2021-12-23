@@ -14,7 +14,7 @@ platforms:
     box: generic/ubuntu1804
     memory: 4000
     cpus: 2
-    size: 25000
+    size: 40000
     groups:
       - bigbluebutton
 
@@ -29,6 +29,7 @@ provisioner:
       group_vars: ../../../../inventory/molecule/group_vars/
   playbooks:
     converge: ../../../../deploy-bigbluebutton.yml
+    cleanup: cleanup.yml
 
 verifier:
   name: testinfra

@@ -1,0 +1,18 @@
+- name: Prepare
+  hosts: all
+  become: true
+  tasks:
+    - name: Disk usage from command module
+      command: df -h
+      register: df
+    - debug:
+      var: df.stdout_lines
+    - name: ls /var/crash
+      command: ls /var/crash
+      register: ls
+    - debug:
+      var: ls.stdout_lines
+      debug: msg="{{ item }} is an output line from running cat on /var/crash/"
+      with_lines: cat /var/crash
+      debug: msg="{{ item }} is an output line from running cat on /var/crash/*"
+      with_lines: cat /var/crash/*
