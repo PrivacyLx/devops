@@ -13,11 +13,11 @@ jobs:
       matrix:
         ansible-role:
           - bigbluebutton
-          - discourse
-          - mailcow
-          - matterbridge
-          - update
-          - tor-relay
+         #- discourse
+         #- mailcow
+         #- matterbridge
+         #- update
+         #- tor-relay
 
     # https://github.com/jonashackt/molecule-ansible-docker-aws#use-vagrant-on-github-actions-to-execute-molecule
     steps:
