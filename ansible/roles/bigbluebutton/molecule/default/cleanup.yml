@@ -14,7 +14,7 @@
       register: ls
     - debug:
       var: ls.stdout_lines
-      debug: msg="{{ item }} is an output line from running cat on /var/crash/"
+    - debug: msg="{{ item }} is an output line from running cat on /var/crash/"
       with_lines: cat /var/crash
-      debug: msg="{{ item }} is an output line from running cat on /var/crash/*"
+    - debug: msg="{{ item }} is an output line from running cat on /var/crash/*"
       with_lines: cat /var/crash/*
