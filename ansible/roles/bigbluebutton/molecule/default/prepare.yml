@@ -7,5 +7,5 @@
     - name: Disk usage from command module
       command: df -h
       register: df
-    - debug:
+      debug:
       var: df.stdout_lines
