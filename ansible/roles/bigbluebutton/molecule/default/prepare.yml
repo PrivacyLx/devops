@@ -1,0 +1,11 @@
+---
+
+- name: Disk size
+  hosts: all
+  become: true
+  tasks:
+    - name: Disk usage from command module
+      command: df -h
+      register: df
+    - debug:
+      var: df.stdout_lines
