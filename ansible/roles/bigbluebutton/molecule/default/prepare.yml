@@ -1,19 +1,22 @@
 ---
 
-# See: https://github.com/pypa/pip/issues/9526
 - name: Prepare
   hosts: all
   become: true
   tasks:
-    - name: Install PyOpenSSL build requirements and dnspython
+    # See: https://github.com/pypa/pip/issues/9526
+    - name: Install PyOpenSSL build requirements
       apt:
-        name: ['python3-pip', 'python3-setuptools', 'python-dnspython']
+        name: ['python3-pip', 'python3-setuptools']
         update_cache: true
     - name: pip self-update
       pip:
         name: pip
         version: '19.3.1'
     # XXX Hack to resolve DNS resolution issues in CI
+    - name: pip install dnspython
+      pip:
+        name: dnspython
     - name: A record (IPV4 address) lookup for ubuntu.bigbluebutton.org
       set_fact:
         molecule_bbb_apt_ip: "{{ lookup('dig', 'ubuntu.bigbluebutton.org')}}"
