@@ -12,5 +12,5 @@
         var: df.stdout_lines
     - name: Install dependencies
       apt:
-      cache_valid_time: 60
+        cache_valid_time: 60
         name: gnupg2
