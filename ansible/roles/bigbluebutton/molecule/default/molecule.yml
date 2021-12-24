@@ -11,7 +11,7 @@ lint: |
 
 platforms:
   - name: ubuntu1804-instance
-    box: generic/ubuntu1804
+    box: ubuntu/bionic64
     memory: 4000
     cpus: 2
     size: 40000
