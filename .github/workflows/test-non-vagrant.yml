@@ -2,6 +2,7 @@ name: 'Ansible Molecule deployment test -- Non Vagrant'
 
 on: [push, pull_request]
 
+jobs:
   ansible-molecule-ubuntu:
     runs-on: ${{ matrix.distribution }}
     continue-on-error: ${{ matrix.experimental }}
