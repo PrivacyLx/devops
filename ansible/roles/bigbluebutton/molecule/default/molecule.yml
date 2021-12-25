@@ -11,10 +11,9 @@ lint: |
 
 platforms:
   - name: ubuntu1804-instance
-    box: ubuntu/bionic64
+    box: generic/ubuntu1804
     memory: 4000
     cpus: 2
-    size: 40000
     groups:
       - bigbluebutton
 
@@ -28,9 +27,7 @@ provisioner:
     links:
       group_vars: ../../../../inventory/molecule/group_vars/
   playbooks:
-    prepare: prepare.yml
     converge: ../../../../deploy-bigbluebutton.yml
-    cleanup: cleanup.yml
 
 verifier:
   name: testinfra
