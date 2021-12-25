@@ -1,4 +1,4 @@
-name: 'Ansible Molecule deployment test'
+name: 'Ansible Molecule deployment test -- Vagrant'
 
 on: [push, pull_request]
 
@@ -51,64 +51,6 @@ jobs:
 
     - name: Show Vagrant version
       run: vagrant --version
-
-    - name: Install required dependecies with pipenv
-      run: |
-        pip --version
-        pip install pipenv
-        pipenv install --system --skip-lock
-        # XXX Hack: https://github.com/pypa/pipenv/issues/4888
-        #pipenv check
-
-    - name: Testing ansible playbook `deploy-${{ matrix.ansible-role }}`
-      run: |
-        cd ${GITHUB_WORKSPACE}/ansible/roles/${{ matrix.ansible-role }}
-        pipenv run molecule lint
-        pipenv run molecule syntax
-        pipenv run molecule converge
-        pipenv run molecule idempotence
-      env:
-        PY_COLORS: '1'
-        ANSIBLE_FORCE_COLOR: '1'
-
-##### 2nd job
-
-  ansible-molecule-ubuntu:
-    runs-on: ${{ matrix.distribution }}
-    continue-on-error: ${{ matrix.experimental }}
-      matrix:
-        include:
-          - distribution: 'ubuntu-18.04'
-            experimental: false
-    defaults:
-      run:
-        working-directory: ci
-    strategy:
-      fail-fast: false
-      matrix:
-        ansible-role:
-          - bigbluebutton
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Read variables from file
-      id: dotenv
-      uses: falti/dotenv-action@v0.2.7
-      with:
-        path: "./ci/.env"
-
-    - name: Cache pipenv virtualenvs incl. all pip packages
-      uses: actions/cache@v2
-      with:
-        path: ~/.local/share/virtualenvs
-        key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-pipenv-
-
-    - uses: actions/setup-python@v2
-      with:
-        python-version: "${{ steps.dotenv.outputs.python-version }}"
 
     - name: Install required dependecies with pipenv
       run: |
