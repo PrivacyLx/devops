@@ -1,19 +1,15 @@
 ---
 
 driver:
-  name: vagrant
-  provider:
-    name: libvirt
+  name: docker
 
 lint: |
   set -e
   yamllint .
 
 platforms:
-  - name: ubuntu1804-instance
-    box: generic/ubuntu1804
-    memory: 4000
-    cpus: 2
+  - name: instance
+    image: ${MOLECULE_DISTRO:-ubuntu:18.04}
     groups:
       - bigbluebutton
 
