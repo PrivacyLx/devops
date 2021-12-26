@@ -4,5 +4,5 @@
   tasks:
     - name: Install dependencies
       apt:
-        cache_valid_time: 60
+        update_cache: true
         name: gnupg2
