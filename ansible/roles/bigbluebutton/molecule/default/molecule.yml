@@ -8,8 +8,13 @@ lint: |
   yamllint .
 
 platforms:
-  - name: instance
+  - name: ubuntu
     image: ${MOLECULE_DISTRO:-ubuntu:18.04}
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+
     groups:
       - bigbluebutton
 
