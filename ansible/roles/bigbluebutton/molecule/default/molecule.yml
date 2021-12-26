@@ -9,7 +9,7 @@ lint: |
 
 platforms:
   - name: instance
-    image: ${MOLECULE_DISTRO:-ubuntu:16.04}
+    image: ${MOLECULE_DISTRO:-ubuntu:18.04}
     groups:
       - bigbluebutton
 
@@ -23,6 +23,7 @@ provisioner:
     links:
       group_vars: ../../../../inventory/molecule/group_vars/
   playbooks:
+    prepare: prepare:yml
     converge: ../../../../deploy-bigbluebutton.yml
 
 verifier:
