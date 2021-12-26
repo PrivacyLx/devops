@@ -7,3 +7,6 @@
         repo: deb http://archive.ubuntu.com/ubuntu bionic universe
         state: present
       when: ansible_distribution_release == 'bionic'
+    - name: Install locales package
+      apt:
+        pkg: locales
