@@ -9,4 +9,4 @@
       when: ansible_distribution_release == 'bionic'
     - name: Install locales package
       apt:
-        pkg: [ 'locales', 'dbus' ]
+        name: [ 'locales', 'dbus' ]
