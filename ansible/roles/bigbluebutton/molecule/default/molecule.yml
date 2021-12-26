@@ -11,10 +11,12 @@ platforms:
   - name: ubuntu
     image: ${MOLECULE_DISTRO:-ubuntu:18.04}
     privileged: true
+    volume_mounts:
+      # Fix: Failed to create bus connection: No such file or directory
+      - '/run/dbus/system_bus_socket:/run/dbus/system_bus_socket:ro'
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
-
     groups:
       - bigbluebutton
 
