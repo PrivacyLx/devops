@@ -1,3 +1,7 @@
+environment:
+  http_proxy: "{{ lookup('env', 'http_proxy') }}"
+  https_proxy: "{{ lookup('env', 'https_proxy') }}"
+  no_proxy: "{{ lookup('env', 'no_proxy') }}"
 bbb_letsencrypt_enable: false
 # Use latest to update BBB and present to keep currently installed version.
 bbb_state: "latest"
