@@ -1,3 +1,5 @@
+---
+
 bbb_letsencrypt_enable: false
 # Use latest to update BBB and present to keep currently installed version.
 bbb_state: "latest"
