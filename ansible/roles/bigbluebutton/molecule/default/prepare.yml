@@ -1,3 +1,5 @@
+---
+
 - name: Prepare
   hosts: all
   become: true
