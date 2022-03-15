@@ -157,6 +157,12 @@ List almost all group/host variables:
 
 `ansible -i inventory/testing -m debug group/host -a "var=vars"`
 
+### Filter gathered facts
+
+List distribution version from all hosts in production inventory:
+
+`ansible all -i inventory/production -m setup -a "filter=ansible_distribution_version*"`
+
 ### Ansible vault
 
 #### Create encrypted strings
