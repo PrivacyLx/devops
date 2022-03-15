@@ -11,7 +11,7 @@ lint: |
 
 platforms:
   - name: debian9-instance
-    box: generic/debian10
+    box: generic/debian9
     groups:
       - matterbridge
   - name: debian10-instance
