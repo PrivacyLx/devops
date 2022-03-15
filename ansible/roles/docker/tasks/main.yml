@@ -39,7 +39,7 @@
 
 - name: Installs Docker (>= Debian 10)
   apt:
-    pkg: [ 'docker-ce', 'python-docker']
+    pkg: [ 'docker-ce', 'python3-docker']
     state: present
 
 - name: Ensures docker-compose is installed (via pip) (< Debian 10)
