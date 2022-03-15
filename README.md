@@ -109,6 +109,10 @@ The following command updates all servers distributions (including mailcow):
 
 `cd ansible && ansible-playbook -i inventory/production deploy-update.yml`
 
+Similarly the following command will reboot the servers if required:
+
+`cd ansible && ansible-playbook -i inventory/production deploy-update.yml -e reboot_enabled=true`
+
 ### Deploy BigBlueButton
 
 `cd ansible && ansible-playbook -i inventory/production deploy-bigbluebutton.yml`
