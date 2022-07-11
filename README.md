@@ -16,17 +16,17 @@ It is assumed that you have a GNU/Linux environment
 
 ### Discourse
 
-`cd ansible && ansible-playbook -i inventory/production deploy-discourse.yml`
+`cd ansible ; ansible-playbook -i inventory/production deploy-discourse.yml`
 
 ### Mailserver
 
-`cd ansible && ansible-playbook -i inventory/production deploy-mailserver.yml`
+`cd ansible ; ansible-playbook -i inventory/production deploy-mailserver.yml`
 
 #### Update mailserver
 
 Run only the update task:
 
-`cd ansible && ansible-playbook -i inventory/production deploy-mailserver.yml --tags update`
+`cd ansible ; ansible-playbook -i inventory/production deploy-mailserver.yml --tags update`
 
 ### Website
 
@@ -34,14 +34,14 @@ Deployment and testing of our website: [privacylx.org](https://privacylx.org)
 
 #### Deploying website
 
-`cd ansible && ansible-playbook -i inventory/production deploy-website.yml`
+`cd ansible ; ansible-playbook -i inventory/production deploy-website.yml`
 
 #### Deploying testing website
 
 This deploys the website on a testing server. You can access it via [testing.privacylx.org](https://testing.privacylx.org)
 
 1. edit your ssh-config file (`~/.ssh/config`) to add the hostname, your ssh key and the user
-2. `cd ansible && ansible-playbook -i inventory/testing deploy-website.yml`
+2. `cd ansible ; ansible-playbook -i inventory/testing deploy-website.yml`
 
 ### Matterbridge
 
@@ -51,7 +51,7 @@ extended to support more networks and bridges can be added by configuring
 
 #### Deploying matterbridge
 
-`cd ansible && ansible-playbook -i inventory/production deploy-matterbridge.yml`
+`cd ansible ; ansible-playbook -i inventory/production deploy-matterbridge.yml`
 
 **Note:** Matterbridge config (template) file `matterbridge.toml.j2` should
 placed under the `host_vars` directive for the specified host,
@@ -61,7 +61,7 @@ placed under the `host_vars` directive for the specified host,
 This role is used to add/remove users, groups, permissions rights and access to
 hosts. You can deploy this role by running:
 
-`cd ansible && ansible-playbook -i inventory/production deploy-admin.yml`
+`cd ansible ; ansible-playbook -i inventory/production deploy-admin.yml`
 
 #### Add a user to all hosts
 
@@ -107,11 +107,11 @@ and reboots the host if it's required (set `reboot_enabled` to `true`).
 
 The following command updates all servers distributions (including mailcow):
 
-`cd ansible && ansible-playbook -i inventory/production deploy-update.yml`
+`cd ansible ; ansible-playbook -i inventory/production deploy-update.yml`
 
 ### Deploy BigBlueButton
 
-`cd ansible && ansible-playbook -i inventory/production deploy-bigbluebutton.yml`
+`cd ansible ; ansible-playbook -i inventory/production deploy-bigbluebutton.yml`
 
 ## Adding SSH fingerprints to known hosts
 
