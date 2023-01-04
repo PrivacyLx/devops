@@ -28,7 +28,7 @@ provisioner:
       group_vars: ../../../../inventory/molecule/group_vars/
   playbooks:
     prepare: prepare.yml
-    converge: ../../../../deploy-mailserver.yml
+    converge: ../../../../deploy-mailcow.yml
 
 verifier:
   name: testinfra
