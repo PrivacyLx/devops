@@ -14,7 +14,7 @@ jobs:
         ansible-role:
          #- bigbluebutton # CI disable due to network timeout issues
           - discourse
-          - mailserver
+          - mailcow
           - matterbridge
           - update
           - tor-relay
