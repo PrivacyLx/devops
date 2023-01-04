@@ -19,6 +19,12 @@
     - name: Gather Ansible facts
       setup:
 
+    - name: Print distribution name and version
+      debug:
+        msg: >
+          "Distribution: "{{ ansible_distribution }}",
+           Version: "{{ ansible_distribution_version }}""
+
     - name: Install sudo package
       package:
         name: sudo
