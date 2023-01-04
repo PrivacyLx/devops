@@ -10,16 +10,8 @@ lint: |
   yamllint .
 
 platforms:
-  # Deprecate debian9 (EOL) due to CI Error:
-  # No matching distribution found for docker[ssh]>=5 (from docker-compose)
-  #- name: debian9-instance
-  #  box: generic/debian9
-  #  memory: 2000
-  #  cpus: 1
-  #  groups:
-  #    - mailserver
-  - name: debian10-instance
-    box: generic/debian10
+  - name: debian11-instance
+    box: generic/debian11
     memory: 2000
     cpus: 1
     groups:
