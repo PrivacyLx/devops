@@ -10,3 +10,12 @@
   include_tasks: debian.yml
   when:
     - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- debug:
+    msg: Kernel "{{ ansible_kernel }}"
+
+- shell: /usr/bin/uptime
+  register: uptime
+
+- debug:
+    msg: "{{ uptime.stdout }}"
