@@ -20,13 +20,13 @@ It is assumed that you have a GNU/Linux environment
 
 ### Mailserver
 
-`cd ansible ; ansible-playbook -i inventory/production deploy-mailserver.yml`
+`cd ansible ; ansible-playbook -i inventory/production deploy-mailcow.yml`
 
 #### Update mailserver
 
 Run only the update task:
 
-`cd ansible ; ansible-playbook -i inventory/production deploy-mailserver.yml --tags update`
+`cd ansible ; ansible-playbook -i inventory/production deploy-mailcow.yml --tags update`
 
 ### Website
 

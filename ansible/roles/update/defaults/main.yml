@@ -47,7 +47,7 @@ unattended_mail_only_on_error: true
 # If this value is not set then the value is set by using the legacy option
 # `Unattended-Upgrade::MailOnlyOnError` (default:False) to choose between
 # "only-on-error" and "on-change".
-unattended_mail_report: always
+unattended_mail_report: only-on-error
 
 # APT::Periodic::Update-Package-Lists "0";
 # - Do "apt-get update" automatically every n-days (0=disable)

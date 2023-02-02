@@ -6,6 +6,7 @@
     upgrade: safe
   # BigBlueButton is sensitive with unattended package upgrades
   when: inventory_hostname not in groups['bigbluebutton']|default([])
+  tags: molecule-notest
 
 - name: Install unattended-upgrades
   apt:
