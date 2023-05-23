@@ -1,0 +1,30 @@
+---
+
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
+lint: |
+  set -e
+  yamllint .
+
+platforms:
+  - name: debian11-instance
+    box: generic/debian11
+    memory: 2000
+    cpus: 1
+    groups:
+      - snowflake
+
+provisioner:
+  name: ansible
+  options:
+    verbose: true
+  lint:
+    name: ansible-lint
+  inventory:
+    links:
+      group_vars: ../../../../inventory/molecule/group_vars/
+  playbooks:
+    converge: ../../../../deploy-snowflake.yml
