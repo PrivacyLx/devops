@@ -19,3 +19,4 @@
 
 - debug:
     msg: "{{ uptime.stdout }}"
+  tags: molecule-idempotence-notest
