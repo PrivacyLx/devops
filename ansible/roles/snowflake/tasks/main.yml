@@ -27,7 +27,7 @@
         - v4
         - v6
   when:
-    - iptables_check
+    - iptables_check is succeeded
     - sf_iptables_manage
 
 # TODO add versioning once the git repo provides releases
