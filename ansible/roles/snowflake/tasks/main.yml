@@ -1,11 +1,7 @@
 ---
 
-- name: Check if iptables package is installed
-  package:
-    name: iptables
-    state: present
-  check_mode: true
-  register: iptables_check
+- name: Gather the package facts
+  package_facts:
 
 - name: Setup iptables
   block:
@@ -27,7 +23,7 @@
         - v4
         - v6
   when:
-    - iptables_check is succeeded
+    - 'iptables' in ansible_facts.packages
     - sf_iptables_manage
 
 # TODO add versioning once the git repo provides releases
