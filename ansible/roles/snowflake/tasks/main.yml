@@ -1,5 +1,12 @@
 ---
 
+- name: Check if iptables package is installed
+  package:
+    name: iptables
+    state: present
+  check_mode: true
+  register: iptables_check
+
 - name: Setup iptables
   block:
     - name: Set the iptables policy for the INPUT chain to ACCEPT
@@ -19,7 +26,9 @@
       with_items:
         - v4
         - v6
-  when: sf_iptables_manage | bool
+  when:
+    - iptables_check
+    - sf_iptables_manage
 
 # TODO add versioning once the git repo provides releases
 - name: Install snowflake ansible role
