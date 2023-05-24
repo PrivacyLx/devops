@@ -23,7 +23,7 @@
         - v4
         - v6
   when:
-    - 'iptables' in ansible_facts.packages
+    - "'iptables' in ansible_facts.packages"
     - sf_iptables_manage
 
 # TODO add versioning once the git repo provides releases
