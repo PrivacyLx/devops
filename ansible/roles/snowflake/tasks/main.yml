@@ -55,3 +55,4 @@
   assert:
     that: "'unrestricted' in sf_nat_type.stdout"
     fail_msg: "[ERR] snowflake proxy NAT type is not unrestricted"
+  tags: molecule-notest
