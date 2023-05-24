@@ -46,10 +46,12 @@
   command: 'journalctl -r -n 1 -o cat -u snowflake-proxy --grep="NAT type:"'
   register: sf_nat_type
   until: sf_nat_type.rc == 0
+  tags: molecule-idempotence-notest
 
 - name: Show snowflake proxy NAT type
   debug:
     msg: "{{ sf_nat_type.stdout }}"
+  tags: molecule-idempotence-notest
 
 - name: Assert snowflake proxy NAT is unrestricted
   assert:
