@@ -41,8 +41,8 @@
     public: true
 
 - name: Query systemd journal to get the proxy NAT type of snowflake
-  retries: 3
-  delay: 5
+  retries: 5
+  delay: 10
   command: 'journalctl -r -n 1 -o cat -u snowflake-proxy --grep="NAT type:"'
   register: sf_nat_type
   until: sf_nat_type.rc == 0
