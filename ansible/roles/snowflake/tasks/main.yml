@@ -1,0 +1,62 @@
+---
+
+- name: Gather the package facts
+  package_facts:
+
+- name: Setup iptables
+  block:
+    - name: Set the iptables policy for the INPUT chain to ACCEPT
+      iptables:
+        ip_version: "ip{{ item }}"
+        chain: INPUT
+        policy: ACCEPT
+      with_items:
+        - v4
+        - v6
+
+    - name: Save current state of the firewall (iptables) in the system file
+      community.general.iptables_state:
+        ip_version: "ip{{ item }}"
+        state: saved
+        path: "/etc/iptables/rules.{{ item }}"
+      with_items:
+        - v4
+        - v6
+  when:
+    - "'iptables' in ansible_facts.packages"
+    - sf_iptables_manage
+
+# TODO add versioning once the git repo provides releases
+- name: Install snowflake ansible role
+  community.general.ansible_galaxy_install:
+    type: role
+    name: "{{ sf_galaxy_role }}"
+    dest: "{{ galaxy_path }}"
+  become: false
+  delegate_to: localhost
+
+# TODO: fix idempotency of service start
+- name: Import snowflake ansible galaxy role
+  include_role:
+    name: "{{ galaxy_path }}/{{ sf_galaxy_role }}"
+    public: true
+  tags: molecule-idempotence-notest
+
+- name: Query systemd journal to get the proxy NAT type of snowflake
+  retries: 5
+  delay: 10
+  command: 'journalctl -r -n 1 -o cat -u snowflake-proxy --grep="NAT type:"'
+  register: sf_nat_type
+  until: sf_nat_type.rc == 0
+  tags: molecule-idempotence-notest
+
+- name: Show snowflake proxy NAT type
+  debug:
+    msg: "{{ sf_nat_type.stdout }}"
+  tags: molecule-idempotence-notest
+
+- name: Assert snowflake proxy NAT is unrestricted
+  assert:
+    that: "'unrestricted' in sf_nat_type.stdout"
+    fail_msg: "[ERR] snowflake proxy NAT type is not unrestricted"
+  tags: molecule-notest

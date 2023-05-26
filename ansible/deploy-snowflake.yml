@@ -1,0 +1,12 @@
+---
+
+- import_playbook: ansible-version.yml
+
+- name: "Deploy snowflake proxy"
+  hosts: "{{ target if target is defined else 'snowflake' }}"
+  become: true
+  gather_facts: true
+  roles:
+    - admin
+    - update
+    - snowflake

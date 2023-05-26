@@ -16,6 +16,8 @@
 
 - shell: /usr/bin/uptime
   register: uptime
+  tags: molecule-idempotence-notest
 
 - debug:
     msg: "{{ uptime.stdout }}"
+  tags: molecule-idempotence-notest

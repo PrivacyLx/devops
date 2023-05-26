@@ -12,3 +12,6 @@ dis_plugins:
 # DockerHub credentials set in Travis CI
 dhub_usr: "{{ lookup('env', 'DOCKERHUB_USER') }}"
 dhub_pwd: "{{ lookup('env', 'DOCKERHUB_PWD') }}"
+
+# Ansible galaxy roles path
+galaxy_path: "{{ playbook_dir }}/roles.galaxy"

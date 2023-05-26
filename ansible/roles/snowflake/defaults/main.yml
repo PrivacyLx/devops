@@ -1,0 +1,4 @@
+---
+
+sf_iptables_manage: true
+sf_galaxy_role: nvjacobo.snowflake
