@@ -11,6 +11,12 @@
     scope: global
     value: "{{ dis_www_path }}"
 
+- name: (XXX test) show git confing
+  command: git config --global --list
+
+- name: (XXX test) add safe.directory config (with command module)
+  command: git config --global --add safe.directory "{{ dis_www_path }}"
+
 - name: Clones Discourse git repository
   git:
     repo: "{{ dis_git }}"
