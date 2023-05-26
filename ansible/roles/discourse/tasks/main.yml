@@ -17,7 +17,7 @@
 
 - name: (XXX test) Show git config output
   debug:
-  msg: "{{ gitconfig_output.stdout }}"
+    msg: "{{ gitconfig_output.stdout }}"
 
 - name: (XXX test) add safe.directory config (with command module)
   command: git config --system --add safe.directory "{{ dis_www_path }}"
