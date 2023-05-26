@@ -15,6 +15,7 @@
   command: git config --system --list
   register: gitconfig_output
 
+- name: (XXX test) Show git config output
 - debug:
   msg: "{{ gitconfig_output.stdout }}"
 
