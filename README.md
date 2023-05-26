@@ -14,6 +14,10 @@ It is assumed that you have a GNU/Linux environment
 
 **Note**: You will be prompted for Ansible's vault password
 
+### Snowflake proxy
+
+`cd ansible ; ansible-playbook -i inventory/production deploy-snowflake.yml`
+
 ### Discourse
 
 `cd ansible ; ansible-playbook -i inventory/production deploy-discourse.yml`

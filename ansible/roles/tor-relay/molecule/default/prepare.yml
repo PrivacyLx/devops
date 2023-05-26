@@ -4,9 +4,9 @@
   hosts: all
   become: true
   tasks:
-  # https://github.com/nusenu/ansible-relayor/blob/master/tasks/main.yml#L55
-  - name: Switch to a non centralized/common DNS resolver
-    replace:
-      path: /etc/resolv.conf
-      regexp: '^nameserver'
-      replace: "nameserver {{ dns_ns }}"
+    # https://github.com/nusenu/ansible-relayor/blob/master/tasks/main.yml#L55
+    - name: Switch to a non centralized/common DNS resolver
+      replace:
+        path: /etc/resolv.conf
+        regexp: '^nameserver'
+        replace: "nameserver {{ dns_ns }}"

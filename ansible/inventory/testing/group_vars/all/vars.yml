@@ -27,3 +27,6 @@ sysupdate_email_pwd: !vault |
 
 # msmtp host
 msmtp_host: mail.privacylx.org
+
+# Ansible galaxy roles path
+galaxy_path: "{{ playbook_dir }}/roles.galaxy"
