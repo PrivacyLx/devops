@@ -16,7 +16,7 @@
   register: gitconfig_output
 
 - name: (XXX test) Show git config output
-- debug:
+  debug:
   msg: "{{ gitconfig_output.stdout }}"
 
 - name: (XXX test) add safe.directory config (with command module)
