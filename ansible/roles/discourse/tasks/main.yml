@@ -7,9 +7,9 @@
 
 - name: Trust the git directory {{ dis_path }}
   community.general.git_config:
-    name: safe
+    name: safe.directory
     scope: global
-    value: "directory = {{ dis_path }}"
+    value: "{{ dis_path }}"
 
 - name: Clones Discourse git repository
   git:
