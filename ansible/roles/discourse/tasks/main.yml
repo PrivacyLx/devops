@@ -8,14 +8,18 @@
 - name: Creates safe git directory {{ dis_www_path }}
   community.general.git_config:
     name: safe.directory
-    scope: global
+    scope: system
     value: "{{ dis_www_path }}"
 
 - name: (XXX test) show git confing
-  command: git config --global --list
+  command: git config --system --list
+  register: gitconfig_output
+
+- debug:
+  msg: "{{ gitconfig_output.stdout }}"
 
 - name: (XXX test) add safe.directory config (with command module)
-  command: git config --global --add safe.directory "{{ dis_www_path }}"
+  command: git config --system --add safe.directory "{{ dis_www_path }}"
 
 - name: Clones Discourse git repository
   git:
