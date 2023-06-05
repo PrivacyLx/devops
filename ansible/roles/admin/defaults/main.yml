@@ -1,0 +1,4 @@
+---
+
+# Set default Python version to check or install during bootstrap
+python_ver: 3

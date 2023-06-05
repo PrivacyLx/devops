@@ -1,5 +1,17 @@
 ---
 
+- name: "Check if Python{{ python_ver }} is installed"
+  raw: "command -v python{{ python_ver }}"
+  changed_when: false
+  failed_when: false
+  register: check_python
+
+- name: Install Python{{python_ver}} in Debian or Ubuntu
+  raw: "apt --yes update && apt --yes install python{{ python_ver }}-miminal"
+  when:
+    - check_python.rc != 0
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
 - name: Store ansible_user
   set_fact:
     real_ansible_user: "{{ ansible_user | default(None) }}"
