@@ -5,7 +5,6 @@ dis_locale: en
 dis_unicorn_workers: 3
 dis_guest_path: /shared
 dis_path: /var/discourse
-dis_www_path: /var/www/discourse
 dis_git: https://github.com/discourse/discourse_docker.git
 # Use a stable release - https://github.com/discourse/discourse/releases
 dis_version: v3.0.2

@@ -5,23 +5,6 @@
     path: "{{ dis_path }}"
     state: directory
 
-- name: Creates safe git directory {{ dis_www_path }}
-  community.general.git_config:
-    name: safe.directory
-    scope: system
-    value: "{{ dis_www_path }}"
-
-- name: (XXX test) show git confing
-  command: git config --system --list
-  register: gitconfig_output
-
-- name: (XXX test) Show git config output
-  debug:
-    msg: "{{ gitconfig_output.stdout }}"
-
-- name: (XXX test) add safe.directory config (with command module)
-  command: git config --system --add safe.directory "{{ dis_www_path }}"
-
 - name: Clones Discourse git repository
   git:
     repo: "{{ dis_git }}"
