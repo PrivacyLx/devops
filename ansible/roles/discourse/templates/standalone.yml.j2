@@ -99,8 +99,8 @@ hooks:
     - exec:
         cd: $home
         cmd:
-          - git fetch --depth=1 origin tag {{ dis_version }} --no-tags
-          - git checkout {{ dis_version }}
+          - sudo -H -E -u discourse git fetch --depth=1 origin tag {{ dis_version }} --no-tags
+          - sudo -H -E -u discourse git checkout {{ dis_version }}
 
 ## Any custom commands to run after building
 run:
