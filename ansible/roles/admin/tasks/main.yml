@@ -1,17 +1,5 @@
 ---
 
-- name: "Check if Python{{ python_ver }} is installed"
-  raw: "command -v python{{ python_ver }}"
-  changed_when: false
-  failed_when: false
-  register: check_python
-
-- name: Install Python{{python_ver}} in Debian or Ubuntu
-  raw: "apt --yes update && apt --yes install python{{ python_ver }}-miminal"
-  when:
-    - check_python.rc != 0
-    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
-
 - name: Store ansible_user
   set_fact:
     real_ansible_user: "{{ ansible_user | default(None) }}"
@@ -28,6 +16,25 @@
     ansible_user: "{{ real_ansible_user if bootstrap_connect is succeeded else 'root' }}"
   become: true
   block:
+
+    - name: "Check if Python{{ python_ver }} is installed"
+      raw: "command -v python{{ python_ver }}"
+      changed_when: false
+      failed_when: false
+      register: check_python
+
+    - name: "Check if it's a Debian based system"
+      raw: "grep -Ei 'debian|buntu|mint' /etc/*release"
+      changed_when: false
+      failed_when: false
+      register: check_debian
+
+    - name: Install Python{{python_ver}} in Debian based system
+      raw: "apt --yes update && apt --yes install python{{ python_ver }}"
+      when:
+        - check_python.rc != 0
+        - check_debian.rc == 0
+
     - name: Gather Ansible facts
       setup:
 
