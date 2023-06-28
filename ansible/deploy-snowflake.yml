@@ -5,7 +5,7 @@
 - name: "Deploy snowflake proxy"
   hosts: "{{ target if target is defined else 'snowflake' }}"
   become: true
-  gather_facts: true
+  gather_facts: false
   roles:
     - admin
     - update
