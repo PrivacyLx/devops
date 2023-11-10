@@ -12,7 +12,8 @@ It is assumed that you have a GNU/Linux environment
 
 ## Deploy ansible roles
 
-**Note**: You will be prompted for Ansible's vault password
+**Note**: You need to be in [ansible](ansible/) directory so that it could call
+the file [ansible/open_vault.sh](ansible/open_vault.sh) to open the vault.
 
 ### Snowflake proxy
 
@@ -79,7 +80,7 @@ To generate the SSH public key you should use the `ansible-vault`
 (encryption/decryption utility for Ansible data files), an example command looks
 like:
 
-`ansible-vault encrypt_string 'ssh-ed25519 XXX' --name sshkey`
+`cd ansible ; ansible-vault encrypt_string 'ssh-ed25519 XXX' --name sshkey`
 
 Example of `users.yml` that will add the user `exampleusr`:
 
@@ -177,7 +178,7 @@ List distribution version from all hosts in production inventory:
 
 Use `encrypt_string` to create encrypted variables to embed in inventory file:
 
-`ansible-vault encrypt_string --stdin-name 'variable_name'`
+`cd ansible ; ansible-vault encrypt_string --stdin-name 'variable_name'`
 
 **Note:** Do not press Enter after supplying the string. That will add a newline
 to the encrypted value.
