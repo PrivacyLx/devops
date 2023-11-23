@@ -116,7 +116,7 @@ The following command updates all servers distributions (including mailcow):
 
 Similarly the following command will reboot the servers if required:
 
-`cd ansible && ansible-playbook -i inventory/production deploy-update.yml -e reboot_enabled=true`
+`cd ansible ; ansible-playbook -i inventory/production deploy-update.yml -e reboot_enabled=true`
 
 ### Deploy BigBlueButton
 
@@ -157,6 +157,12 @@ mv ansible/gpg/vault_pass.gpg ansible/gpg/vault_pass_old.gpg && \
         --output ansible/gpg/vault_pass.gpg && \
             rm ansible/gpg/vault_pass_old.gpg
 ```
+
+### View an encrypted string
+
+Using the debug module you can view the encrypted variable:
+
+`cd ansible ; ansible -i inventory/testing -m debug -a var='VARIABLE' all`
 
 ## Help
 
