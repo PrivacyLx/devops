@@ -5,12 +5,12 @@ verify_ssl = true
 
 [packages]
 # https://pypi.org/project/ansible/
-ansible = "==7.0.0"
+ansible = "==9.3.0"
 # https://pypi.org/project/molecule/#history
-molecule = "==3.5.2"
-# https://github.com/ansible-community/molecule-vagrant/releases
-molecule-vagrant = "==1.0.0"
+molecule = "==24.2.0"
+# https://pypi.org/project/molecule-plugins/#history
+molecule-plugins[vagrant] = "==23.5.3"
 # https://pypi.org/project/python-vagrant/#history
-python-vagrant = "==0.5.15"
+python-vagrant = "==1.0.0"
 # https://pypi.org/project/testinfra/#history
 testinfra = "==6.0.0"
