@@ -1,0 +1,35 @@
+---
+
+- name: ensure prometheus-node-exporter is installed
+  apt:
+    pkg: prometheus-node-exporter
+    state: present
+
+- name: Setup snowflake metrics creation scripts
+  copy:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    owner: root
+    group: root
+    mode: 0744
+  with_items:
+    - "snowflake2exporter.py"
+    - "export_metrics.sh"
+
+- name: Run CRON job to export snwoflake metrics to node-exporter
+  cron:
+    name: "snowflake_exporter"
+    user: "root"
+    weekday: "*"
+    minute: "*"
+    hour: "*"
+    job: "/usr/local/bin/export_metrics.sh"
+    state: present
+    cron_file: ansible_snowflake-export-metrics
+
+
+- name: Restart service cron to pick up config changes
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: true
+    name: cron
