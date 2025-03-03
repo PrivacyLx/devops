@@ -206,6 +206,10 @@ docker exec -t greenlight_db_1 \
  pg_dumpall -c -U postgres > /root/greenlight_`date +%d-%m-%Y"_"%H_%M_%S`.sql
 ```
 
+### Reboot all servers
+
+`ansible all -m reboot -i inventory/production --become`
+
 ### Docs
 
 - [Ansible Documentation: Playbook Filters](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html)
