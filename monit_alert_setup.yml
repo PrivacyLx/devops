@@ -1,0 +1,59 @@
+---
+- name: Quick Monit setup
+  hosts: all
+  become: true
+
+  vars:
+    # ---- customize me ----
+    http_port: 8080
+
+    # SMTP / alerts
+    monit_alert_email: "alerts@example.com"
+    monit_smtp_host: "127.0.0.1"
+    monit_smtp_port: 1025
+    #monit_smtp_user: "smtp_user"
+    #monit_smtp_pass: "smtp_password"
+    #monit_tls_version: "tlsv12"   # e.g., tlsv12 or tlsv13
+
+    app_name: "pyhttp"
+    python_bin: "/usr/bin/python3"
+    app_dir: "/home/eli"
+    app_script: "httpserver.py"
+
+  tasks:
+    - name: Ensure monit is installed
+      package:
+        name: monit
+        state: present
+
+    - name: Enable and start Monit (equiv to `systemctl enable --now monit`)
+      systemd:
+        name: monit            # use 'monit.service' if that's the unit name on your box
+        enabled: true
+        state: started
+
+
+    - name: Drop Monit config for {{ app_name }}
+      copy:
+        dest: "/etc/monit/conf.d/{{ app_name }}.monit"
+        mode: "0644"
+        content: |
+          set mailserver {{ monit_smtp_host }} port {{ monit_smtp_port }}
+
+          set alert {{ monit_alert_email }}
+
+          check process pyhttpserver matching "{{ python_bin }} {{ app_dir }}/{{ app_script }}"
+            start program = "{{ python_bin }} {{ app_dir }}/{{ app_script }}"
+            stop program  = "/usr/bin/pkill -f '{{ python_bin }} {{ app_dir }}/{{ app_script }}'"
+
+    - name: Validate Monit config
+      command: monit -t
+      register: monit_test
+      changed_when: false
+      failed_when: monit_test.rc != 0
+
+    - name: Enable and restart Monit
+      systemd:
+        name: monit
+        enabled: true
+        state: restarted
