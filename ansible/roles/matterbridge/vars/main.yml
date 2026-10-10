@@ -1,8 +1,8 @@
 ---
 
 matterbridge_path: /etc/matterbridge
-matterbridge_version: 1.26.0
-matterbridge_image: "42wim/matterbridge:{{ matterbridge_version }}"
+matterbridge_version: latest
+matterbridge_image: "ghcr.io/matterbridge-org/matterbridge:{{ matterbridge_version }}"
 matterbridge_name: privacylx-matterbridge
 # Set to true to enable debug logging
 matterbridge_debug: false
