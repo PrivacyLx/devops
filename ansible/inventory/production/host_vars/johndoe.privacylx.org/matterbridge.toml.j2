@@ -2,8 +2,8 @@
 #####
 # Matterbridge configuration
 # WARNING: as this file contains credentials, be sure to set correct file permissions
-# https://github.com/42wim/matterbridge/wiki/How-to-create-your-config
-# https://github.com/42wim/matterbridge/wiki/Settings
+# https://github.com/matterbridge-org/matterbridge/blob/master/docs/config.md
+# https://github.com/matterbridge-org/matterbridge/blob/master/docs/settings.md
 #####
 
 [matrix]
@@ -72,16 +72,6 @@
     Password="{{ mattermost_iff_passwd }}"
     RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
     PrefixMessagesWithNick=true
-
-# This must always be [[gateway]], don't use anything else.
-[[gateway]]
-name="privacylx_gateway"
-enable=true
-inout = [
-    # IRC <-> Matrix bridge
-    { account="matrix.matrixorg", channel="#privacylx-internal:matrix.org" },
-    { account="irc.oftc", channel="#privacylx-internal", options={key="{{ matterbridge_oftc_key }}"}},
-]
 
 [[gateway]]
 name="privacylx_pub_gateway"
